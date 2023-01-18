@@ -1,0 +1,23 @@
+.promo {
+  background-color: #465dff;
+}
+
+.promo__title {
+  color: #fff;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  margin: 0;
+  max-width: 730px;
+  text-align: center;
+}
+
+@media screen and (max-width: 568px) {
+  .promo__title {
+    font-size: 31px;
+    line-height: 39px;
+    max-width: 320px;
+  }
+}
