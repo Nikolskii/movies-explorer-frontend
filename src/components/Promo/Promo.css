@@ -1,5 +1,9 @@
 .promo {
-  background-color: #465dff;
+  background: #465dff url(../../images/promo.svg) no-repeat;
+  background-position: center 82px;
+  padding: 184px 0 224px 0;
+  display: flex;
+  justify-content: center;
 }
 
 .promo__title {
@@ -12,6 +16,7 @@
   margin: 0;
   max-width: 730px;
   text-align: center;
+  letter-spacing: -4%;
 }
 
 @media screen and (max-width: 568px) {
