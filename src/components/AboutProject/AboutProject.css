@@ -1,0 +1,41 @@
+.about {
+  padding: 110px 70px;
+}
+
+.about__two-columns {
+  display: flex;
+  column-gap: 40px;
+  padding: 70px 0 110px 0;
+}
+
+.about__column {
+  display: flex;
+  flex-direction: column;
+  row-gap: 26px;
+}
+
+.about__title {
+  color: #000;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.about__subtitle {
+  color: #000;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+}
+
+.about__timeline {
+  display: grid;
+  grid-template-columns: minmax(100px, 228px) minmax(184px, 912px);
+}
