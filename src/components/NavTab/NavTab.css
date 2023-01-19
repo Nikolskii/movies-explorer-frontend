@@ -1,0 +1,29 @@
+.navtab {
+  background-color: #f5f5f5;
+  padding: 24px 0;
+}
+
+.navtab__links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  column-gap: 40px;
+}
+
+.navtab__link {
+  color: #000;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  -webkit-transition: opacity 0.6s;
+  -o-transition: opacity 0.6s;
+  transition: opacity 0.6s;
+}
+
+.navtab__link:hover {
+  opacity: 0.5;
+}

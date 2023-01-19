@@ -16,7 +16,7 @@
   margin: 0;
   max-width: 730px;
   text-align: center;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
 }
 
 @media screen and (max-width: 568px) {
