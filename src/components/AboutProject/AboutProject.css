@@ -88,7 +88,7 @@
   }
 
   .about__timeline {
-    grid-template-columns: minmax(100px, 140px) minmax(184px, 528px);
+    grid-template-columns: minmax(100px, 140px) minmax(184px, 912px);
   }
 }
 
