@@ -10,3 +10,11 @@
   padding-bottom: 23px;
   border-bottom: 1px solid black;
 }
+
+@media screen and (max-width: 560px) {
+  .subtitle {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 28px;
+  }
+}

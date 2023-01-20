@@ -1,9 +1,10 @@
 .promo {
   background: #465dff url(../../images/promo.svg) no-repeat;
   background-position: center 82px;
-  padding: 184px 0 224px 0;
+  padding: 184px 70px 224px 70px;
   display: flex;
   justify-content: center;
+  box-sizing: border-box;
 }
 
 .promo__title {
@@ -19,7 +20,20 @@
   letter-spacing: -0.04em;
 }
 
-@media screen and (max-width: 568px) {
+@media screen and (max-width: 980px) {
+  .promo {
+    background-position: center 224px;
+    padding: 326px 19px 342px 19px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .promo {
+    background-size: 248px 248px;
+    background-position: center 142px;
+    padding: 207px 10px 246px 10px;
+  }
+
   .promo__title {
     font-size: 31px;
     line-height: 39px;

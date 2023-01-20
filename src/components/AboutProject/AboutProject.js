@@ -22,9 +22,11 @@ const AboutProject = () => {
         </article>
       </div>
       <section className="about__timeline">
-        <p className="about__timeline-weeks">1 неделя</p>
-        <p className="about__timeline-direction">Back-end</p>
+        <p className="about__timeline-weeks about__timeline-weeks_akcent">
+          1 неделя
+        </p>
         <p className="about__timeline-weeks">4 недели</p>
+        <p className="about__timeline-direction">Back-end</p>
         <p className="about__timeline-direction">Front-end</p>
       </section>
     </section>

@@ -27,3 +27,13 @@
 .navtab__link:hover {
   opacity: 0.5;
 }
+
+@media screen and (max-width: 560px) {
+  .navtab__links {
+    column-gap: 24px;
+  }
+
+  .navtab__link {
+    font-size: 11px;
+  }
+}
