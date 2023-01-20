@@ -50,7 +50,7 @@
   margin: 0;
   background-color: #f2f2f2;
   text-align: center;
-  padding: 9px 14px;
+  padding: 9px 10px;
 }
 .about__timeline-weeks_akcent {
   background-color: #2be080;
@@ -120,10 +120,12 @@
   .about__timeline-weeks {
     font-size: 11px;
     line-height: 13px;
+    padding: 11px 10px;
   }
 
   .about__timeline-direction {
     font-size: 11px;
     line-height: 13px;
+    padding: 11px 10px;
   }
 }
