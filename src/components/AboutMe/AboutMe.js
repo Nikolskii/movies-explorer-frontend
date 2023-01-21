@@ -1,10 +1,10 @@
 import Subtitle from '../Subtitle/Subtitle';
 import photo from '../../images/avatar.jpg';
-
 import './AboutMe.css';
+
 const AboutMe = () => {
   return (
-    <section className="about-me">
+    <section className="about-me" id="student">
       <Subtitle text="Студент" />
       <div className="about-me__wrapper">
         <div className="about-info">

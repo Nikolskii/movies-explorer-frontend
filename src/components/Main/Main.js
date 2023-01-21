@@ -5,6 +5,7 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 
 import './Main.css';
+import Portfolio from '../Portfolio/Portfolio';
 
 const Main = () => {
   return (
@@ -14,6 +15,7 @@ const Main = () => {
       <AboutProject />
       <Techs />
       <AboutMe />
+      <Portfolio />
     </div>
   );
 };
