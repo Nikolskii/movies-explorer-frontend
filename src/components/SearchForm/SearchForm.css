@@ -29,7 +29,7 @@
   border: none;
   border-radius: 4px;
   width: 100%;
-  padding-left: 22px;
+  padding: 0 22px;
   min-height: 48px;
 }
 
@@ -62,4 +62,25 @@
 .search-form__button:hover {
   opacity: 0.5;
   cursor: pointer;
+}
+
+@media screen and (max-width: 980px) {
+  .search-form {
+    padding: 80px 30px 0;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .search-form {
+    padding: 80px 14px 0;
+  }
+
+  .search-form__input {
+    font-size: 12px;
+    padding: 0 16px;
+  }
+
+  .search-form__wrapper {
+    row-gap: 45px;
+  }
 }
