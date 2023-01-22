@@ -32,10 +32,10 @@
 .switch__slider:before {
   position: absolute;
   content: '';
-  height: 15px;
-  width: 15px;
+  height: 14px;
+  width: 14px;
   left: 2px;
-  bottom: 1.5px;
+  bottom: 2px;
   background-color: white;
   border-radius: 50%;
   border: 1px solid #fff;
@@ -48,9 +48,9 @@
 }
 
 .switch__input:checked + .switch__slider:before {
-  -webkit-transform: translateX(15px);
-  -ms-transform: translateX(15px);
-  transform: translateX(15px);
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
 }
 
 .filter-checkbox__param {

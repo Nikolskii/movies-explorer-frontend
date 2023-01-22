@@ -1,6 +1,13 @@
 .search-form {
-  padding: 80px 70px 39px;
-  /* border-bottom: 1px solid #e8e8e8; */
+  padding: 80px 70px;
+}
+
+.search-form__wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .search-form__form {
