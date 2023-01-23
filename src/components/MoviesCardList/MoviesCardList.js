@@ -4,7 +4,15 @@ import './MoviesCardList.css';
 const MoviesCardList = () => {
   return (
     <section className="movies-card-list">
-      <MovieCard />
+      <div className="movies-card-list__wrapper">
+        <MovieCard />
+        <MovieCard />
+        <MovieCard />
+        <MovieCard />
+        <MovieCard />
+        <MovieCard />
+      </div>
+      <button className="movies-card-list__button">Ещё</button>
     </section>
   );
 };
