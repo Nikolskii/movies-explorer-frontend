@@ -1,3 +1,15 @@
 .movies-card-list {
   padding: 80px 70px;
 }
+
+@media screen and (max-width: 980px) {
+  .movies-card-list {
+    padding: 80px 30px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .movies-card-list {
+    padding: 50px 10px;
+  }
+}
