@@ -31,14 +31,14 @@
   row-gap: 17px;
 }
 
-.profile-form__param {
+.profile-form__field {
   display: flex;
   column-gap: 119px;
   border-bottom: 1px solid #e8e8e8;
   padding-bottom: 16px;
 }
 
-.profile-form__param:last-child {
+.profile-form__field:last-child {
   border: none;
 }
 
@@ -142,7 +142,7 @@
     row-gap: 365px;
   }
 
-  .profile-form__param {
+  .profile-form__field {
     column-gap: 30px;
   }
 

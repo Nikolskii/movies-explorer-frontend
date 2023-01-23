@@ -1,17 +1,12 @@
 import './FormField.css';
 
-const FormField = ({ labelText, inputType, inputId }) => {
+const FormField = ({ labelText, type, name }) => {
   return (
     <div className="form-field">
-      <label className="form-field__label" for={inputId}>
+      <label className="form-field__label" htmlFor={name}>
         {labelText}
       </label>
-      <input
-        className="form-field__input"
-        type={inputType}
-        id={inputId}
-        placeholder="Плейсхолдер"
-      />
+      <input className="form-field__input" type={type} id={name} />
     </div>
   );
 };

@@ -9,8 +9,14 @@ const Register = () => {
       <Logo />
       <h1 className="register__title">Добро пожаловать!</h1>
       <AuthForm buttonText="Зарегистрироваться">
-        <FormField />
+        <FormField labelText="Имя" type="text" name="name" />
+        <FormField labelText="E-mail" type="text" name="email" />
+        <FormField labelText="Пароль" type="password" name="password" />
       </AuthForm>
+      <p className="register__question">
+        Уже зарегистрированы?
+        <button className="register__button">Войти</button>
+      </p>
     </section>
   );
 };

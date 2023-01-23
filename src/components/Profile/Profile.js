@@ -6,8 +6,8 @@ const Profile = () => {
       <h1 className="profile__title">Привет, Денис!</h1>
       <form className="profile-form">
         <fieldset className="profile-form__fieldset">
-          <div className="profile-form__param">
-            <label className="profile-form__label" for="name">
+          <div className="profile-form__field">
+            <label className="profile-form__label" htmlFor="name">
               Имя
             </label>
             <input
@@ -18,8 +18,8 @@ const Profile = () => {
             />
           </div>
 
-          <div className="profile-form__param">
-            <label className="profile-form__label" for="email">
+          <div className="profile-form__field">
+            <label className="profile-form__label" htmlFor="email">
               E-mail
             </label>
             <input
