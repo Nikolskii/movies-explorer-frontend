@@ -1,0 +1,30 @@
+.auth-form {
+}
+
+.auth-form__fieldset {
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+
+.auth-form__button {
+  background-color: #ff6838;
+  border: none;
+  color: #fff;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  width: 396px;
+  padding: 14px;
+  border-radius: 3px;
+  -webkit-transition: opacity 0.6s;
+  -o-transition: opacity 0.6s;
+  transition: opacity 0.6s;
+}
+
+.auth-form__button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
