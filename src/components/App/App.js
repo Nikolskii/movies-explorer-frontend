@@ -8,6 +8,7 @@ import { Route, Routes } from 'react-router-dom';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import { useState } from 'react';
 import { LoggedInContext } from '../../contexts/LoggedInContext';
+import PageNotFound from '../PageNotFound/PageNotFound';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/movies" element={<Movies />} />
           <Route path="/saved-movies" element={<SavedMovies />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </LoggedInContext.Provider>
     </div>
