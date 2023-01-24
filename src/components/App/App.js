@@ -11,7 +11,7 @@ import { LoggedInContext } from '../../contexts/LoggedInContext';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   return (
     <div className="page">
