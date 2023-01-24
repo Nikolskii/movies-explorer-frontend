@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import AuthForm from '../AuthForm/AuthForm';
 import FormField from '../FormField/FormField';
 import Logo from '../Logo/Logo';
@@ -15,7 +16,9 @@ const Register = () => {
       </AuthForm>
       <p className="register__question">
         Уже зарегистрированы?
-        <button className="register__button">Войти</button>
+        <NavLink className="register__button" to="/signin">
+          Войти
+        </NavLink>
       </p>
     </section>
   );
