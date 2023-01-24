@@ -6,7 +6,7 @@ const AuthForm = ({ children, buttonText, place }) => {
       <fieldset className="auth-form__fieldset">{children}</fieldset>
       <button
         className={`auth-form__button ${
-          place === 'login' ? 'auth-form__button_place_login' : null
+          place === 'login' && 'auth-form__button_place_login'
         }`}
         type="submit"
       >

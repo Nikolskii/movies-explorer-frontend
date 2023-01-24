@@ -12,7 +12,7 @@ import Footer from '../Footer/Footer';
 const Main = () => {
   return (
     <>
-      <Header />
+      <Header place="main" />
       <div className="main">
         <Promo />
         <NavTab />

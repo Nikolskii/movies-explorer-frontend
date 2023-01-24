@@ -8,8 +8,7 @@ const Login = () => {
   return (
     <section className="login">
       <Logo />
-      {/* <h1 className="login__title">Рады видеть!</h1> */}
-      <h1 className="login__title">Добро пожаловать!</h1>
+      <h1 className="login__title">Рады видеть!</h1>
       <AuthForm buttonText="Войти" place="login">
         <FormField labelText="E-mail" type="text" name="email" />
         <FormField labelText="Пароль" type="password" name="password" />

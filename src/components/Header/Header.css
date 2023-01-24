@@ -1,3 +1,22 @@
 .header {
   padding: 18px 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header_place_main {
+  background-color: #465dff;
+}
+
+@media screen and (max-width: 980px) {
+  .header {
+    padding: 18px 30px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .header {
+    padding: 18px 14px;
+  }
 }
