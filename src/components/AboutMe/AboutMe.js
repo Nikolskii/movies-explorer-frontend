@@ -17,7 +17,12 @@ const AboutMe = () => {
             компании ОАО "РЖД". После того, как прошёл курс по веб-разработке,
             начал заниматься поиском новой работы.
           </p>
-          <a className="about-me__link" href="https://github.com/Nikolskii">
+          <a
+            className="about-me__link"
+            href="https://github.com/Nikolskii"
+            target="_blank"
+            rel="noreferrer"
+          >
             Github
           </a>
         </div>
