@@ -6,7 +6,7 @@ const Header = ({ place }) => {
   return (
     <header className={`header ${place === 'main' && 'header_place_main'}`}>
       <Logo />
-      <Navigation place={place} />
+      <Navigation />
     </header>
   );
 };
