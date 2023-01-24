@@ -6,17 +6,23 @@ import AboutMe from '../AboutMe/AboutMe';
 
 import './Main.css';
 import Portfolio from '../Portfolio/Portfolio';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 const Main = () => {
   return (
-    <div className="main">
-      <Promo />
-      <NavTab />
-      <AboutProject />
-      <Techs />
-      <AboutMe />
-      <Portfolio />
-    </div>
+    <>
+      <Header />
+      <div className="main">
+        <Promo />
+        <NavTab />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
+      </div>
+      <Footer />
+    </>
   );
 };
 
