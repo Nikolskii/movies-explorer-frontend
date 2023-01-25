@@ -5,14 +5,15 @@ const SearchForm = () => {
   return (
     <section className="search-form">
       <div className="search-form__wrapper">
-        <section className="search-form__form">
+        <form className="search-form__form">
           <input
             className="search-form__input"
             type="text"
             placeholder="Фильм"
+            required
           />
           <button className="search-form__button">Найти</button>
-        </section>
+        </form>
         <FilterCheckbox />
       </div>
     </section>
