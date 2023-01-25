@@ -6,7 +6,7 @@ import './Login.css';
 
 const Login = () => {
   return (
-    <section className="login">
+    <main className="login">
       <Logo />
       <h1 className="login__title">Рады видеть!</h1>
       <AuthForm buttonText="Войти" place="login">
@@ -19,7 +19,7 @@ const Login = () => {
           Регистрация
         </NavLink>
       </p>
-    </section>
+    </main>
   );
 };
 

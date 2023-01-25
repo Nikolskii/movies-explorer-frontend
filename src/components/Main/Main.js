@@ -15,14 +15,14 @@ const Main = () => {
       <Header place="main">
         <AuthLinks />
       </Header>
-      <div className="main">
+      <main className="main">
         <Promo />
         <NavTab />
         <AboutProject />
         <Techs />
         <AboutMe />
         <Portfolio />
-      </div>
+      </main>
       <Footer />
     </>
   );

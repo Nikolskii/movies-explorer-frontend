@@ -6,7 +6,7 @@ import './Register.css';
 
 const Register = () => {
   return (
-    <section className="register">
+    <main className="register">
       <Logo />
       <h1 className="register__title">Добро пожаловать!</h1>
       <AuthForm buttonText="Зарегистрироваться">
@@ -20,7 +20,7 @@ const Register = () => {
           Войти
         </NavLink>
       </p>
-    </section>
+    </main>
   );
 };
 

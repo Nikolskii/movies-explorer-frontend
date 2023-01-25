@@ -8,10 +8,10 @@ const SavedMovies = ({ onBurgerMenu }) => {
   return (
     <>
       <Header onBurgerMenu={onBurgerMenu} />
-      <section className="movies">
+      <main className="movies">
         <SearchForm />
         <MoviesCardList />
-      </section>
+      </main>
       <Footer />
     </>
   );

@@ -5,7 +5,7 @@ const Profile = ({ onBurgerMenu }) => {
   return (
     <>
       <Header onBurgerMenu={onBurgerMenu} />
-      <section className="profile">
+      <main className="profile">
         <h1 className="profile__title">Привет, Денис!</h1>
         <form className="profile-form">
           <fieldset className="profile-form__fieldset">
@@ -35,7 +35,7 @@ const Profile = ({ onBurgerMenu }) => {
           <button className="profile_form__button">Редактировать</button>
         </form>
         <button className="profile__button">Выйти из аккаунта</button>
-      </section>
+      </main>
     </>
   );
 };
