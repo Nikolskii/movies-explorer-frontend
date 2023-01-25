@@ -1,0 +1,15 @@
+.profile-link {
+  width: 26px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 17px;
+}
+
+.profile-icon {
+  width: 12px;
+  height: 14px;
+}
