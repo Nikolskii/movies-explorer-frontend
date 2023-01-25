@@ -26,6 +26,7 @@
   flex-direction: column;
   padding: 25px 25px 92px;
   box-sizing: border-box;
+  position: relative;
 }
 
 .burger-menu-popup__close-button {
@@ -36,6 +37,9 @@
   border: none;
   padding: 0;
   align-self: end;
+  position: absolute;
+  top: 29px;
+  right: 29px;
   -webkit-transition: opacity 0.6s;
   -o-transition: opacity 0.6s;
   transition: opacity 0.6s;
@@ -46,7 +50,7 @@
 }
 
 .burger-menu-popup__navigation {
-  padding: 105px 250px 0;
+  padding: 143px 250px 0;
 }
 
 @media screen and (max-width: 560px) {
