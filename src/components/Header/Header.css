@@ -9,14 +9,41 @@
   background-color: #465dff;
 }
 
+.header__burger-button {
+  display: none;
+  width: 44px;
+  height: 44px;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  background: url(../../images/burger-button.svg);
+  -webkit-transition: opacity 0.6s;
+  -o-transition: opacity 0.6s;
+  transition: opacity 0.6s;
+}
+
+.header__burger-button:hover {
+  opacity: 0.5;
+}
+
 @media screen and (max-width: 980px) {
   .header {
     padding: 18px 30px;
+  }
+
+  .header__burger-button {
+    display: block;
   }
 }
 
 @media screen and (max-width: 560px) {
   .header {
     padding: 18px 14px;
+  }
+
+  .header__burger-button {
+    width: 40px;
+    height: 43px;
+    background: url(../../images/burger-button2.svg);
   }
 }

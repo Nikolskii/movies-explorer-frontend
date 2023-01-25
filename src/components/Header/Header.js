@@ -6,7 +6,14 @@ const Header = ({ place, children }) => {
   return (
     <header className={`header ${place === 'main' && 'header_place_main'}`}>
       <Logo />
-      {children ? children : <Navigation />}
+      {children ? (
+        children
+      ) : (
+        <>
+          <Navigation />
+          <button className="header__burger-button" />
+        </>
+      )}
     </header>
   );
 };
