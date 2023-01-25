@@ -5,7 +5,11 @@ import './Navigation.css';
 
 const Navigation = ({ isVisibleOnBurgerMenu }) => {
   return (
-    <nav className={`navigation ${isVisibleOnBurgerMenu && 'nav_active'}`}>
+    <nav
+      className={`navigation ${
+        isVisibleOnBurgerMenu && 'navigation_on-burger-menu'
+      }`}
+    >
       <ul className="navigation__links">
         {isVisibleOnBurgerMenu && (
           <li className="navigation__links-item">

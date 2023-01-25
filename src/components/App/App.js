@@ -8,16 +8,16 @@ import { Route, Routes } from 'react-router-dom';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const App = () => {
   // Состояние попапов
   const [isBurgerMenuPopupOpen, setIsBurgerMenuPopupOpen] = useState(false);
 
-  console.log(isBurgerMenuPopupOpen);
-
+  // Обработчики состояния попапов
   const handleBurgerMenuClick = () =>
     setIsBurgerMenuPopupOpen(!isBurgerMenuPopupOpen);
+
   return (
     <div className="page">
       <Routes>

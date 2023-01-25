@@ -42,7 +42,7 @@
     display: none;
   }
 
-  .nav_active {
+  .navigation_on-burger-menu {
     display: flex;
     justify-content: center;
   }
