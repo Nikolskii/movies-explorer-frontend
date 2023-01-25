@@ -8,11 +8,14 @@ import './Main.css';
 import Portfolio from '../Portfolio/Portfolio';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import AuthLinks from '../AuthLinks/AuthLinks';
 
 const Main = () => {
   return (
     <>
-      <Header place="main" />
+      <Header place="main">
+        <AuthLinks />
+      </Header>
       <div className="main">
         <Promo />
         <NavTab />
