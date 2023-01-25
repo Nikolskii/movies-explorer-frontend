@@ -5,10 +5,10 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 
-const Movies = () => {
+const Movies = ({ onBurgerMenu }) => {
   return (
     <>
-      <Header />
+      <Header onBurgerMenu={onBurgerMenu} />
       <section className="movies">
         <SearchForm />
         {/* <Preloader /> */}

@@ -34,11 +34,40 @@
 }
 
 .navigation__link_active {
-  border-bottom: 1px solid #2be080;
+  border-bottom: 2px solid #000;
 }
 
 @media screen and (max-width: 980px) {
   .navigation {
     display: none;
+  }
+
+  .nav_active {
+    display: flex;
+    justify-content: center;
+  }
+
+  .navigation__links {
+    flex-direction: column;
+    row-gap: 28px;
+  }
+
+  .navigation__link {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .navigation__links-item:last-child {
+    padding: 450px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .navigation__links {
+    row-gap: 20px;
+  }
+
+  .navigation__links-item:last-child {
+    padding: 420px 0 0 0;
   }
 }

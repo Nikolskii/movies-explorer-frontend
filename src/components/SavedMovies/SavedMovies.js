@@ -4,10 +4,10 @@ import Footer from '../Footer/Footer';
 import './SavedMovies.css';
 import Header from '../Header/Header';
 
-const SavedMovies = () => {
+const SavedMovies = ({ onBurgerMenu }) => {
   return (
     <>
-      <Header />
+      <Header onBurgerMenu={onBurgerMenu} />
       <section className="movies">
         <SearchForm />
         <MoviesCardList />

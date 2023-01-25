@@ -1,10 +1,10 @@
 import Header from '../Header/Header';
 import './Profile.css';
 
-const Profile = () => {
+const Profile = ({ onBurgerMenu }) => {
   return (
     <>
-      <Header />
+      <Header onBurgerMenu={onBurgerMenu} />
       <section className="profile">
         <h1 className="profile__title">Привет, Денис!</h1>
         <form className="profile-form">
