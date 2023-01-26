@@ -9,6 +9,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
 import { useState } from 'react';
+import getMovies from '../../utils/MoviesApi';
 
 const App = () => {
   // Состояние попапов
@@ -18,6 +19,16 @@ const App = () => {
   const handleBurgerMenuClick = () =>
     setIsBurgerMenuPopupOpen(!isBurgerMenuPopupOpen);
 
+  // Обработчик submit формы поиска фильмов
+  const handleSearchMovies = async () => {
+    try {
+      const movies = await getMovies();
+      console.log(movies);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <div className="page">
       <Routes>
@@ -26,7 +37,12 @@ const App = () => {
         <Route path="/" element={<Main />} />
         <Route
           path="/movies"
-          element={<Movies onBurgerMenu={handleBurgerMenuClick} />}
+          element={
+            <Movies
+              onSearchMovies={handleSearchMovies}
+              onBurgerMenu={handleBurgerMenuClick}
+            />
+          }
         />
         <Route
           path="/saved-movies"
