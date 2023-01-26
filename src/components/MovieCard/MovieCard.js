@@ -6,11 +6,13 @@ const MovieCard = ({ movie }) => {
     <article className="movie-card">
       <h2 className="movie-card__title">{movie.nameRU}</h2>
       <p className="movie-card__duration">0 минут </p>
-      <img
-        className="movie-card__cover"
-        src={`https://api.nomoreparties.co${movie.image.url}`}
-        alt="Обложка фильма"
-      />
+      <a className="movie-card__link" href={movie.trailerLink} target="_blank">
+        <img
+          className="movie-card__cover"
+          src={`https://api.nomoreparties.co${movie.image.url}`}
+          alt="Обложка фильма"
+        />
+      </a>
       <button className="movie-card__button">Сохранить</button>
     </article>
   );

@@ -44,12 +44,15 @@
   max-width: 60px;
 }
 
+.movie-card__link {
+  grid-column: 1/3;
+  grid-row: 2/3;
+}
+
 .movie-card__cover {
   width: 360px;
   height: 200px;
   object-fit: cover;
-  grid-column: 1/3;
-  grid-row: 2/3;
 }
 
 .movie-card__button {

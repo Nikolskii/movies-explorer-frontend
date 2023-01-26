@@ -2,7 +2,6 @@ import MovieCard from '../MovieCard/MovieCard';
 import './MoviesCardList.css';
 
 const MoviesCardList = ({ movies }) => {
-  console.log(movies);
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
