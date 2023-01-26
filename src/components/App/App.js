@@ -17,6 +17,9 @@ const App = () => {
   // Текст запроса поиска кино
   const [moviesSearchQuery, setMoviesSearchQuery] = useState('');
 
+  // Массив карточек кино
+  const [movies, setMovies] = useState([]);
+
   // Состояние и текст сообщения о неудачном поиске кино
   const [searchMovieResultMessage, setSearchMovieResultMessage] = useState('');
   const [
@@ -52,10 +55,13 @@ const App = () => {
       setInfoTooltipText(constants.requirementKeyword);
       return;
     }
+
+    setMoviesSearchQuery(searchQuery);
     setIsPreloaderVisible(true);
+
     try {
       const movies = await getMovies();
-      console.log(movies);
+      setMovies(movies);
     } catch (err) {
       setIsSearchMovieResultMessageVisible(true);
       setSearchMovieResultMessage(constants.serverErrorMessage);
@@ -75,6 +81,7 @@ const App = () => {
           path="/movies"
           element={
             <Movies
+              movies={movies}
               onSearchMovies={handleSearchMovies}
               onBurgerMenu={handleBurgerMenuClick}
               isPreloaderVisible={isPreloaderVisible}

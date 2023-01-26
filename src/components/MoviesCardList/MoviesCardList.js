@@ -1,16 +1,14 @@
 import MovieCard from '../MovieCard/MovieCard';
 import './MoviesCardList.css';
 
-const MoviesCardList = () => {
+const MoviesCardList = ({ movies }) => {
+  console.log(movies);
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
-        <MovieCard />
+        {movies.map((movie) => (
+          <MovieCard movie={movie} key={movie.id} />
+        ))}
       </div>
       <button className="movies-card-list__button">Ещё</button>
     </section>
