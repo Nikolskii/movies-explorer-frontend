@@ -1,23 +1,31 @@
 import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
-import { Route, Routes } from 'react-router-dom';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
-import { useState } from 'react';
 import getMovies from '../../utils/MoviesApi';
+import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
 
 const App = () => {
   // Состояние попапов
   const [isBurgerMenuPopupOpen, setIsBurgerMenuPopupOpen] = useState(false);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(true);
+  const [isResponseSuccess, setIsResponseSuccess] = useState(null);
 
   // Обработчики состояния попапов
-  const handleBurgerMenuClick = () =>
-    setIsBurgerMenuPopupOpen(!isBurgerMenuPopupOpen);
+  const handleBurgerMenuClick = () => setIsBurgerMenuPopupOpen(true);
+
+  // Функция закрытия всех попапов
+  const closeAllPopups = () => {
+    setIsBurgerMenuPopupOpen(false);
+    setIsInfoTooltipPopupOpen(false);
+  };
 
   // Обработчик submit формы поиска фильмов
   const handleSearchMovies = async () => {
@@ -56,7 +64,12 @@ const App = () => {
       </Routes>
       <BurgerMenuPopup
         isOpen={isBurgerMenuPopupOpen}
-        onBurgerMenu={handleBurgerMenuClick}
+        onClose={closeAllPopups}
+      />
+      <InfoTooltipPopup
+        isOpen={isInfoTooltipPopupOpen}
+        isResponseSuccess={isResponseSuccess}
+        onClose={closeAllPopups}
       />
     </div>
   );
