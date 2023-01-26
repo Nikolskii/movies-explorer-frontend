@@ -13,10 +13,13 @@ import getMovies from '../../utils/MoviesApi';
 import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
 
 const App = () => {
+  const [moviesSearchQuery, setMoviesSearchQuery] = useState('');
+  const [isSearchResponseSuccess, setIsSearchResponseSuccess] = useState(null);
+  const [infoTooltipText, setInfoTooltipText] = useState('');
+
   // Состояние попапов
   const [isBurgerMenuPopupOpen, setIsBurgerMenuPopupOpen] = useState(false);
-  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(true);
-  const [isResponseSuccess, setIsResponseSuccess] = useState(null);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
 
   // Обработчики состояния попапов
   const handleBurgerMenuClick = () => setIsBurgerMenuPopupOpen(true);
@@ -28,7 +31,13 @@ const App = () => {
   };
 
   // Обработчик submit формы поиска фильмов
-  const handleSearchMovies = async () => {
+  const handleSearchMovies = async (searchQuery) => {
+    if (searchQuery.length === 0) {
+      setIsInfoTooltipPopupOpen(true);
+      setIsSearchResponseSuccess(false);
+      setInfoTooltipText('Нужно ввести ключевое слово');
+      return;
+    }
     try {
       const movies = await getMovies();
       console.log(movies);
@@ -68,8 +77,9 @@ const App = () => {
       />
       <InfoTooltipPopup
         isOpen={isInfoTooltipPopupOpen}
-        isResponseSuccess={isResponseSuccess}
+        isResponseSuccess={isSearchResponseSuccess}
         onClose={closeAllPopups}
+        titleText={infoTooltipText}
       />
     </div>
   );

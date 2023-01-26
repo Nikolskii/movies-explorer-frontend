@@ -5,16 +5,10 @@ import './SearchForm.css';
 const SearchForm = ({ onSearchMovies }) => {
   const [moviesSearchQuery, setMoviesSearchQuery] = useState('');
 
-  console.log(moviesSearchQuery);
-
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (moviesSearchQuery.length === 0) {
-      console.log('Нужно ввести ключевое слово');
-      return;
-    }
 
-    onSearchMovies();
+    onSearchMovies(moviesSearchQuery);
   };
 
   return (

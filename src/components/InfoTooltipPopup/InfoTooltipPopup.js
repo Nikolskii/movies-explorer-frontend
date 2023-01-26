@@ -2,7 +2,12 @@ import './InfoTooltipPopup.css';
 import onResponseSuccessImg from '../../images/info-tooltip-success.svg';
 import onResponseUnsuccessImg from '../../images/info-tooltip-unsuccess.svg';
 
-const InfoTooltipPopup = ({ isOpen, isResponseSuccess, onClose }) => {
+const InfoTooltipPopup = ({
+  isOpen,
+  isResponseSuccess,
+  onClose,
+  titleText,
+}) => {
   return (
     <section
       className={`info-tooltip-popup ${isOpen && 'info-tooltip-popup_opened'}`}
@@ -15,7 +20,7 @@ const InfoTooltipPopup = ({ isOpen, isResponseSuccess, onClose }) => {
           }
           alt="Изображение информационного попапа"
         />
-        <h2 className="info-tooltip-popup__title">Здесь будет текст</h2>
+        <h2 className="info-tooltip-popup__title">{titleText}</h2>
         <button
           className="info-tooltip-popup__button"
           type="button"
