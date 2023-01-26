@@ -13,9 +13,22 @@ import getMovies from '../../utils/MoviesApi';
 import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
 
 const App = () => {
+  // Текст запроса поиска кино
   const [moviesSearchQuery, setMoviesSearchQuery] = useState('');
+
+  // Состояние и текст сообщения о неудачном поиске кино
+  const [searchMovieResultMessage, setSearchMovieResultMessage] = useState('');
+  const [
+    isSearchMovieResultMessageVisible,
+    setIsSearchMovieResultMessageVisible,
+  ] = useState(false);
+
+  // Свойство и состояние информационного попапа
   const [isSearchResponseSuccess, setIsSearchResponseSuccess] = useState(null);
   const [infoTooltipText, setInfoTooltipText] = useState('');
+
+  // Состояние прелоадера
+  const [isPreloaderVisible, setIsPreloaderVisible] = useState(false);
 
   // Состояние попапов
   const [isBurgerMenuPopupOpen, setIsBurgerMenuPopupOpen] = useState(false);
@@ -38,11 +51,20 @@ const App = () => {
       setInfoTooltipText('Нужно ввести ключевое слово');
       return;
     }
+    setIsPreloaderVisible(true);
     try {
       const movies = await getMovies();
       console.log(movies);
     } catch (err) {
+      setIsSearchMovieResultMessageVisible(true);
+      setSearchMovieResultMessage(`
+      Во время запроса произошла ошибка.
+      Возможно, проблема с соединением или сервер недоступен.
+      Подождите немного и попробуйте ещё раз».
+      `);
       console.error(err.message);
+    } finally {
+      setIsPreloaderVisible(false);
     }
   };
 
@@ -58,6 +80,11 @@ const App = () => {
             <Movies
               onSearchMovies={handleSearchMovies}
               onBurgerMenu={handleBurgerMenuClick}
+              isPreloaderVisible={isPreloaderVisible}
+              isSearchMovieResultMessageVisible={
+                isSearchMovieResultMessageVisible
+              }
+              searchMovieResultMessage={searchMovieResultMessage}
             />
           }
         />
