@@ -9,8 +9,9 @@ import Login from '../Login/Login';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
-import getMovies from '../../utils/MoviesApi';
+import getMovies from '../../utils/api/MoviesApi';
 import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
+import constants from '../../utils/constants/constants';
 
 const App = () => {
   // Текст запроса поиска кино
@@ -48,7 +49,7 @@ const App = () => {
     if (searchQuery.length === 0) {
       setIsInfoTooltipPopupOpen(true);
       setIsSearchResponseSuccess(false);
-      setInfoTooltipText('Нужно ввести ключевое слово');
+      setInfoTooltipText(constants.requirementKeyword);
       return;
     }
     setIsPreloaderVisible(true);
@@ -57,11 +58,7 @@ const App = () => {
       console.log(movies);
     } catch (err) {
       setIsSearchMovieResultMessageVisible(true);
-      setSearchMovieResultMessage(`
-      Во время запроса произошла ошибка.
-      Возможно, проблема с соединением или сервер недоступен.
-      Подождите немного и попробуйте ещё раз».
-      `);
+      setSearchMovieResultMessage(constants.serverErrorMessage);
       console.error(err.message);
     } finally {
       setIsPreloaderVisible(false);
