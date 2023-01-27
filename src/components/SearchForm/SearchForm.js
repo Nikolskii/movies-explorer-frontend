@@ -2,7 +2,12 @@ import { useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 
-const SearchForm = ({ onSearchMovies, moviesSearchQuery }) => {
+const SearchForm = ({
+  onSearchMovies,
+  moviesSearchQuery,
+  isToggleShortMoviesActive,
+  toggleShortMovies,
+}) => {
   const [searchQuery, setSearchQuery] = useState(moviesSearchQuery);
 
   const handleSubmit = (evt) => {
@@ -24,7 +29,10 @@ const SearchForm = ({ onSearchMovies, moviesSearchQuery }) => {
           />
           <button className="search-form__button">Найти</button>
         </form>
-        <FilterCheckbox />
+        <FilterCheckbox
+          isToggleActive={isToggleShortMoviesActive}
+          toggleShortMovies={toggleShortMovies}
+        />
       </div>
     </section>
   );

@@ -1,10 +1,24 @@
+import { useState } from 'react';
 import './FilterCheckbox.css';
 
-const FilterCheckbox = () => {
+const FilterCheckbox = ({ isToggleActive, toggleShortMovies }) => {
+  const [toggleChecked, setToggleChecked] = useState();
+  console.log(toggleChecked);
+
+  const handleToggleChange = () => {
+    console.log('вызван тогл');
+    toggleShortMovies();
+  };
+
   return (
     <div className="filter-checkbox">
       <label className="switch">
-        <input className="switch__input" type="checkbox" />
+        <input
+          className="switch__input"
+          type="checkbox"
+          checked={toggleChecked}
+          onChange={handleToggleChange}
+        />
         <span className="switch__slider"></span>
       </label>
       <p className="filter-checkbox__param">Короткометражки</p>

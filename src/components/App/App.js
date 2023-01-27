@@ -17,6 +17,9 @@ const App = () => {
   // Текст запроса поиска кино
   const [moviesSearchQuery, setMoviesSearchQuery] = useState('');
 
+  const [isToggleShortMoviesActive, setIsToggleShortMoviesActive] =
+    useState(false);
+
   // Массив всех карточек кино
   const [movies, setMovies] = useState([]);
 
@@ -84,12 +87,19 @@ const App = () => {
     }
   };
 
+  // Обработчик переключателя короткометражных кино
+
+  const toggleShortMovies = () => {
+    console.log('вызван тоггл в апп');
+    setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
+    console.log(isToggleShortMoviesActive);
+  };
+
   // Функция фильтра
   const filterMovies = (movies, searchQuery) => {
     const filteredMovies = movies.filter((movie) => {
       return movie.country.includes(searchQuery);
     });
-
     setRenderedMovies(filteredMovies);
     return filteredMovies;
   };
@@ -97,7 +107,7 @@ const App = () => {
   // Количество карточек кино для рендера
   const [quantityRenderedMovies, setQuantityRenderedMovies] = useState(null);
 
-  // Количество дополнительных карточек кино для рендера
+  // Количество карточек кино дополнительного для рендера
   const [quantityMoreRenderedMovies, setQuantityMoreRenderedMovies] =
     useState(null);
 
@@ -155,6 +165,8 @@ const App = () => {
           element={
             <Movies
               onSearchMovies={handleSearchMovies}
+              isToggleShortMoviesActive={isToggleShortMoviesActive}
+              toggleShortMovies={toggleShortMovies}
               onBurgerMenu={handleBurgerMenuClick}
               isPreloaderVisible={isPreloaderVisible}
               isSearchMovieResultMessageVisible={
