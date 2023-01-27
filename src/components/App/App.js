@@ -95,10 +95,10 @@ const App = () => {
     console.log(isToggleShortMoviesActive);
   };
 
-  // Функция фильтра
+  // Функция фильтра карточек кино по названию
   const filterMovies = (movies, searchQuery) => {
     const filteredMovies = movies.filter((movie) => {
-      return movie.country.includes(searchQuery);
+      return movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase());
     });
     setRenderedMovies(filteredMovies);
     return filteredMovies;

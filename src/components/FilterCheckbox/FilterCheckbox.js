@@ -3,7 +3,6 @@ import './FilterCheckbox.css';
 
 const FilterCheckbox = ({ isToggleActive, toggleShortMovies }) => {
   const [toggleChecked, setToggleChecked] = useState();
-  console.log(toggleChecked);
 
   const handleToggleChange = () => {
     console.log('вызван тогл');
