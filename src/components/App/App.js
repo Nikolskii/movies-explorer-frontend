@@ -20,6 +20,9 @@ const App = () => {
   // Массив карточек кино
   const [movies, setMovies] = useState([]);
 
+  // Массив карточек для рендера
+  const [renderedMovies, setRenderedMovies] = useState([]);
+
   // Состояние и текст сообщения о неудачном поиске кино
   const [searchMovieResultMessage, setSearchMovieResultMessage] = useState('');
   const [
@@ -62,6 +65,8 @@ const App = () => {
     try {
       const movies = await getMovies();
       setMovies(movies);
+
+      renderMovies(movies);
     } catch (err) {
       setIsSearchMovieResultMessageVisible(true);
       setSearchMovieResultMessage(constants.serverErrorMessage);
@@ -69,6 +74,22 @@ const App = () => {
     } finally {
       setIsPreloaderVisible(false);
     }
+  };
+
+  // Функция рендера карточек кино
+  const renderMovies = (movies) => {
+    const initialRenderedMovies = movies.slice(0, 12);
+    setRenderedMovies(initialRenderedMovies);
+  };
+
+  // Функция рендера дополнительных карточек кино
+  const renderMoreMovies = () => {
+    const moreMovies = movies.slice(
+      renderedMovies.length,
+      renderedMovies.length + 3,
+    );
+    const moreRenderedMovies = renderedMovies.concat(moreMovies);
+    setRenderedMovies(moreRenderedMovies);
   };
 
   return (
@@ -81,7 +102,6 @@ const App = () => {
           path="/movies"
           element={
             <Movies
-              movies={movies}
               onSearchMovies={handleSearchMovies}
               onBurgerMenu={handleBurgerMenuClick}
               isPreloaderVisible={isPreloaderVisible}
@@ -89,6 +109,8 @@ const App = () => {
                 isSearchMovieResultMessageVisible
               }
               searchMovieResultMessage={searchMovieResultMessage}
+              renderedMovies={renderedMovies}
+              onMoreMovies={renderMoreMovies}
             />
           }
         />

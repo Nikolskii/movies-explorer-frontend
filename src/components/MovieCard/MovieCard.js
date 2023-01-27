@@ -1,7 +1,6 @@
 import './MovieCard.css';
 
 const MovieCard = ({ movie }) => {
-  console.log(movie);
   return (
     <article className="movie-card">
       <h2 className="movie-card__title">{movie.nameRU}</h2>

@@ -7,12 +7,13 @@ import Preloader from '../Preloader/Preloader';
 import SearchMovieResultMessage from '../SearchMovieResultMessage/SearchMovieResultMessage';
 
 const Movies = ({
-  movies,
   onSearchMovies,
   onBurgerMenu,
   isPreloaderVisible,
   isSearchMovieResultMessageVisible,
   searchMovieResultMessage,
+  renderedMovies,
+  onMoreMovies,
 }) => {
   return (
     <>
@@ -24,7 +25,10 @@ const Movies = ({
           isVisible={isSearchMovieResultMessageVisible}
           textMessage={searchMovieResultMessage}
         />
-        <MoviesCardList movies={movies} />
+        <MoviesCardList
+          renderedMovies={renderedMovies}
+          onMoreMovies={onMoreMovies}
+        />
       </main>
       <Footer />
     </>
