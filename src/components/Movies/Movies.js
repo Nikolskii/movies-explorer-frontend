@@ -15,6 +15,7 @@ const Movies = ({
   renderedMovies,
   onMoreMovies,
   isMoreMoviesButtonVisible,
+  checkWindowSize,
 }) => {
   return (
     <>
@@ -30,6 +31,7 @@ const Movies = ({
           renderedMovies={renderedMovies}
           onMoreMovies={onMoreMovies}
           isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
+          checkWindowSize={checkWindowSize}
         />
       </main>
       <Footer />

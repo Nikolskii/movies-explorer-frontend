@@ -80,9 +80,6 @@ const App = () => {
     }
   };
 
-  // Ширина окна
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
   // Количество карточек кино для рендера
   const [quantityRenderedMovies, setQuantityRenderedMovies] = useState(null);
 
@@ -90,41 +87,32 @@ const App = () => {
   const [quantityMoreRenderedMovies, setQuantityMoreRenderedMovies] =
     useState(null);
 
-  // Подписка на изменение размера окна
-  useEffect(() => {
-    checkWindowSize();
-    const handleResizeWindow = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResizeWindow);
-    return () => {
-      window.removeEventListener('resize', handleResizeWindow);
-    };
-  }, []);
-
+  // Проверка размер окна
   const checkWindowSize = () => {
-    if (windowWidth > constants.windowSize.LARGE_SIZE) {
+    if (window.innerWidth > constants.windowSize.MEDIUM_SIZE) {
       setQuantityRenderedMovies(12);
       setQuantityMoreRenderedMovies(3);
       return;
     }
 
-    if (windowWidth > constants.windowSize.MEDIUM_SIZE) {
+    if (
+      window.innerWidth <= constants.windowSize.MEDIUM_SIZE &&
+      window.innerWidth > constants.windowSize.SMALL_SIZE
+    ) {
       setQuantityRenderedMovies(8);
       setQuantityMoreRenderedMovies(2);
       return;
     }
 
-    if (windowWidth < constants.windowSize.MEDIUM_SIZE) {
-      setQuantityRenderedMovies(5);
-      setQuantityMoreRenderedMovies(1);
-      return;
-    }
+    setQuantityRenderedMovies(5);
+    setQuantityMoreRenderedMovies(1);
   };
 
   // Функция рендера карточек кино
   const renderMovies = (movies) => {
-    setIsMoreMoviesButtonVisible(true);
     const initialRenderedMovies = movies.slice(0, quantityRenderedMovies);
     setRenderedMovies(initialRenderedMovies);
+    setIsMoreMoviesButtonVisible(true);
   };
 
   // Функция рендера дополнительных карточек кино
@@ -160,6 +148,7 @@ const App = () => {
               renderedMovies={renderedMovies}
               onMoreMovies={renderMoreMovies}
               isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
+              checkWindowSize={checkWindowSize}
             />
           }
         />

@@ -7,8 +7,9 @@ const constants = {
     notFound: 'Ничего не найдено',
   },
   windowSize: {
-    LARGE_SIZE: 980,
-    MEDIUM_SIZE: 560,
+    LARGE_SIZE: 1280,
+    MEDIUM_SIZE: 1279,
+    SMALL_SIZE: 767,
   },
 };
 
