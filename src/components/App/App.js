@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
@@ -59,7 +59,7 @@ const App = () => {
     if (searchQuery.length === 0) {
       setIsInfoTooltipPopupOpen(true);
       setIsSearchResponseSuccess(false);
-      setInfoTooltipText(constants.requirementKeyword);
+      setInfoTooltipText(constants.messages.requirementKeyword);
       return;
     }
 
@@ -73,17 +73,57 @@ const App = () => {
       renderMovies(movies);
     } catch (err) {
       setIsSearchMovieResultMessageVisible(true);
-      setSearchMovieResultMessage(constants.serverErrorMessage);
+      setSearchMovieResultMessage(constants.messages.serverError);
       console.error(err.message);
     } finally {
       setIsPreloaderVisible(false);
     }
   };
 
+  // Ширина окна
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  // Количество карточек кино для рендера
+  const [quantityRenderedMovies, setQuantityRenderedMovies] = useState(null);
+
+  // Количество дополнительных карточек кино для рендера
+  const [quantityMoreRenderedMovies, setQuantityMoreRenderedMovies] =
+    useState(null);
+
+  // Подписка на изменение размера окна
+  useEffect(() => {
+    checkWindowSize();
+    const handleResizeWindow = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResizeWindow);
+    return () => {
+      window.removeEventListener('resize', handleResizeWindow);
+    };
+  }, []);
+
+  const checkWindowSize = () => {
+    if (windowWidth > constants.windowSize.LARGE_SIZE) {
+      setQuantityRenderedMovies(12);
+      setQuantityMoreRenderedMovies(3);
+      return;
+    }
+
+    if (windowWidth > constants.windowSize.MEDIUM_SIZE) {
+      setQuantityRenderedMovies(8);
+      setQuantityMoreRenderedMovies(2);
+      return;
+    }
+
+    if (windowWidth < constants.windowSize.MEDIUM_SIZE) {
+      setQuantityRenderedMovies(5);
+      setQuantityMoreRenderedMovies(1);
+      return;
+    }
+  };
+
   // Функция рендера карточек кино
   const renderMovies = (movies) => {
     setIsMoreMoviesButtonVisible(true);
-    const initialRenderedMovies = movies.slice(0, 12);
+    const initialRenderedMovies = movies.slice(0, quantityRenderedMovies);
     setRenderedMovies(initialRenderedMovies);
   };
 
@@ -91,7 +131,7 @@ const App = () => {
   const renderMoreMovies = () => {
     const moreMovies = movies.slice(
       renderedMovies.length,
-      renderedMovies.length + 3,
+      renderedMovies.length + quantityMoreRenderedMovies,
     );
     const moreRenderedMovies = renderedMovies.concat(moreMovies);
     setRenderedMovies(moreRenderedMovies);
