@@ -78,7 +78,7 @@ const App = () => {
     try {
       const movies = await getMovies();
       setMovies(movies);
-      const filteredMovies = filterMovies(movies, searchQuery);
+      const filteredMovies = filterMoviesByKeyword(movies, searchQuery);
       setFilteredMovies(filteredMovies);
       renderMovies(filteredMovies);
     } catch (err) {
@@ -90,14 +90,8 @@ const App = () => {
     }
   };
 
-  // Обработчик переключателя короткометражных кино
-
-  const toggleShortMoviesActive = () => {
-    setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
-  };
-
   // Функция фильтра карточек кино по названию
-  const filterMovies = (movies, searchQuery) => {
+  const filterMoviesByKeyword = (movies, searchQuery) => {
     const filteredMovies = movies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase());
     });
@@ -108,6 +102,31 @@ const App = () => {
 
     setRenderedMovies(filteredMovies);
     return filteredMovies;
+  };
+
+  // Функция фильтра короткометражного кино
+
+  const filterMoviesByDuration = () => {
+    console.log(filteredMovies);
+    const shortMovies = filteredMovies.filter((movie) => {
+      return movie.duration <= 40;
+    });
+
+    if (shortMovies.length === 0) {
+      setIsSearchMovieResultMessageVisible(true);
+      setSearchMovieResultMessage(constants.messages.notFound);
+    }
+
+    console.log(shortMovies);
+
+    setRenderedMovies(shortMovies);
+    return shortMovies;
+  };
+
+  // Обработчик переключателя короткометражных кино
+
+  const toggleShortMoviesActive = () => {
+    setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
   };
 
   // Количество карточек кино для рендера
