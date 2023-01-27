@@ -69,6 +69,9 @@ const App = () => {
       return;
     }
 
+    setIsSearchMovieResultMessageVisible(false);
+    setSearchMovieResultMessage(null);
+
     setMoviesSearchQuery(searchQuery);
     setIsPreloaderVisible(true);
 
@@ -100,6 +103,11 @@ const App = () => {
     const filteredMovies = movies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase());
     });
+    if (filteredMovies.length === 0) {
+      setIsSearchMovieResultMessageVisible(true);
+      setSearchMovieResultMessage(constants.messages.notFound);
+    }
+
     setRenderedMovies(filteredMovies);
     return filteredMovies;
   };
