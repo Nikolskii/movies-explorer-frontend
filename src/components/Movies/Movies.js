@@ -14,6 +14,7 @@ const Movies = ({
   searchMovieResultMessage,
   renderedMovies,
   onMoreMovies,
+  isMoreMoviesButtonVisible,
 }) => {
   return (
     <>
@@ -28,6 +29,7 @@ const Movies = ({
         <MoviesCardList
           renderedMovies={renderedMovies}
           onMoreMovies={onMoreMovies}
+          isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
         />
       </main>
       <Footer />

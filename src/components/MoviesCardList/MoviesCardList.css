@@ -36,6 +36,10 @@
   cursor: pointer;
 }
 
+.movies-card-list__button_hidden {
+  visibility: hidden;
+}
+
 @media screen and (max-width: 1279px) {
   .movies-card-list {
     padding: 80px 30px;

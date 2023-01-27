@@ -41,6 +41,10 @@ const App = () => {
   const [isBurgerMenuPopupOpen, setIsBurgerMenuPopupOpen] = useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
 
+  // Состояние кнопку загрузки дополнительных карточек
+  const [isMoreMoviesButtonVisible, setIsMoreMoviesButtonVisible] =
+    useState(false);
+
   // Обработчики состояния попапов
   const handleBurgerMenuClick = () => setIsBurgerMenuPopupOpen(true);
 
@@ -78,6 +82,7 @@ const App = () => {
 
   // Функция рендера карточек кино
   const renderMovies = (movies) => {
+    setIsMoreMoviesButtonVisible(true);
     const initialRenderedMovies = movies.slice(0, 12);
     setRenderedMovies(initialRenderedMovies);
   };
@@ -90,6 +95,9 @@ const App = () => {
     );
     const moreRenderedMovies = renderedMovies.concat(moreMovies);
     setRenderedMovies(moreRenderedMovies);
+    if (movies.length === moreRenderedMovies.length) {
+      setIsMoreMoviesButtonVisible(false);
+    }
   };
 
   return (
@@ -111,6 +119,7 @@ const App = () => {
               searchMovieResultMessage={searchMovieResultMessage}
               renderedMovies={renderedMovies}
               onMoreMovies={renderMoreMovies}
+              isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
             />
           }
         />

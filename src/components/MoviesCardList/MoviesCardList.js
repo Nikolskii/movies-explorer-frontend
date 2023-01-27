@@ -1,7 +1,11 @@
 import MovieCard from '../MovieCard/MovieCard';
 import './MoviesCardList.css';
 
-const MoviesCardList = ({ renderedMovies, onMoreMovies }) => {
+const MoviesCardList = ({
+  renderedMovies,
+  onMoreMovies,
+  isMoreMoviesButtonVisible,
+}) => {
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
@@ -9,7 +13,12 @@ const MoviesCardList = ({ renderedMovies, onMoreMovies }) => {
           <MovieCard movie={movie} key={movie.id} />
         ))}
       </div>
-      <button className="movies-card-list__button" onClick={onMoreMovies}>
+      <button
+        className={`movies-card-list__button ${
+          !isMoreMoviesButtonVisible && 'movies-card-list__button_hidden'
+        }`}
+        onClick={onMoreMovies}
+      >
         Ещё
       </button>
     </section>
