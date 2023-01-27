@@ -7,6 +7,7 @@ import Preloader from '../Preloader/Preloader';
 import SearchMovieResultMessage from '../SearchMovieResultMessage/SearchMovieResultMessage';
 
 const Movies = ({
+  moviesSearchQuery,
   onSearchMovies,
   onBurgerMenu,
   isPreloaderVisible,
@@ -21,7 +22,10 @@ const Movies = ({
     <>
       <Header onBurgerMenu={onBurgerMenu} />
       <main className="movies">
-        <SearchForm onSearchMovies={onSearchMovies} />
+        <SearchForm
+          onSearchMovies={onSearchMovies}
+          moviesSearchQuery={moviesSearchQuery}
+        />
         <Preloader isVisible={isPreloaderVisible} />
         <SearchMovieResultMessage
           isVisible={isSearchMovieResultMessageVisible}

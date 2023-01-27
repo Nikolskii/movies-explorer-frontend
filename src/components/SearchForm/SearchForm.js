@@ -2,13 +2,13 @@ import { useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
 
-const SearchForm = ({ onSearchMovies }) => {
-  const [moviesSearchQuery, setMoviesSearchQuery] = useState('');
+const SearchForm = ({ onSearchMovies, moviesSearchQuery }) => {
+  const [searchQuery, setSearchQuery] = useState(moviesSearchQuery);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSearchMovies(moviesSearchQuery);
+    onSearchMovies(searchQuery);
   };
 
   return (
@@ -19,8 +19,8 @@ const SearchForm = ({ onSearchMovies }) => {
             className="search-form__input"
             type="text"
             placeholder="Фильм"
-            value={moviesSearchQuery}
-            onChange={(evt) => setMoviesSearchQuery(evt.target.value)}
+            value={searchQuery}
+            onChange={(evt) => setSearchQuery(evt.target.value)}
           />
           <button className="search-form__button">Найти</button>
         </form>

@@ -17,8 +17,11 @@ const App = () => {
   // Текст запроса поиска кино
   const [moviesSearchQuery, setMoviesSearchQuery] = useState('');
 
-  // Массив карточек кино
+  // Массив всех карточек кино
   const [movies, setMovies] = useState([]);
+
+  // Массив отфильтрованных карточек кино
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   // Массив карточек для рендера
   const [renderedMovies, setRenderedMovies] = useState([]);
@@ -69,8 +72,9 @@ const App = () => {
     try {
       const movies = await getMovies();
       setMovies(movies);
-
-      renderMovies(movies);
+      const filteredMovies = filterMovies(movies, searchQuery);
+      setFilteredMovies(filteredMovies);
+      renderMovies(filteredMovies);
     } catch (err) {
       setIsSearchMovieResultMessageVisible(true);
       setSearchMovieResultMessage(constants.messages.serverError);
@@ -78,6 +82,16 @@ const App = () => {
     } finally {
       setIsPreloaderVisible(false);
     }
+  };
+
+  // Функция фильтра
+  const filterMovies = (movies, searchQuery) => {
+    const filteredMovies = movies.filter((movie) => {
+      return movie.country.includes(searchQuery);
+    });
+
+    setRenderedMovies(filteredMovies);
+    return filteredMovies;
   };
 
   // Количество карточек кино для рендера
@@ -112,18 +126,20 @@ const App = () => {
   const renderMovies = (movies) => {
     const initialRenderedMovies = movies.slice(0, quantityRenderedMovies);
     setRenderedMovies(initialRenderedMovies);
-    setIsMoreMoviesButtonVisible(true);
+    initialRenderedMovies.length === movies.length
+      ? setIsMoreMoviesButtonVisible(false)
+      : setIsMoreMoviesButtonVisible(true);
   };
 
   // Функция рендера дополнительных карточек кино
   const renderMoreMovies = () => {
-    const moreMovies = movies.slice(
+    const moreMovies = filteredMovies.slice(
       renderedMovies.length,
       renderedMovies.length + quantityMoreRenderedMovies,
     );
     const moreRenderedMovies = renderedMovies.concat(moreMovies);
     setRenderedMovies(moreRenderedMovies);
-    if (movies.length === moreRenderedMovies.length) {
+    if (filteredMovies.length === moreRenderedMovies.length) {
       setIsMoreMoviesButtonVisible(false);
     }
   };
@@ -149,6 +165,7 @@ const App = () => {
               onMoreMovies={renderMoreMovies}
               isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
               checkWindowSize={checkWindowSize}
+              moviesSearchQuery={moviesSearchQuery}
             />
           }
         />

@@ -53,6 +53,13 @@
   width: 360px;
   height: 200px;
   object-fit: cover;
+  -webkit-transition: opacity 0.6s;
+  -o-transition: opacity 0.6s;
+  transition: opacity 0.6s;
+}
+
+.movie-card__cover:hover {
+  opacity: 0.7;
 }
 
 .movie-card__button {
