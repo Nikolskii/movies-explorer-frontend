@@ -6,7 +6,7 @@ const SearchForm = ({
   onSearchMovies,
   moviesSearchQuery,
   isToggleShortMoviesActive,
-  toggleShortMovies,
+  toggleShortMoviesActive,
 }) => {
   const [searchQuery, setSearchQuery] = useState(moviesSearchQuery);
 
@@ -31,7 +31,7 @@ const SearchForm = ({
         </form>
         <FilterCheckbox
           isToggleActive={isToggleShortMoviesActive}
-          toggleShortMovies={toggleShortMovies}
+          toggleShortMoviesActive={toggleShortMoviesActive}
         />
       </div>
     </section>

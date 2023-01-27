@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import './FilterCheckbox.css';
 
-const FilterCheckbox = ({ isToggleActive, toggleShortMovies }) => {
+const FilterCheckbox = ({ isToggleActive, toggleShortMoviesActive }) => {
   const [toggleChecked, setToggleChecked] = useState(isToggleActive);
 
   const handleToggleChange = () => {
-    console.log('вызван тогл');
-    toggleShortMovies();
+    toggleShortMoviesActive();
+    setToggleChecked(!toggleChecked);
   };
 
   return (

@@ -18,7 +18,7 @@ const Movies = ({
   isMoreMoviesButtonVisible,
   checkWindowSize,
   isToggleShortMoviesActive,
-  toggleShortMovies,
+  toggleShortMoviesActive,
 }) => {
   return (
     <>
@@ -28,7 +28,7 @@ const Movies = ({
           onSearchMovies={onSearchMovies}
           moviesSearchQuery={moviesSearchQuery}
           isToggleShortMoviesActive={isToggleShortMoviesActive}
-          toggleShortMovies={toggleShortMovies}
+          toggleShortMoviesActive={toggleShortMoviesActive}
         />
         <Preloader isVisible={isPreloaderVisible} />
         <SearchMovieResultMessage

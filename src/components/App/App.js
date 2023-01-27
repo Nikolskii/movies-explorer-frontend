@@ -92,10 +92,8 @@ const App = () => {
 
   // Обработчик переключателя короткометражных кино
 
-  const toggleShortMovies = () => {
-    console.log('вызван тоггл в апп');
+  const toggleShortMoviesActive = () => {
     setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
-    console.log(isToggleShortMoviesActive);
   };
 
   // Функция фильтра карточек кино по названию
@@ -174,7 +172,7 @@ const App = () => {
             <Movies
               onSearchMovies={handleSearchMovies}
               isToggleShortMoviesActive={isToggleShortMoviesActive}
-              toggleShortMovies={toggleShortMovies}
+              toggleShortMoviesActive={toggleShortMoviesActive}
               onBurgerMenu={handleBurgerMenuClick}
               isPreloaderVisible={isPreloaderVisible}
               isSearchMovieResultMessageVisible={
