@@ -19,7 +19,7 @@
   margin: 0;
   grid-column: 1/2;
   grid-row: 1/2;
-  padding: 18px;
+  padding: 18px 8px 18px 18px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -41,7 +41,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 60px;
 }
 
 .movie-card__link {
