@@ -71,7 +71,7 @@ const App = () => {
 
     setIsSearchMovieResultMessageVisible(false);
     setSearchMovieResultMessage(null);
-
+    setRenderedMovies([]);
     setMoviesSearchQuery(searchQuery);
     setIsPreloaderVisible(true);
 
@@ -91,22 +91,28 @@ const App = () => {
   };
 
   // Функция фильтра карточек кино по названию
-  const filterMovies = (movies, searchQuery) => {
+  const filterMovies = (
+    movies,
+    searchQuery,
+    isToggleActive = isToggleShortMoviesActive,
+  ) => {
     let filteredMovies;
     filteredMovies = movies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
-    if (isToggleShortMoviesActive) {
+    // if (isToggleShortMoviesActive) {
+    if (isToggleActive) {
       filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
     }
 
-    if (filteredMovies.length === 0) {
+    if (filteredMovies.length === 0 && movies.length !== 0) {
       setIsSearchMovieResultMessageVisible(true);
       setSearchMovieResultMessage(constants.messages.notFound);
     }
 
     setRenderedMovies(filteredMovies);
+    setFilteredMovies(filteredMovies);
     return filteredMovies;
   };
 
@@ -114,6 +120,8 @@ const App = () => {
 
   const toggleShortMoviesActive = () => {
     setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
+    const isToggleActive = !isToggleShortMoviesActive;
+    filterMovies(movies, moviesSearchQuery, isToggleActive);
   };
 
   // Количество карточек кино для рендера
