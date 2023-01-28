@@ -20,7 +20,7 @@
 }
 
 .auth-links__link:hover {
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 .auth-links__button {
@@ -40,7 +40,7 @@
 }
 
 .auth-links__button:hover {
-  opacity: 0.5;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 560px) {
