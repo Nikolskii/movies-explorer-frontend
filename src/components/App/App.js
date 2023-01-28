@@ -179,11 +179,10 @@ const App = () => {
 
   // Обработчик регистрации
 
-  const handleRegister = () => {
-    console.log('run func reg');
-    const name = 'leha';
-    const email = 'l@l1.ru';
-    const password = '1234';
+  const handleRegister = ({ name, email, password }) => {
+    console.log(name);
+    console.log(email);
+    console.log(password);
     register({ name, email, password })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));

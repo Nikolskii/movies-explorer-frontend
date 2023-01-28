@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthForm from '../AuthForm/AuthForm';
 import FormField from '../FormField/FormField';
@@ -5,14 +6,51 @@ import Logo from '../Logo/Logo';
 import './Register.css';
 
 const Register = ({ onRegister }) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    onRegister({ name, email, password });
+  };
+
+  const handleNameChange = (name) => {
+    setName(name);
+  };
+
+  const handleEmailChange = (email) => {
+    setEmail(email);
+  };
+
+  const handlePasswordChange = (password) => {
+    setPassword(password);
+  };
+
   return (
     <main className="register">
       <Logo />
       <h1 className="register__title">Добро пожаловать!</h1>
-      <AuthForm buttonText="Зарегистрироваться">
-        <FormField labelText="Имя" type="text" name="name" />
-        <FormField labelText="E-mail" type="text" name="email" />
-        <FormField labelText="Пароль" type="password" name="password" />
+      <AuthForm buttonText="Зарегистрироваться" onSubmit={handleSubmit}>
+        <FormField
+          labelText="Имя"
+          type="text"
+          name="name"
+          onChange={handleNameChange}
+        />
+        <FormField
+          labelText="E-mail"
+          type="text"
+          name="email"
+          onChange={handleEmailChange}
+        />
+        <FormField
+          labelText="Пароль"
+          type="password"
+          name="password"
+          onChange={handlePasswordChange}
+        />
       </AuthForm>
       <p className="register__question">
         Уже зарегистрированы?

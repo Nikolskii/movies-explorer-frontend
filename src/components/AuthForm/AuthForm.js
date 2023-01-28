@@ -1,8 +1,8 @@
 import './AuthForm.css';
 
-const AuthForm = ({ children, buttonText, place }) => {
+const AuthForm = ({ children, buttonText, place, onSubmit }) => {
   return (
-    <form className="auth-form">
+    <form className="auth-form" onSubmit={onSubmit}>
       <fieldset className="auth-form__fieldset">{children}</fieldset>
       <button
         className={`auth-form__button ${
