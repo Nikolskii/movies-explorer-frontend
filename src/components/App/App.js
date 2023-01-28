@@ -12,6 +12,7 @@ import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
 import getMovies from '../../utils/api/MoviesApi';
 import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
 import constants from '../../utils/constants/constants';
+import { register } from '../../utils/api/MainApi';
 
 const App = () => {
   // Текст запроса поиска кино
@@ -176,10 +177,25 @@ const App = () => {
     }
   };
 
+  // Обработчик регистрации
+
+  const handleRegister = () => {
+    console.log('run func reg');
+    const name = 'leha';
+    const email = 'l@l1.ru';
+    const password = '1234';
+    register({ name, email, password })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="page">
       <Routes>
-        <Route path="/signup" element={<Register />} />
+        <Route
+          path="/signup"
+          element={<Register onRegister={handleRegister} />}
+        />
         <Route path="/signin" element={<Login />} />
         <Route path="/" element={<Main />} />
         <Route

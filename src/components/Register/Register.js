@@ -4,7 +4,7 @@ import FormField from '../FormField/FormField';
 import Logo from '../Logo/Logo';
 import './Register.css';
 
-const Register = () => {
+const Register = ({ onRegister }) => {
   return (
     <main className="register">
       <Logo />
