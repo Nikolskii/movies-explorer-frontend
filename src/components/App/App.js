@@ -96,6 +96,7 @@ const App = () => {
     searchQuery,
     isToggleActive = isToggleShortMoviesActive,
   ) => {
+    setIsSearchMovieResultMessageVisible(false);
     let filteredMovies;
     filteredMovies = movies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -156,6 +157,7 @@ const App = () => {
   const renderMovies = (movies) => {
     const initialRenderedMovies = movies.slice(0, quantityRenderedMovies);
     setRenderedMovies(initialRenderedMovies);
+
     initialRenderedMovies.length === movies.length
       ? setIsMoreMoviesButtonVisible(false)
       : setIsMoreMoviesButtonVisible(true);
