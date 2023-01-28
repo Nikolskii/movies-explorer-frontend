@@ -5,7 +5,7 @@ import FormField from '../FormField/FormField';
 import Logo from '../Logo/Logo';
 import './Register.css';
 
-const Register = ({ onRegister }) => {
+const Register = ({ onRegister, formErrorText }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,7 +32,11 @@ const Register = ({ onRegister }) => {
     <main className="register">
       <Logo />
       <h1 className="register__title">Добро пожаловать!</h1>
-      <AuthForm buttonText="Зарегистрироваться" onSubmit={handleSubmit}>
+      <AuthForm
+        buttonText="Зарегистрироваться"
+        onSubmit={handleSubmit}
+        errorText={formErrorText}
+      >
         <FormField
           labelText="Имя"
           type="text"

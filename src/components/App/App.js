@@ -18,6 +18,7 @@ const App = () => {
   // Текст запроса поиска кино
   const [moviesSearchQuery, setMoviesSearchQuery] = useState('');
 
+  // Состояние переключателя короткометражного кино
   const [isToggleShortMoviesActive, setIsToggleShortMoviesActive] =
     useState(false);
 
@@ -36,6 +37,9 @@ const App = () => {
     isSearchMovieResultMessageVisible,
     setIsSearchMovieResultMessageVisible,
   ] = useState(false);
+
+  // Текст ошибки формы регистрации/авторизации
+  const [formErrorText, setFormErrorText] = useState('');
 
   // Свойство и состояние информационного попапа
   const [isSearchResponseSuccess, setIsSearchResponseSuccess] = useState(null);
@@ -82,10 +86,10 @@ const App = () => {
       const filteredMovies = filterMovies(movies, searchQuery);
       setFilteredMovies(filteredMovies);
       renderMovies(filteredMovies);
-    } catch (err) {
+    } catch (error) {
       setIsSearchMovieResultMessageVisible(true);
       setSearchMovieResultMessage(constants.messages.serverError);
-      console.error(err.message);
+      console.error(error.message);
     } finally {
       setIsPreloaderVisible(false);
     }
@@ -179,13 +183,21 @@ const App = () => {
 
   // Обработчик регистрации
 
-  const handleRegister = ({ name, email, password }) => {
-    console.log(name);
-    console.log(email);
-    console.log(password);
-    register({ name, email, password })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+  const handleRegister = async ({ name, email, password }) => {
+    setFormErrorText('');
+    try {
+      const user = await register({ name, email, password });
+      console.log(user);
+    } catch (error) {
+      console.error(error);
+      if (error === 'Conflict') {
+        setFormErrorText(
+          'Пользователь с указанными данными уже зарегистрирован',
+        );
+        return;
+      }
+      setFormErrorText('При регистрации пользователя произошла ошибка');
+    }
   };
 
   return (
@@ -193,7 +205,12 @@ const App = () => {
       <Routes>
         <Route
           path="/signup"
-          element={<Register onRegister={handleRegister} />}
+          element={
+            <Register
+              onRegister={handleRegister}
+              formErrorText={formErrorText}
+            />
+          }
         />
         <Route path="/signin" element={<Login />} />
         <Route path="/" element={<Main />} />
