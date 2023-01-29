@@ -41,6 +41,10 @@ const App = () => {
   // Текст ошибки формы регистрации/авторизации
   const [formErrorText, setFormErrorText] = useState('');
 
+  // Текст кнопки формы регистрации
+  const [registerButtonText, setRegisterButtonText] =
+    useState('Зарегистрироваться');
+
   // Свойство и состояние информационного попапа
   const [isSearchResponseSuccess, setIsSearchResponseSuccess] = useState(null);
   const [infoTooltipText, setInfoTooltipText] = useState('');
@@ -181,9 +185,10 @@ const App = () => {
     }
   };
 
-  // Обработчик регистрации
+  // Обработчик формы регистрации
 
   const handleRegister = async ({ name, email, password }) => {
+    setRegisterButtonText('Регистрация...');
     setFormErrorText('');
     try {
       const user = await register({ name, email, password });
@@ -197,6 +202,9 @@ const App = () => {
         return;
       }
       setFormErrorText('При регистрации пользователя произошла ошибка');
+    } finally {
+      console.log('will change button');
+      setRegisterButtonText('Зарегистрироваться');
     }
   };
 
@@ -209,6 +217,7 @@ const App = () => {
             <Register
               onRegister={handleRegister}
               formErrorText={formErrorText}
+              registerButtonText={registerButtonText}
             />
           }
         />

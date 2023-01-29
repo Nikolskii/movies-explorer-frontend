@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthForm from '../AuthForm/AuthForm';
 import FormField from '../FormField/FormField';
 import Logo from '../Logo/Logo';
 import './Register.css';
 
-const Register = ({ onRegister, formErrorText }) => {
+const Register = ({ onRegister, formErrorText, registerButtonText }) => {
+  console.log(registerButtonText);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,7 +34,7 @@ const Register = ({ onRegister, formErrorText }) => {
       <Logo />
       <h1 className="register__title">Добро пожаловать!</h1>
       <AuthForm
-        buttonText="Зарегистрироваться"
+        buttonText={registerButtonText}
         onSubmit={handleSubmit}
         errorText={formErrorText}
       >
