@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import ProfileLink from '../ProfileLink/ProfileLink';
 import './Navigation.css';
 
-const Navigation = ({ isVisibleOnBurgerMenu }) => {
+const Navigation = ({ isVisibleOnBurgerMenu, place }) => {
   return (
     <nav
       className={`navigation ${
@@ -29,8 +29,10 @@ const Navigation = ({ isVisibleOnBurgerMenu }) => {
           <NavLink
             className={({ isActive }) =>
               isActive
-                ? 'navigation__link navigation__link_active'
-                : 'navigation__link'
+                ? `navigation__link navigation__link_active`
+                : `navigation__link ${
+                    place === 'main' && 'navigation__link_place_main'
+                  }`
             }
             to="/movies"
           >
@@ -42,7 +44,9 @@ const Navigation = ({ isVisibleOnBurgerMenu }) => {
             className={({ isActive }) =>
               isActive
                 ? 'navigation__link navigation__link_active'
-                : 'navigation__link'
+                : `navigation__link ${
+                    place === 'main' && 'navigation__link_place_main'
+                  }`
             }
             to="/saved-movies"
           >
@@ -54,7 +58,9 @@ const Navigation = ({ isVisibleOnBurgerMenu }) => {
             className={({ isActive }) =>
               isActive
                 ? 'navigation__link navigation__link_active'
-                : 'navigation__link'
+                : `navigation__link ${
+                    place === 'main' && 'navigation__link_place_main'
+                  }`
             }
             to="/profile"
           >

@@ -37,6 +37,10 @@
   font-weight: 500;
 }
 
+.navigation__link_place_main {
+  color: #fff;
+}
+
 @media screen and (max-width: 980px) {
   .navigation {
     display: none;

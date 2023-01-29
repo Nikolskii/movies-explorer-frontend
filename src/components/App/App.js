@@ -34,7 +34,8 @@ const App = () => {
   const [renderedMovies, setRenderedMovies] = useState([]);
 
   // Состояние авторизованного пользователя
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  console.log(isLoggedIn);
 
   // Состояние и текст сообщения о неудачном поиске кино
   const [searchMovieResultMessage, setSearchMovieResultMessage] = useState('');
@@ -122,7 +123,6 @@ const App = () => {
       movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
-    // if (isToggleShortMoviesActive) {
     if (isToggleActive) {
       filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
     }
@@ -138,7 +138,6 @@ const App = () => {
   };
 
   // Обработчик переключателя короткометражных кино
-
   const toggleShortMoviesActive = () => {
     setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
     const isToggleActive = !isToggleShortMoviesActive;
@@ -197,7 +196,6 @@ const App = () => {
   };
 
   // Обработчик формы регистрации
-
   const handleRegister = async ({ name, email, password }) => {
     setRegisterButtonText('Регистрация...');
     setRegisterFormErrorText('');
@@ -221,7 +219,6 @@ const App = () => {
   };
 
   // Обработчик формы авторизации
-
   const handleLogin = async ({ email, password }) => {
     setLoginButtonText('Вход...');
     setLoginFormErrorText('');
@@ -252,13 +249,25 @@ const App = () => {
     if (token) {
       try {
         const data = await getUser(token);
-        setLoggedIn(true);
+        setIsLoggedIn(true);
         navigate('/movies');
       } catch (error) {
         console.error(error);
       }
     }
   };
+
+  // Обработчик выхода
+  const handleSignout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/');
+  };
+
+  // Проверка токена
+  useEffect(() => {
+    checkToken();
+  }, []);
 
   return (
     <div className="page">
@@ -283,7 +292,7 @@ const App = () => {
             />
           }
         />
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Main isLoggedIn={isLoggedIn} />} />
         <Route
           path="/movies"
           element={
@@ -302,6 +311,7 @@ const App = () => {
               isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
               checkWindowSize={checkWindowSize}
               moviesSearchQuery={moviesSearchQuery}
+              isLoggedIn={isLoggedIn}
             />
           }
         />
@@ -311,7 +321,12 @@ const App = () => {
         />
         <Route
           path="/profile"
-          element={<Profile onBurgerMenu={handleBurgerMenuClick} />}
+          element={
+            <Profile
+              onBurgerMenu={handleBurgerMenuClick}
+              isLoggedIn={isLoggedIn}
+            />
+          }
         />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

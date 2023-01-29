@@ -1,10 +1,10 @@
 import Header from '../Header/Header';
 import './Profile.css';
 
-const Profile = ({ onBurgerMenu }) => {
+const Profile = ({ onBurgerMenu, isLoggedIn }) => {
   return (
     <>
-      <Header onBurgerMenu={onBurgerMenu} />
+      <Header onBurgerMenu={onBurgerMenu} isLoggedIn={isLoggedIn} />
       <main className="profile">
         <h1 className="profile__title">Привет, Денис!</h1>
         <form className="profile-form">

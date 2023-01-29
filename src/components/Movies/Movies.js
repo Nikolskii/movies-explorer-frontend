@@ -19,10 +19,11 @@ const Movies = ({
   checkWindowSize,
   isToggleShortMoviesActive,
   toggleShortMoviesActive,
+  isLoggedIn,
 }) => {
   return (
     <>
-      <Header onBurgerMenu={onBurgerMenu} />
+      <Header onBurgerMenu={onBurgerMenu} isLoggedIn={isLoggedIn} />
       <main className="movies">
         <SearchForm
           onSearchMovies={onSearchMovies}
