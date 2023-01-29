@@ -10,7 +10,12 @@ const Header = ({ place, onBurgerMenu, isLoggedIn }) => {
       {isLoggedIn ? (
         <>
           <Navigation place={place} />
-          <button className="header__burger-button" onClick={onBurgerMenu} />
+          <button
+            className={`header__burger-button ${
+              place === 'main' && 'header__burger-button_place_main'
+            }`}
+            onClick={onBurgerMenu}
+          />
         </>
       ) : (
         <AuthLinks />

@@ -292,7 +292,15 @@ const App = () => {
             />
           }
         />
-        <Route path="/" element={<Main isLoggedIn={isLoggedIn} />} />
+        <Route
+          path="/"
+          element={
+            <Main
+              isLoggedIn={isLoggedIn}
+              onBurgerMenu={handleBurgerMenuClick}
+            />
+          }
+        />
         <Route
           path="/movies"
           element={

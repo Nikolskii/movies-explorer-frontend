@@ -9,10 +9,14 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import AuthLinks from '../AuthLinks/AuthLinks';
 
-const Main = ({ isLoggedIn }) => {
+const Main = ({ isLoggedIn, onBurgerMenu }) => {
   return (
     <>
-      <Header place="main" isLoggedIn={isLoggedIn} />
+      <Header
+        place="main"
+        isLoggedIn={isLoggedIn}
+        onBurgerMenu={onBurgerMenu}
+      />
       <main className="main">
         <Promo />
         <NavTab />
