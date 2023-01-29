@@ -6,7 +6,6 @@ import Logo from '../Logo/Logo';
 import './Register.css';
 
 const Register = ({ onRegister, formErrorText, registerButtonText }) => {
-  console.log(registerButtonText);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

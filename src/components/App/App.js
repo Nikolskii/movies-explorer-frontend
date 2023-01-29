@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -12,9 +12,11 @@ import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
 import getMovies from '../../utils/api/MoviesApi';
 import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
 import constants from '../../utils/constants/constants';
-import { register } from '../../utils/api/MainApi';
+import { register, login, getUser } from '../../utils/api/MainApi';
 
 const App = () => {
+  const navigate = useNavigate();
+
   // Текст запроса поиска кино
   const [moviesSearchQuery, setMoviesSearchQuery] = useState('');
 
@@ -31,6 +33,9 @@ const App = () => {
   // Массив карточек для рендера
   const [renderedMovies, setRenderedMovies] = useState([]);
 
+  // Состояние авторизованного пользователя
+  const [loggedIn, setLoggedIn] = useState(false);
+
   // Состояние и текст сообщения о неудачном поиске кино
   const [searchMovieResultMessage, setSearchMovieResultMessage] = useState('');
   const [
@@ -39,11 +44,17 @@ const App = () => {
   ] = useState(false);
 
   // Текст ошибки формы регистрации/авторизации
-  const [formErrorText, setFormErrorText] = useState('');
+  const [registerFormErrorText, setRegisterFormErrorText] = useState('');
+
+  // Текст ошибки формы регистрации/авторизации
+  const [loginFormErrorText, setLoginFormErrorText] = useState('');
 
   // Текст кнопки формы регистрации
   const [registerButtonText, setRegisterButtonText] =
     useState('Зарегистрироваться');
+
+  // Текст кнопки формы авторизации
+  const [loginButtonText, setLoginButtonText] = useState('Войти');
 
   // Свойство и состояние информационного попапа
   const [isSearchResponseSuccess, setIsSearchResponseSuccess] = useState(null);
@@ -189,22 +200,61 @@ const App = () => {
 
   const handleRegister = async ({ name, email, password }) => {
     setRegisterButtonText('Регистрация...');
-    setFormErrorText('');
+    setRegisterFormErrorText('');
     try {
       const user = await register({ name, email, password });
       console.log(user);
     } catch (error) {
       console.error(error);
       if (error === 'Conflict') {
-        setFormErrorText(
-          'Пользователь с указанными данными уже зарегистрирован',
-        );
+        setRegisterFormErrorText('Пользователь с таким email уже существует');
         return;
       }
-      setFormErrorText('При регистрации пользователя произошла ошибка');
+      setRegisterFormErrorText('При регистрации пользователя произошла ошибка');
     } finally {
-      console.log('will change button');
       setRegisterButtonText('Зарегистрироваться');
+    }
+  };
+
+  // Обработчик формы авторизации
+
+  const handleLogin = async ({ email, password }) => {
+    setLoginButtonText('Вход...');
+    setLoginFormErrorText('');
+    try {
+      const data = await login({ email, password });
+      console.log(data);
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        checkToken();
+      }
+    } catch (error) {
+      console.error(error);
+      if (error === 'Unauthorized') {
+        setLoginFormErrorText('Вы ввели неправильный логин или пароль');
+        return;
+      }
+      setLoginFormErrorText(
+        'При авторизации произошла ошибка. Токен не передан или передан не в том формате',
+      );
+    } finally {
+      setLoginButtonText('Войти');
+    }
+  };
+
+  // Проверка токена
+  const checkToken = async () => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      try {
+        const data = await getUser(token);
+        console.log(data);
+        setLoggedIn(true);
+        navigate('/movies');
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -216,12 +266,21 @@ const App = () => {
           element={
             <Register
               onRegister={handleRegister}
-              formErrorText={formErrorText}
+              formErrorText={registerFormErrorText}
               registerButtonText={registerButtonText}
             />
           }
         />
-        <Route path="/signin" element={<Login />} />
+        <Route
+          path="/signin"
+          element={
+            <Login
+              onLogin={handleLogin}
+              formErrorText={loginFormErrorText}
+              loginButtonText={loginButtonText}
+            />
+          }
+        />
         <Route path="/" element={<Main />} />
         <Route
           path="/movies"
