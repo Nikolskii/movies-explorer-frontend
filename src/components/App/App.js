@@ -13,9 +13,13 @@ import getMovies from '../../utils/api/MoviesApi';
 import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
 import constants from '../../utils/constants/constants';
 import { register, login, getUser } from '../../utils/api/MainApi';
+import CurrentUserContext from '../../context/CurrentUserContext';
 
 const App = () => {
   const navigate = useNavigate();
+
+  // Состояние пользователя
+  const [currentUser, setCurrentUser] = useState('');
 
   // Текст запроса поиска кино
   const [moviesSearchQuery, setMoviesSearchQuery] = useState('');
@@ -35,7 +39,6 @@ const App = () => {
 
   // Состояние авторизованного пользователя
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log(isLoggedIn);
 
   // Состояние и текст сообщения о неудачном поиске кино
   const [searchMovieResultMessage, setSearchMovieResultMessage] = useState('');
@@ -200,7 +203,7 @@ const App = () => {
     setRegisterButtonText('Регистрация...');
     setRegisterFormErrorText('');
     try {
-      const user = await register({ name, email, password });
+      await register({ name, email, password });
       const data = await login({ email, password });
       if (data.token) {
         localStorage.setItem('token', data.token);
@@ -271,83 +274,85 @@ const App = () => {
 
   return (
     <div className="page">
-      <Routes>
-        <Route
-          path="/signup"
-          element={
-            <Register
-              onRegister={handleRegister}
-              formErrorText={registerFormErrorText}
-              registerButtonText={registerButtonText}
-            />
-          }
+      <CurrentUserContext.Provider value={currentUser}>
+        <Routes>
+          <Route
+            path="/signup"
+            element={
+              <Register
+                onRegister={handleRegister}
+                formErrorText={registerFormErrorText}
+                registerButtonText={registerButtonText}
+              />
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <Login
+                onLogin={handleLogin}
+                formErrorText={loginFormErrorText}
+                loginButtonText={loginButtonText}
+              />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <Main
+                isLoggedIn={isLoggedIn}
+                onBurgerMenu={handleBurgerMenuClick}
+              />
+            }
+          />
+          <Route
+            path="/movies"
+            element={
+              <Movies
+                onSearchMovies={handleSearchMovies}
+                isToggleShortMoviesActive={isToggleShortMoviesActive}
+                toggleShortMoviesActive={toggleShortMoviesActive}
+                onBurgerMenu={handleBurgerMenuClick}
+                isPreloaderVisible={isPreloaderVisible}
+                isSearchMovieResultMessageVisible={
+                  isSearchMovieResultMessageVisible
+                }
+                searchMovieResultMessage={searchMovieResultMessage}
+                renderedMovies={renderedMovies}
+                onMoreMovies={renderMoreMovies}
+                isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
+                checkWindowSize={checkWindowSize}
+                moviesSearchQuery={moviesSearchQuery}
+                isLoggedIn={isLoggedIn}
+              />
+            }
+          />
+          <Route
+            path="/saved-movies"
+            element={<SavedMovies onBurgerMenu={handleBurgerMenuClick} />}
+          />
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                onBurgerMenu={handleBurgerMenuClick}
+                isLoggedIn={isLoggedIn}
+              />
+            }
+          />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+        <BurgerMenuPopup
+          isOpen={isBurgerMenuPopupOpen}
+          onClose={closeAllPopups}
         />
-        <Route
-          path="/signin"
-          element={
-            <Login
-              onLogin={handleLogin}
-              formErrorText={loginFormErrorText}
-              loginButtonText={loginButtonText}
-            />
-          }
+        <InfoTooltipPopup
+          isOpen={isInfoTooltipPopupOpen}
+          isResponseSuccess={isSearchResponseSuccess}
+          onClose={closeAllPopups}
+          titleText={infoTooltipText}
         />
-        <Route
-          path="/"
-          element={
-            <Main
-              isLoggedIn={isLoggedIn}
-              onBurgerMenu={handleBurgerMenuClick}
-            />
-          }
-        />
-        <Route
-          path="/movies"
-          element={
-            <Movies
-              onSearchMovies={handleSearchMovies}
-              isToggleShortMoviesActive={isToggleShortMoviesActive}
-              toggleShortMoviesActive={toggleShortMoviesActive}
-              onBurgerMenu={handleBurgerMenuClick}
-              isPreloaderVisible={isPreloaderVisible}
-              isSearchMovieResultMessageVisible={
-                isSearchMovieResultMessageVisible
-              }
-              searchMovieResultMessage={searchMovieResultMessage}
-              renderedMovies={renderedMovies}
-              onMoreMovies={renderMoreMovies}
-              isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
-              checkWindowSize={checkWindowSize}
-              moviesSearchQuery={moviesSearchQuery}
-              isLoggedIn={isLoggedIn}
-            />
-          }
-        />
-        <Route
-          path="/saved-movies"
-          element={<SavedMovies onBurgerMenu={handleBurgerMenuClick} />}
-        />
-        <Route
-          path="/profile"
-          element={
-            <Profile
-              onBurgerMenu={handleBurgerMenuClick}
-              isLoggedIn={isLoggedIn}
-            />
-          }
-        />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-      <BurgerMenuPopup
-        isOpen={isBurgerMenuPopupOpen}
-        onClose={closeAllPopups}
-      />
-      <InfoTooltipPopup
-        isOpen={isInfoTooltipPopupOpen}
-        isResponseSuccess={isSearchResponseSuccess}
-        onClose={closeAllPopups}
-        titleText={infoTooltipText}
-      />
+      </CurrentUserContext.Provider>
     </div>
   );
 };
