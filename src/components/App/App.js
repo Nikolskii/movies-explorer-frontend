@@ -203,7 +203,11 @@ const App = () => {
     setRegisterFormErrorText('');
     try {
       const user = await register({ name, email, password });
-      console.log(user);
+      const data = await login({ email, password });
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        checkToken();
+      }
     } catch (error) {
       console.error(error);
       if (error === 'Conflict') {
@@ -223,7 +227,6 @@ const App = () => {
     setLoginFormErrorText('');
     try {
       const data = await login({ email, password });
-      console.log(data);
       if (data.token) {
         localStorage.setItem('token', data.token);
         checkToken();
@@ -249,7 +252,6 @@ const App = () => {
     if (token) {
       try {
         const data = await getUser(token);
-        console.log(data);
         setLoggedIn(true);
         navigate('/movies');
       } catch (error) {
