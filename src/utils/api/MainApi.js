@@ -105,4 +105,23 @@ const getMovies = () => {
   }).then(checkResponse);
 };
 
-export { register, login, getUser, updateUser, saveMovie, getMovies };
+const deleteMovie = ({ movieId }) => {
+  return fetch(`${BASE_URL}/movies/${movieId}`, {
+    method: 'DELETE',
+    // credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  }).then(checkResponse);
+};
+
+export {
+  register,
+  login,
+  getUser,
+  updateUser,
+  saveMovie,
+  getMovies,
+  deleteMovie,
+};

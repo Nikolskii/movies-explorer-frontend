@@ -19,6 +19,7 @@ import {
   updateUser,
   saveMovie,
   getMovies,
+  deleteMovie,
 } from '../../utils/api/MainApi';
 import CurrentUserContext from '../../context/CurrentUserContext';
 
@@ -340,6 +341,17 @@ const App = () => {
     }
   };
 
+  // Обработчик удаления карточки кино
+  const handleDeleteMovie = async ({ movieId }) => {
+    console.log(movieId);
+    try {
+      const data = await deleteMovie({ movieId });
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -405,6 +417,7 @@ const App = () => {
                 checkWindowSize={checkWindowSize}
                 isLoggedIn={isLoggedIn}
                 getSavedMovies={getSavedMovies}
+                handleDeleteMovie={handleDeleteMovie}
               />
             }
           />

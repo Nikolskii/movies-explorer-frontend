@@ -9,6 +9,7 @@ const MoviesCardList = ({
   checkWindowSize,
   onSaveMovie,
   isCardSaved,
+  handleDeleteMovie,
 }) => {
   // Проверка и подписка на изменение размера окна
   useEffect(() => {
@@ -29,6 +30,7 @@ const MoviesCardList = ({
             key={isCardSaved ? movie._id : movie.id}
             onSaveMovie={onSaveMovie}
             isCardSaved={isCardSaved}
+            handleDeleteMovie={handleDeleteMovie}
           />
         ))}
       </div>

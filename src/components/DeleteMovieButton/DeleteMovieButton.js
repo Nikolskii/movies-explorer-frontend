@@ -1,7 +1,12 @@
 import './DeleteMovieButton.css';
 
-const DeleteMovieButton = ({ onDeleteMovie }) => {
-  return <button className="delete-card-button" onClick={onDeleteMovie} />;
+const DeleteMovieButton = ({ handleDelete, movieId }) => {
+  return (
+    <button
+      className="delete-card-button"
+      onClick={() => handleDelete({ movieId })}
+    />
+  );
 };
 
 export default DeleteMovieButton;

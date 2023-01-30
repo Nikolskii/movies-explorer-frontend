@@ -11,6 +11,7 @@ const SavedMovies = ({
   checkWindowSize,
   isLoggedIn,
   getSavedMovies,
+  handleDeleteMovie,
 }) => {
   useEffect(() => {
     getSavedMovies();
@@ -23,6 +24,7 @@ const SavedMovies = ({
         <MoviesCardList
           movies={savedMovies}
           checkWindowSize={checkWindowSize}
+          handleDeleteMovie={handleDeleteMovie}
           isCardSaved
         />
       </main>
