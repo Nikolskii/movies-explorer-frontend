@@ -1,6 +1,6 @@
 import './MovieCard.css';
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, onSaveMovie }) => {
   return (
     <article className="movie-card">
       <h2 className="movie-card__title">{movie.nameRU}</h2>
@@ -17,7 +17,9 @@ const MovieCard = ({ movie }) => {
           alt="Обложка фильма"
         />
       </a>
-      <button className="movie-card__button">Сохранить</button>
+      <button className="movie-card__button" onClick={() => onSaveMovie(movie)}>
+        Сохранить
+      </button>
     </article>
   );
 };

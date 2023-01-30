@@ -7,6 +7,7 @@ const MoviesCardList = ({
   onMoreMovies,
   isMoreMoviesButtonVisible,
   checkWindowSize,
+  onSaveMovie,
 }) => {
   // Проверка и подписка на изменение размера окна
   useEffect(() => {
@@ -22,7 +23,7 @@ const MoviesCardList = ({
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
         {renderedMovies.map((movie) => (
-          <MovieCard movie={movie} key={movie.id} />
+          <MovieCard movie={movie} key={movie.id} onSaveMovie={onSaveMovie} />
         ))}
       </div>
       <button

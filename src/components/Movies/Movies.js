@@ -20,6 +20,7 @@ const Movies = ({
   isToggleShortMoviesActive,
   toggleShortMoviesActive,
   isLoggedIn,
+  onSaveMovie,
 }) => {
   return (
     <>
@@ -41,6 +42,7 @@ const Movies = ({
           onMoreMovies={onMoreMovies}
           isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
           checkWindowSize={checkWindowSize}
+          onSaveMovie={onSaveMovie}
         />
       </main>
       <Footer />

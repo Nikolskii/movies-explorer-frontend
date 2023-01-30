@@ -58,4 +58,40 @@ const updateUser = ({ name, email }) => {
   }).then(checkResponse);
 };
 
-export { register, login, getUser, updateUser };
+const saveMovie = ({
+  country,
+  director,
+  duration,
+  year,
+  description,
+  image,
+  trailerLink,
+  thumbnail,
+  movieId,
+  nameRU,
+  nameEN,
+}) => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'POST',
+    // credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    body: JSON.stringify({
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image,
+      trailerLink,
+      thumbnail,
+      movieId,
+      nameRU,
+      nameEN,
+    }),
+  }).then(checkResponse);
+};
+
+export { register, login, getUser, updateUser, saveMovie };

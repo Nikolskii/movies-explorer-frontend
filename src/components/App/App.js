@@ -12,11 +12,22 @@ import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
 import getMovies from '../../utils/api/MoviesApi';
 import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
 import constants from '../../utils/constants/constants';
-import { register, login, getUser, updateUser } from '../../utils/api/MainApi';
+import {
+  register,
+  login,
+  getUser,
+  updateUser,
+  saveMovie,
+} from '../../utils/api/MainApi';
 import CurrentUserContext from '../../context/CurrentUserContext';
 
 const App = () => {
   const navigate = useNavigate();
+
+  // Проверка токена
+  useEffect(() => {
+    checkToken();
+  }, []);
 
   // Состояние пользователя
   const [currentUser, setCurrentUser] = useState('');
@@ -294,10 +305,29 @@ const App = () => {
     navigate('/');
   };
 
-  // Проверка токена
-  useEffect(() => {
-    checkToken();
-  }, []);
+  // Обработчик сохранения фильма
+  const handleSaveMovie = async (movieCard) => {
+    console.log(movieCard);
+    try {
+      const movie = await saveMovie({
+        country: movieCard.country,
+        director: movieCard.director,
+        duration: movieCard.duration,
+        year: movieCard.year,
+        description: movieCard.description,
+        image: `https://api.nomoreparties.co${movieCard.image.url}`,
+        trailerLink: movieCard.trailerLink,
+        thumbnail: `https://api.nomoreparties.co${movieCard.image.formats.thumbnail.url}`,
+        movieId: movieCard.id,
+        nameRU: movieCard.nameRU,
+        nameEN: movieCard.nameEN,
+      });
+
+      console.log(movie);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="page">
@@ -351,6 +381,7 @@ const App = () => {
                 checkWindowSize={checkWindowSize}
                 moviesSearchQuery={moviesSearchQuery}
                 isLoggedIn={isLoggedIn}
+                onSaveMovie={handleSaveMovie}
               />
             }
           />
