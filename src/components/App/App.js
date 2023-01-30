@@ -12,7 +12,7 @@ import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
 import getMovies from '../../utils/api/MoviesApi';
 import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
 import constants from '../../utils/constants/constants';
-import { register, login, getUser } from '../../utils/api/MainApi';
+import { register, login, getUser, updateUser } from '../../utils/api/MainApi';
 import CurrentUserContext from '../../context/CurrentUserContext';
 
 const App = () => {
@@ -247,6 +247,17 @@ const App = () => {
     }
   };
 
+  // Обработчик submit формы редактирования профиля
+  const handleUpdateUser = async ({ name, email }) => {
+    try {
+      const user = await updateUser({ name, email });
+      setCurrentUser({ name, email });
+      console.log(currentUser);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // Проверка токена
   const checkToken = async () => {
     const token = localStorage.getItem('token');
@@ -339,6 +350,7 @@ const App = () => {
               <Profile
                 onBurgerMenu={handleBurgerMenuClick}
                 isLoggedIn={isLoggedIn}
+                onUpdateUser={handleUpdateUser}
                 onSignout={handleSignout}
               />
             }

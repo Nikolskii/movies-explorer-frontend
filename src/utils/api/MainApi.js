@@ -43,4 +43,19 @@ const getUser = (token) => {
   }).then(checkResponse);
 };
 
-export { register, login, getUser };
+const updateUser = ({ name, email }) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'PATCH',
+    // credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    body: JSON.stringify({
+      name,
+      email,
+    }),
+  }).then(checkResponse);
+};
+
+export { register, login, getUser, updateUser };
