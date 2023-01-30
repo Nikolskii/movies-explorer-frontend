@@ -8,7 +8,7 @@ const MoviesCardList = ({
   isMoreMoviesButtonVisible,
   checkWindowSize,
   onSaveMovie,
-  isCardSaved,
+  isListSavedCard,
   handleDeleteMovie,
 }) => {
   // Проверка и подписка на изменение размера окна
@@ -27,9 +27,9 @@ const MoviesCardList = ({
         {movies.map((movie) => (
           <MovieCard
             movie={movie}
-            key={isCardSaved ? movie._id : movie.id}
+            key={isListSavedCard ? movie._id : movie.id}
             onSaveMovie={onSaveMovie}
-            isCardSaved={isCardSaved}
+            isListSavedCard={isListSavedCard}
             handleDeleteMovie={handleDeleteMovie}
           />
         ))}

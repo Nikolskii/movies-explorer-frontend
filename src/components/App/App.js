@@ -29,6 +29,7 @@ const App = () => {
   // Проверка токена
   useEffect(() => {
     checkToken();
+    getSavedMovies();
   }, []);
 
   // Состояние пользователя
@@ -417,7 +418,6 @@ const App = () => {
                 savedMovies={savedMovies}
                 checkWindowSize={checkWindowSize}
                 isLoggedIn={isLoggedIn}
-                getSavedMovies={getSavedMovies}
                 handleDeleteMovie={handleDeleteMovie}
               />
             }

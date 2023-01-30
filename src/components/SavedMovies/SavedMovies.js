@@ -10,12 +10,8 @@ const SavedMovies = ({
   savedMovies,
   checkWindowSize,
   isLoggedIn,
-  getSavedMovies,
   handleDeleteMovie,
 }) => {
-  useEffect(() => {
-    getSavedMovies();
-  }, []);
   return (
     <>
       <Header onBurgerMenu={onBurgerMenu} isLoggedIn={isLoggedIn} />
@@ -25,7 +21,7 @@ const SavedMovies = ({
           movies={savedMovies}
           checkWindowSize={checkWindowSize}
           handleDeleteMovie={handleDeleteMovie}
-          isCardSaved
+          isListSavedCard
         />
       </main>
       <Footer />
