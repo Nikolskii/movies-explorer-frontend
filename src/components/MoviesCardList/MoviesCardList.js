@@ -3,11 +3,12 @@ import MovieCard from '../MovieCard/MovieCard';
 import './MoviesCardList.css';
 
 const MoviesCardList = ({
-  renderedMovies,
+  movies,
   onMoreMovies,
   isMoreMoviesButtonVisible,
   checkWindowSize,
   onSaveMovie,
+  isCardSaved,
 }) => {
   // Проверка и подписка на изменение размера окна
   useEffect(() => {
@@ -22,8 +23,13 @@ const MoviesCardList = ({
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
-        {renderedMovies.map((movie) => (
-          <MovieCard movie={movie} key={movie.id} onSaveMovie={onSaveMovie} />
+        {movies.map((movie) => (
+          <MovieCard
+            movie={movie}
+            key={isCardSaved ? movie._id : movie.id}
+            onSaveMovie={onSaveMovie}
+            isCardSaved={isCardSaved}
+          />
         ))}
       </div>
       <button

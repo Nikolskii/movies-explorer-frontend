@@ -1,4 +1,4 @@
-const getMovies = () => {
+const getInitialMovies = () => {
   return fetch('https://api.nomoreparties.co/beatfilm-movies', {
     method: 'GET',
     headers: {
@@ -12,4 +12,4 @@ const getMovies = () => {
   });
 };
 
-export default getMovies;
+export default getInitialMovies;

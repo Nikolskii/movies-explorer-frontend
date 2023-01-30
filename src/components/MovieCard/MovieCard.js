@@ -1,6 +1,14 @@
 import './MovieCard.css';
 
-const MovieCard = ({ movie, onSaveMovie }) => {
+const MovieCard = ({ movie, onSaveMovie, isCardSaved }) => {
+  console.log(isCardSaved);
+  console.log(movie.image.url);
+
+  const movieCardImgSrc = isCardSaved
+    ? movie.image
+    : `https://api.nomoreparties.co${movie.image.url}`;
+  console.log(movieCardImgSrc);
+
   return (
     <article className="movie-card">
       <h2 className="movie-card__title">{movie.nameRU}</h2>
@@ -13,7 +21,8 @@ const MovieCard = ({ movie, onSaveMovie }) => {
       >
         <img
           className="movie-card__cover"
-          src={`https://api.nomoreparties.co${movie.image.url}`}
+          // src={`https://api.nomoreparties.co${movie.image.url}`}
+          src={movieCardImgSrc}
           alt="Обложка фильма"
         />
       </a>

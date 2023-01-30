@@ -9,7 +9,7 @@ import Login from '../Login/Login';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
-import getMovies from '../../utils/api/MoviesApi';
+import getInitialMovies from '../../utils/api/MoviesApi';
 import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
 import constants from '../../utils/constants/constants';
 import {
@@ -18,6 +18,7 @@ import {
   getUser,
   updateUser,
   saveMovie,
+  getMovies,
 } from '../../utils/api/MainApi';
 import CurrentUserContext from '../../context/CurrentUserContext';
 
@@ -39,14 +40,17 @@ const App = () => {
   const [isToggleShortMoviesActive, setIsToggleShortMoviesActive] =
     useState(false);
 
-  // Массив всех карточек кино
+  // Все карточки кино Api beatfilm-movies
   const [movies, setMovies] = useState([]);
 
-  // Массив отфильтрованных карточек кино
+  // Отфильтрованные карточки кино
   const [filteredMovies, setFilteredMovies] = useState([]);
 
-  // Массив карточек для рендера
+  // Карточки кино для рендера
   const [renderedMovies, setRenderedMovies] = useState([]);
+
+  // Сохраненные карточки кино
+  const [savedMovies, setSavedMovies] = useState([]);
 
   // Состояние авторизованного пользователя
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -115,7 +119,7 @@ const App = () => {
     setIsPreloaderVisible(true);
 
     try {
-      const movies = await getMovies();
+      const movies = await getInitialMovies();
       setMovies(movies);
       const filteredMovies = filterMovies(movies, searchQuery);
       setFilteredMovies(filteredMovies);
@@ -329,6 +333,16 @@ const App = () => {
     }
   };
 
+  // Обработчик получения сохраненного кино
+  const getSavedMovies = async () => {
+    try {
+      const movies = await getMovies();
+      setSavedMovies(movies);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -387,7 +401,15 @@ const App = () => {
           />
           <Route
             path="/saved-movies"
-            element={<SavedMovies onBurgerMenu={handleBurgerMenuClick} />}
+            element={
+              <SavedMovies
+                onBurgerMenu={handleBurgerMenuClick}
+                savedMovies={savedMovies}
+                checkWindowSize={checkWindowSize}
+                isLoggedIn={isLoggedIn}
+                getSavedMovies={getSavedMovies}
+              />
+            }
           />
           <Route
             path="/profile"

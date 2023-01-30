@@ -38,7 +38,7 @@ const Movies = ({
           textMessage={searchMovieResultMessage}
         />
         <MoviesCardList
-          renderedMovies={renderedMovies}
+          movies={renderedMovies}
           onMoreMovies={onMoreMovies}
           isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
           checkWindowSize={checkWindowSize}

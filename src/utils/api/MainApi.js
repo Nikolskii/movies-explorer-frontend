@@ -94,4 +94,15 @@ const saveMovie = ({
   }).then(checkResponse);
 };
 
-export { register, login, getUser, updateUser, saveMovie };
+const getMovies = () => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'GET',
+    // credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  }).then(checkResponse);
+};
+
+export { register, login, getUser, updateUser, saveMovie, getMovies };
