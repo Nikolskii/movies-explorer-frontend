@@ -343,10 +343,11 @@ const App = () => {
 
   // Обработчик удаления карточки кино
   const handleDeleteMovie = async ({ movieId }) => {
-    console.log(movieId);
     try {
-      const data = await deleteMovie({ movieId });
-      console.log(data);
+      await deleteMovie({ movieId });
+      setSavedMovies((savedMovies) =>
+        savedMovies.filter((movie) => movie._id !== movieId),
+      );
     } catch (error) {
       console.error(error);
     }

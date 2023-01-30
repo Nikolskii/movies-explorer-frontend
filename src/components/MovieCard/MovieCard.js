@@ -2,17 +2,14 @@ import DeleteMovieButton from '../DeleteMovieButton/DeleteMovieButton';
 import './MovieCard.css';
 
 const MovieCard = ({ movie, onSaveMovie, isCardSaved, handleDeleteMovie }) => {
-  console.log(movie);
   const movieCardImgSrc = isCardSaved
     ? movie.image
     : `https://api.nomoreparties.co${movie.image.url}`;
 
   const handleDelete = ({ movieId }) => {
-    console.log('run delete on MovieCard');
     handleDeleteMovie({ movieId });
   };
 
-  console.log(movie._id);
   return (
     <article className="movie-card">
       <h2 className="movie-card__title">{movie.nameRU}</h2>
