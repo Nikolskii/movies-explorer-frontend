@@ -208,6 +208,7 @@ const App = () => {
       if (data.token) {
         localStorage.setItem('token', data.token);
         checkToken();
+        navigate('/movies');
       }
     } catch (error) {
       console.error(error);
@@ -230,6 +231,7 @@ const App = () => {
       if (data.token) {
         localStorage.setItem('token', data.token);
         checkToken();
+        navigate('/movies');
       }
     } catch (error) {
       console.error(error);
@@ -251,9 +253,9 @@ const App = () => {
 
     if (token) {
       try {
-        const data = await getUser(token);
+        const user = await getUser(token);
+        setCurrentUser(user);
         setIsLoggedIn(true);
-        navigate('/movies');
       } catch (error) {
         console.error(error);
       }
@@ -337,6 +339,7 @@ const App = () => {
               <Profile
                 onBurgerMenu={handleBurgerMenuClick}
                 isLoggedIn={isLoggedIn}
+                onSignout={handleSignout}
               />
             }
           />
