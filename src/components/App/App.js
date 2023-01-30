@@ -217,10 +217,10 @@ const App = () => {
     } catch (error) {
       console.error(error);
       if (error === 'Conflict') {
-        setRegisterFormErrorText('Пользователь с таким email уже существует');
+        setRegisterFormErrorText(constants.emailIsBusy);
         return;
       }
-      setRegisterFormErrorText('При регистрации пользователя произошла ошибка');
+      setRegisterFormErrorText(constants.messages.registerError);
     } finally {
       setRegisterButtonText('Зарегистрироваться');
     }
@@ -240,12 +240,10 @@ const App = () => {
     } catch (error) {
       console.error(error);
       if (error === 'Unauthorized') {
-        setLoginFormErrorText('Вы ввели неправильный логин или пароль');
+        setLoginFormErrorText(constants.messages.incorrectData);
         return;
       }
-      setLoginFormErrorText(
-        'При авторизации произошла ошибка. Токен не передан или передан не в том формате',
-      );
+      setLoginFormErrorText(constants.messages.authError);
     } finally {
       setLoginButtonText('Войти');
     }
@@ -259,16 +257,16 @@ const App = () => {
       setCurrentUser(user);
       setIsInfoTooltipPopupOpen(true);
       setIsSearchResponseSuccess(true);
-      setInfoTooltipText('Данные успешно обновлены');
+      setInfoTooltipText(constants.messages.successfulUpdate);
     } catch (error) {
       console.error(error);
       setIsInfoTooltipPopupOpen(true);
       setIsSearchResponseSuccess(false);
       if (error === 'Conflict') {
-        setInfoTooltipText('Пользователь с таким email уже существует');
+        setInfoTooltipText(constants.messages.emailIsBusy);
         return;
       }
-      setInfoTooltipText('При обновлении профиля произошла ошибка');
+      setInfoTooltipText(constants.messages.updateError);
     } finally {
       setUpdateUserButtonText('Редактировать');
     }
