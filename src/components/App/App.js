@@ -310,24 +310,21 @@ const App = () => {
   };
 
   // Обработчик сохранения фильма
-  const handleSaveMovie = async (movieCard) => {
-    console.log(movieCard);
+  const handleSaveMovie = async ({ movie }) => {
     try {
-      const movie = await saveMovie({
-        country: movieCard.country,
-        director: movieCard.director,
-        duration: movieCard.duration,
-        year: movieCard.year,
-        description: movieCard.description,
-        image: `https://api.nomoreparties.co${movieCard.image.url}`,
-        trailerLink: movieCard.trailerLink,
-        thumbnail: `https://api.nomoreparties.co${movieCard.image.formats.thumbnail.url}`,
-        movieId: movieCard.id,
-        nameRU: movieCard.nameRU,
-        nameEN: movieCard.nameEN,
+      await saveMovie({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `https://api.nomoreparties.co${movie.image.url}`,
+        trailerLink: movie.trailerLink,
+        thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
       });
-
-      console.log(movie);
     } catch (error) {
       console.error(error);
     }

@@ -124,11 +124,6 @@
   }
 
   .movie-card__button {
-    font-family: 'Inter', Arial, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 11px;
     margin: 14px 0;
   }
 }

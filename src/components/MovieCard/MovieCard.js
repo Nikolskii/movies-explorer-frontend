@@ -1,13 +1,10 @@
+import DeleteMovieButton from '../DeleteMovieButton/DeleteMovieButton';
 import './MovieCard.css';
 
 const MovieCard = ({ movie, onSaveMovie, isCardSaved }) => {
-  console.log(isCardSaved);
-  console.log(movie.image.url);
-
   const movieCardImgSrc = isCardSaved
     ? movie.image
     : `https://api.nomoreparties.co${movie.image.url}`;
-  console.log(movieCardImgSrc);
 
   return (
     <article className="movie-card">
@@ -26,9 +23,16 @@ const MovieCard = ({ movie, onSaveMovie, isCardSaved }) => {
           alt="Обложка фильма"
         />
       </a>
-      <button className="movie-card__button" onClick={() => onSaveMovie(movie)}>
-        Сохранить
-      </button>
+      {isCardSaved ? (
+        <DeleteMovieButton />
+      ) : (
+        <button
+          className="movie-card__button"
+          onClick={() => onSaveMovie({ movie })}
+        >
+          Сохранить
+        </button>
+      )}
     </article>
   );
 };
