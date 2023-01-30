@@ -3,7 +3,13 @@ import CurrentUserContext from '../../context/CurrentUserContext';
 import './Profile.css';
 import React, { useEffect, useState } from 'react';
 
-const Profile = ({ onBurgerMenu, isLoggedIn, onUpdateUser, onSignout }) => {
+const Profile = ({
+  onBurgerMenu,
+  isLoggedIn,
+  onUpdateUser,
+  onSignout,
+  updateUserButtonText,
+}) => {
   const currentUser = React.useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -54,7 +60,7 @@ const Profile = ({ onBurgerMenu, isLoggedIn, onUpdateUser, onSignout }) => {
             </div>
           </fieldset>
           <button type="submit" className="profile_form__button">
-            Редактировать
+            {updateUserButtonText}
           </button>
         </form>
         <button className="profile__button" onClick={onSignout}>

@@ -60,6 +60,10 @@ const App = () => {
   // Текст кнопки формы авторизации
   const [loginButtonText, setLoginButtonText] = useState('Войти');
 
+  // Текст кнопки формы редактирования профиля
+  const [updateUserButtonText, setUpdateUserButtonText] =
+    useState('Редактировать');
+
   // Свойство и состояние информационного попапа
   const [isSearchResponseSuccess, setIsSearchResponseSuccess] = useState(null);
   const [infoTooltipText, setInfoTooltipText] = useState('');
@@ -249,12 +253,24 @@ const App = () => {
 
   // Обработчик submit формы редактирования профиля
   const handleUpdateUser = async ({ name, email }) => {
+    setUpdateUserButtonText('Редактирование...');
     try {
       const user = await updateUser({ name, email });
-      setCurrentUser({ name, email });
-      console.log(currentUser);
+      setCurrentUser(user);
+      setIsInfoTooltipPopupOpen(true);
+      setIsSearchResponseSuccess(true);
+      setInfoTooltipText('Данные успешно обновлены');
     } catch (error) {
       console.error(error);
+      setIsInfoTooltipPopupOpen(true);
+      setIsSearchResponseSuccess(false);
+      if (error === 'Conflict') {
+        setInfoTooltipText('Пользователь с таким email уже существует');
+        return;
+      }
+      setInfoTooltipText('При обновлении профиля произошла ошибка');
+    } finally {
+      setUpdateUserButtonText('Редактировать');
     }
   };
 
@@ -352,6 +368,7 @@ const App = () => {
                 isLoggedIn={isLoggedIn}
                 onUpdateUser={handleUpdateUser}
                 onSignout={handleSignout}
+                updateUserButtonText={updateUserButtonText}
               />
             }
           />
