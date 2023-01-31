@@ -3,6 +3,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
 import './SavedMovies.css';
 import Header from '../Header/Header';
+import SearchMovieResultMessage from '../SearchMovieResultMessage/SearchMovieResultMessage';
 
 const SavedMovies = ({
   onSearchMovies,
@@ -15,6 +16,8 @@ const SavedMovies = ({
   renderedSavedMovies,
   isToggleShortMoviesActive,
   toggleShortMoviesActive,
+  isSearchMovieResultMessageVisible,
+  searchMovieResultMessage,
 }) => {
   return (
     <>
@@ -25,6 +28,10 @@ const SavedMovies = ({
           moviesSearchQuery={moviesSearchQuery}
           isToggleShortMoviesActive={isToggleShortMoviesActive}
           toggleShortMoviesActive={toggleShortMoviesActive}
+        />
+        <SearchMovieResultMessage
+          isVisible={isSearchMovieResultMessageVisible}
+          textMessage={searchMovieResultMessage}
         />
         <MoviesCardList
           movies={renderedSavedMovies}

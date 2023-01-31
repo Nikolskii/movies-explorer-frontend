@@ -125,8 +125,7 @@ const App = () => {
     try {
       const movies = await getInitialMovies();
       setMovies(movies);
-      // const filteredMovies = filterMovies(movies, searchQuery);
-      const filteredMovies = testFilterMovies({ movies, searchQuery });
+      const filteredMovies = filterMovies({ movies, searchQuery });
       setFilteredMovies(filteredMovies);
       setRenderedMovies(filteredMovies);
       renderMovies(filteredMovies);
@@ -150,29 +149,25 @@ const App = () => {
 
     setIsSearchMovieResultMessageVisible(false);
     setSearchMovieResultMessage(null);
-    // setRenderedMovies([]);
     setMoviesSearchQuery(searchQuery);
     setIsSearchMovieResultMessageVisible(false);
 
-    const filteredMovies = testFilterMovies({
+    const filteredMovies = filterMovies({
       movies: savedMovies,
       searchQuery,
     });
 
-    console.log(filteredMovies);
     setRenderedSavedMovies(filteredMovies);
   };
 
-  // Тестовая функция фильтра карточек кино
-  const testFilterMovies = ({
+  // Функция фильтра карточек кино
+  const filterMovies = ({
     movies,
     searchQuery,
     isToggleActive = isToggleShortMoviesActive,
   }) => {
-    console.log(movies);
     setIsSearchMovieResultMessageVisible(false);
     let filteredMovies;
-    console.log(searchQuery);
     filteredMovies = movies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
     );
@@ -216,7 +211,6 @@ const App = () => {
 
   // // Обработчик переключателя короткометражных кино
   // const toggleShortMoviesActive = (isListSavedCard) => {
-  //   console.log(isListSavedCard);
   //   setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
   //   // const isToggleActive = !isToggleShortMoviesActive;
   //   const moviesForFilter = isListSavedCard ? savedMovies : movies;
@@ -231,21 +225,22 @@ const App = () => {
   const toggleShortMoviesActive = () => {
     setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
 
-    const filteredMovies = testFilterMovies({
+    const filteredMovies = filterMovies({
       movies,
       searchQuery: moviesSearchQuery,
       isToggleActive: !isToggleShortMoviesActive,
     });
 
-    setRenderedMovies(filteredMovies);
+    // setRenderedMovies(filteredMovies);
     setFilteredMovies(filteredMovies);
+    renderMovies(filteredMovies);
   };
 
   // Обработчик переключателя короткометражного сохраненного кино
   const toggleSavedShortMoviesActive = () => {
     setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
 
-    const filteredMovies = testFilterMovies({
+    const filteredMovies = filterMovies({
       movies: savedMovies,
       searchQuery: moviesSearchQuery,
       isToggleActive: !isToggleShortMoviesActive,
@@ -519,6 +514,10 @@ const App = () => {
                 handleDeleteMovie={handleDeleteMovie}
                 isToggleShortMoviesActive={isToggleShortMoviesActive}
                 toggleShortMoviesActive={toggleSavedShortMoviesActive}
+                isSearchMovieResultMessageVisible={
+                  isSearchMovieResultMessageVisible
+                }
+                searchMovieResultMessage={searchMovieResultMessage}
               />
             }
           />
