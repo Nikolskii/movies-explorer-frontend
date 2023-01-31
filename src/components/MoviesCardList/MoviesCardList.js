@@ -10,6 +10,7 @@ const MoviesCardList = ({
   onSaveMovie,
   isListSavedCard,
   handleDeleteMovie,
+  savedMovies,
 }) => {
   // Проверка и подписка на изменение размера окна
   useEffect(() => {
@@ -27,6 +28,7 @@ const MoviesCardList = ({
         {movies.map((movie) => (
           <MovieCard
             movie={movie}
+            savedMovies={savedMovies}
             key={isListSavedCard ? movie._id : movie.id}
             onSaveMovie={onSaveMovie}
             isListSavedCard={isListSavedCard}

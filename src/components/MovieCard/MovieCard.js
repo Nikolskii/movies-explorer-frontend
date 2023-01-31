@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import DeleteMovieButton from '../DeleteMovieButton/DeleteMovieButton';
 import './MovieCard.css';
 
@@ -6,16 +7,19 @@ const MovieCard = ({
   onSaveMovie,
   isListSavedCard,
   handleDeleteMovie,
+  savedMovies,
 }) => {
+  console.log(movie);
   const movieCardImgSrc = isListSavedCard
     ? movie.image
     : `https://api.nomoreparties.co${movie.image.url}`;
 
-  // const isSavedMovie = savedMovies.filter((m) => m.nameRU === movie.nameRU);
-
   const handleDelete = ({ movieId }) => {
     handleDeleteMovie({ movieId });
   };
+
+  const isMovieSaved =
+    savedMovies.filter((m) => m.nameRU === movie.nameRU).length > 0;
 
   return (
     <article className="movie-card">
@@ -35,6 +39,18 @@ const MovieCard = ({
       </a>
       {isListSavedCard ? (
         <DeleteMovieButton handleDelete={handleDelete} movieId={movie._id} />
+      ) : isMovieSaved ? (
+        <button
+          className="movie-card__button movie-card__button_active"
+          onClick={() => {
+            const deletedMovieId = savedMovies.filter(
+              (m) => m.nameRU === movie.nameRU,
+            )[0]._id;
+            handleDelete({ movieId: deletedMovieId });
+          }}
+        >
+          ✔
+        </button>
       ) : (
         <button
           className="movie-card__button"

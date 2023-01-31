@@ -19,6 +19,7 @@ const SavedMovies = ({
         <SearchForm />
         <MoviesCardList
           movies={savedMovies}
+          savedMovies={savedMovies}
           checkWindowSize={checkWindowSize}
           handleDeleteMovie={handleDeleteMovie}
           isListSavedCard

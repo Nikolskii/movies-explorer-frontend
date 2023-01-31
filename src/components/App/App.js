@@ -314,7 +314,7 @@ const App = () => {
   // Обработчик сохранения фильма
   const handleSaveMovie = async ({ movie }) => {
     try {
-      await saveMovie({
+      const savedMovie = await saveMovie({
         country: movie.country,
         director: movie.director,
         duration: movie.duration,
@@ -327,6 +327,8 @@ const App = () => {
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
       });
+
+      setSavedMovies([...savedMovies, savedMovie]);
     } catch (error) {
       console.error(error);
     }
@@ -407,6 +409,8 @@ const App = () => {
                 moviesSearchQuery={moviesSearchQuery}
                 isLoggedIn={isLoggedIn}
                 onSaveMovie={handleSaveMovie}
+                savedMovies={savedMovies}
+                handleDeleteMovie={handleDeleteMovie}
               />
             }
           />
