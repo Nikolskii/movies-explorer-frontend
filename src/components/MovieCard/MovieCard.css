@@ -115,6 +115,7 @@
     font-size: 12px;
     line-height: 18px;
     padding: 14px;
+    max-width: 180px;
   }
 
   .movie-card__duration {
