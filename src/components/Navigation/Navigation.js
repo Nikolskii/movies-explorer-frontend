@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import ProfileLink from '../ProfileLink/ProfileLink';
 import './Navigation.css';
 
-const Navigation = ({ isVisibleOnBurgerMenu, place }) => {
+const Navigation = ({ isVisibleOnBurgerMenu, place, onClose }) => {
   return (
     <nav
       className={`navigation ${
@@ -12,7 +12,7 @@ const Navigation = ({ isVisibleOnBurgerMenu, place }) => {
     >
       <ul className="navigation__links">
         {isVisibleOnBurgerMenu && (
-          <li className="navigation__links-item">
+          <li className="navigation__links-item" onClick={onClose}>
             <NavLink
               className={({ isActive }) =>
                 isActive
@@ -25,7 +25,7 @@ const Navigation = ({ isVisibleOnBurgerMenu, place }) => {
             </NavLink>
           </li>
         )}
-        <li className="navigation__links-item">
+        <li className="navigation__links-item" onClick={onClose}>
           <NavLink
             className={({ isActive }) =>
               isActive
@@ -39,7 +39,7 @@ const Navigation = ({ isVisibleOnBurgerMenu, place }) => {
             Фильмы
           </NavLink>
         </li>
-        <li className="navigation__links-item">
+        <li className="navigation__links-item" onClick={onClose}>
           <NavLink
             className={({ isActive }) =>
               isActive
@@ -53,7 +53,7 @@ const Navigation = ({ isVisibleOnBurgerMenu, place }) => {
             Сохранённые фильмы
           </NavLink>
         </li>
-        <li className="navigation__links-item">
+        <li className="navigation__links-item" onClick={onClose}>
           <NavLink
             className={({ isActive }) =>
               isActive

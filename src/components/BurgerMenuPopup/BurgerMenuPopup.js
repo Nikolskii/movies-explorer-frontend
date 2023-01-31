@@ -9,7 +9,7 @@ const BurgerMenuPopup = ({ isOpen, onClose }) => {
       <div className="burger-menu-popup__container">
         <button className="burger-menu-popup__close-button" onClick={onClose} />
         <div className="burger-menu-popup__navigation"></div>
-        <Navigation isVisibleOnBurgerMenu />
+        <Navigation isVisibleOnBurgerMenu onClose={onClose} />
       </div>
     </section>
   );

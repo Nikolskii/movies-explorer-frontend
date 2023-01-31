@@ -183,44 +183,6 @@ const App = () => {
     return filteredMovies;
   };
 
-  // Функция фильтра карточек кино
-  // const filterMovies = (
-  //   movies,
-  //   searchQuery,
-  //   isToggleActive = isToggleShortMoviesActive,
-  // ) => {
-  //   setIsSearchMovieResultMessageVisible(false);
-  //   let filteredMovies;
-  //   filteredMovies = movies.filter((movie) =>
-  //     movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
-  //   );
-
-  //   if (isToggleActive) {
-  //     filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
-  //   }
-
-  //   if (filteredMovies.length === 0 && movies.length !== 0) {
-  //     setIsSearchMovieResultMessageVisible(true);
-  //     setSearchMovieResultMessage(constants.messages.notFound);
-  //   }
-
-  //   setRenderedMovies(filteredMovies);
-  //   setFilteredMovies(filteredMovies);
-  //   return filteredMovies;
-  // };
-
-  // // Обработчик переключателя короткометражных кино
-  // const toggleShortMoviesActive = (isListSavedCard) => {
-  //   setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
-  //   // const isToggleActive = !isToggleShortMoviesActive;
-  //   const moviesForFilter = isListSavedCard ? savedMovies : movies;
-  //   filterMovies(
-  //     moviesForFilter,
-  //     moviesSearchQuery,
-  //     !isToggleShortMoviesActive,
-  //   );
-  // };
-
   // Обработчик переключателя короткометражных кино
   const toggleShortMoviesActive = () => {
     setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
@@ -252,7 +214,7 @@ const App = () => {
   // Количество карточек кино для рендера
   const [quantityRenderedMovies, setQuantityRenderedMovies] = useState(null);
 
-  // Количество карточек кино дополнительного для рендера
+  // Количество карточек кино для дополнительного рендера
   const [quantityMoreRenderedMovies, setQuantityMoreRenderedMovies] =
     useState(null);
 
