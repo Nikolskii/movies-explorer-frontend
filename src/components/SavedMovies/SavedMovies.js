@@ -3,22 +3,27 @@ import SearchForm from '../SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
 import './SavedMovies.css';
 import Header from '../Header/Header';
-import { useEffect } from 'react';
 
 const SavedMovies = ({
+  onSearchMovies,
+  moviesSearchQuery,
   onBurgerMenu,
   savedMovies,
   checkWindowSize,
   isLoggedIn,
   handleDeleteMovie,
+  renderedSavedMovies,
 }) => {
   return (
     <>
       <Header onBurgerMenu={onBurgerMenu} isLoggedIn={isLoggedIn} />
       <main className="movies">
-        <SearchForm />
+        <SearchForm
+          onSearchMovies={onSearchMovies}
+          moviesSearchQuery={moviesSearchQuery}
+        />
         <MoviesCardList
-          movies={savedMovies}
+          movies={renderedSavedMovies}
           savedMovies={savedMovies}
           checkWindowSize={checkWindowSize}
           handleDeleteMovie={handleDeleteMovie}

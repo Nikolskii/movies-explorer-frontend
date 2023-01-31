@@ -54,6 +54,8 @@ const App = () => {
   // Массив сохраненных карточки кино
   const [savedMovies, setSavedMovies] = useState([]);
 
+  const [renderedSavedMovies, setRenderedSavedMovies] = useState([]);
+
   // Состояние авторизованного пользователя
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -133,6 +135,38 @@ const App = () => {
     } finally {
       setIsPreloaderVisible(false);
     }
+  };
+
+  // Обработчик submit формы поиска сохраненного кино
+  const handleSearchSavedMovies = (searchQuery) => {
+    if (searchQuery.length === 0) {
+      setIsInfoTooltipPopupOpen(true);
+      setIsSearchResponseSuccess(false);
+      setInfoTooltipText(constants.messages.requirementKeyword);
+      return;
+    }
+
+    setIsSearchMovieResultMessageVisible(false);
+    setSearchMovieResultMessage(null);
+    // setRenderedMovies([]);
+    setMoviesSearchQuery(searchQuery);
+    // setIsPreloaderVisible(true);
+
+    setIsSearchMovieResultMessageVisible(false);
+    let filteredMovies;
+    filteredMovies = savedMovies.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+    // if (isToggleActive) {
+    //   filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
+    // }
+
+    if (filteredMovies.length === 0 && savedMovies.length !== 0) {
+      setIsSearchMovieResultMessageVisible(true);
+      setSearchMovieResultMessage(constants.messages.notFound);
+    }
+
+    setRenderedSavedMovies(filteredMovies);
   };
 
   // Функция фильтра карточек кино по названию
@@ -329,6 +363,7 @@ const App = () => {
       });
 
       setSavedMovies([...savedMovies, savedMovie]);
+      setRenderedSavedMovies([...renderedSavedMovies, savedMovie]);
     } catch (error) {
       console.error(error);
     }
@@ -339,6 +374,7 @@ const App = () => {
     try {
       const movies = await getMovies();
       setSavedMovies(movies);
+      setRenderedSavedMovies(movies);
     } catch (error) {
       console.error(error);
     }
@@ -350,6 +386,9 @@ const App = () => {
       await deleteMovie({ movieId });
       setSavedMovies((savedMovies) =>
         savedMovies.filter((movie) => movie._id !== movieId),
+      );
+      setRenderedSavedMovies((renderedMovies) =>
+        renderedMovies.filter((movie) => movie._id !== movieId),
       );
     } catch (error) {
       console.error(error);
@@ -418,8 +457,11 @@ const App = () => {
             path="/saved-movies"
             element={
               <SavedMovies
+                onSearchMovies={handleSearchSavedMovies}
+                moviesSearchQuery={moviesSearchQuery}
                 onBurgerMenu={handleBurgerMenuClick}
                 savedMovies={savedMovies}
+                renderedSavedMovies={renderedSavedMovies}
                 checkWindowSize={checkWindowSize}
                 isLoggedIn={isLoggedIn}
                 handleDeleteMovie={handleDeleteMovie}
