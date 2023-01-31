@@ -125,8 +125,10 @@ const App = () => {
     try {
       const movies = await getInitialMovies();
       setMovies(movies);
-      const filteredMovies = filterMovies(movies, searchQuery);
+      // const filteredMovies = filterMovies(movies, searchQuery);
+      const filteredMovies = testFilterMovies({ movies, searchQuery });
       setFilteredMovies(filteredMovies);
+      setRenderedMovies(filteredMovies);
       renderMovies(filteredMovies);
     } catch (error) {
       setIsSearchMovieResultMessageVisible(true);
@@ -150,33 +152,27 @@ const App = () => {
     setSearchMovieResultMessage(null);
     // setRenderedMovies([]);
     setMoviesSearchQuery(searchQuery);
-    // setIsPreloaderVisible(true);
-
     setIsSearchMovieResultMessageVisible(false);
-    let filteredMovies;
-    filteredMovies = savedMovies.filter((movie) =>
-      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
-    // if (isToggleActive) {
-    //   filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
-    // }
 
-    if (filteredMovies.length === 0 && savedMovies.length !== 0) {
-      setIsSearchMovieResultMessageVisible(true);
-      setSearchMovieResultMessage(constants.messages.notFound);
-    }
+    const filteredMovies = testFilterMovies({
+      movies: savedMovies,
+      searchQuery,
+    });
 
+    console.log(filteredMovies);
     setRenderedSavedMovies(filteredMovies);
   };
 
-  // Функция фильтра карточек кино по названию
-  const filterMovies = (
+  // Тестовая функция фильтра карточек кино
+  const testFilterMovies = ({
     movies,
     searchQuery,
     isToggleActive = isToggleShortMoviesActive,
-  ) => {
+  }) => {
+    console.log(movies);
     setIsSearchMovieResultMessageVisible(false);
     let filteredMovies;
+    console.log(searchQuery);
     filteredMovies = movies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
     );
@@ -189,17 +185,73 @@ const App = () => {
       setIsSearchMovieResultMessageVisible(true);
       setSearchMovieResultMessage(constants.messages.notFound);
     }
-
-    setRenderedMovies(filteredMovies);
-    setFilteredMovies(filteredMovies);
     return filteredMovies;
   };
+
+  // Функция фильтра карточек кино
+  // const filterMovies = (
+  //   movies,
+  //   searchQuery,
+  //   isToggleActive = isToggleShortMoviesActive,
+  // ) => {
+  //   setIsSearchMovieResultMessageVisible(false);
+  //   let filteredMovies;
+  //   filteredMovies = movies.filter((movie) =>
+  //     movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
+  //   );
+
+  //   if (isToggleActive) {
+  //     filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
+  //   }
+
+  //   if (filteredMovies.length === 0 && movies.length !== 0) {
+  //     setIsSearchMovieResultMessageVisible(true);
+  //     setSearchMovieResultMessage(constants.messages.notFound);
+  //   }
+
+  //   setRenderedMovies(filteredMovies);
+  //   setFilteredMovies(filteredMovies);
+  //   return filteredMovies;
+  // };
+
+  // // Обработчик переключателя короткометражных кино
+  // const toggleShortMoviesActive = (isListSavedCard) => {
+  //   console.log(isListSavedCard);
+  //   setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
+  //   // const isToggleActive = !isToggleShortMoviesActive;
+  //   const moviesForFilter = isListSavedCard ? savedMovies : movies;
+  //   filterMovies(
+  //     moviesForFilter,
+  //     moviesSearchQuery,
+  //     !isToggleShortMoviesActive,
+  //   );
+  // };
 
   // Обработчик переключателя короткометражных кино
   const toggleShortMoviesActive = () => {
     setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
-    const isToggleActive = !isToggleShortMoviesActive;
-    filterMovies(movies, moviesSearchQuery, isToggleActive);
+
+    const filteredMovies = testFilterMovies({
+      movies,
+      searchQuery: moviesSearchQuery,
+      isToggleActive: !isToggleShortMoviesActive,
+    });
+
+    setRenderedMovies(filteredMovies);
+    setFilteredMovies(filteredMovies);
+  };
+
+  // Обработчик переключателя короткометражного сохраненного кино
+  const toggleSavedShortMoviesActive = () => {
+    setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
+
+    const filteredMovies = testFilterMovies({
+      movies: savedMovies,
+      searchQuery: moviesSearchQuery,
+      isToggleActive: !isToggleShortMoviesActive,
+    });
+
+    setRenderedSavedMovies(filteredMovies);
   };
 
   // Количество карточек кино для рендера
@@ -465,6 +517,8 @@ const App = () => {
                 checkWindowSize={checkWindowSize}
                 isLoggedIn={isLoggedIn}
                 handleDeleteMovie={handleDeleteMovie}
+                isToggleShortMoviesActive={isToggleShortMoviesActive}
+                toggleShortMoviesActive={toggleSavedShortMoviesActive}
               />
             }
           />

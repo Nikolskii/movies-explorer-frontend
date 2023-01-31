@@ -13,6 +13,8 @@ const SavedMovies = ({
   isLoggedIn,
   handleDeleteMovie,
   renderedSavedMovies,
+  isToggleShortMoviesActive,
+  toggleShortMoviesActive,
 }) => {
   return (
     <>
@@ -21,6 +23,8 @@ const SavedMovies = ({
         <SearchForm
           onSearchMovies={onSearchMovies}
           moviesSearchQuery={moviesSearchQuery}
+          isToggleShortMoviesActive={isToggleShortMoviesActive}
+          toggleShortMoviesActive={toggleShortMoviesActive}
         />
         <MoviesCardList
           movies={renderedSavedMovies}
