@@ -26,7 +26,7 @@ import CurrentUserContext from '../../context/CurrentUserContext';
 const App = () => {
   const navigate = useNavigate();
 
-  // Проверка токена
+  // Проверка токена и получение сохраненных карточек кино
   useEffect(() => {
     checkToken();
     getSavedMovies();
@@ -42,16 +42,16 @@ const App = () => {
   const [isToggleShortMoviesActive, setIsToggleShortMoviesActive] =
     useState(false);
 
-  // Все карточки кино Api beatfilm-movies
+  // Массив всех карточек кино beatfilm-movies
   const [movies, setMovies] = useState([]);
 
-  // Отфильтрованные карточки кино
+  // Массив отфильтрованные карточки кино
   const [filteredMovies, setFilteredMovies] = useState([]);
 
-  // Карточки кино для рендера
+  // Массив карточек кино для рендера
   const [renderedMovies, setRenderedMovies] = useState([]);
 
-  // Сохраненные карточки кино
+  // Массив сохраненных карточки кино
   const [savedMovies, setSavedMovies] = useState([]);
 
   // Состояние авторизованного пользователя
@@ -64,10 +64,10 @@ const App = () => {
     setIsSearchMovieResultMessageVisible,
   ] = useState(false);
 
-  // Текст ошибки формы регистрации/авторизации
+  // Текст ошибки формы регистрации
   const [registerFormErrorText, setRegisterFormErrorText] = useState('');
 
-  // Текст ошибки формы регистрации/авторизации
+  // Текст ошибки формы авторизации
   const [loginFormErrorText, setLoginFormErrorText] = useState('');
 
   // Текст кнопки формы регистрации
@@ -96,7 +96,7 @@ const App = () => {
   const [isMoreMoviesButtonVisible, setIsMoreMoviesButtonVisible] =
     useState(false);
 
-  // Обработчики состояния попапов
+  // Обработчики состояния попапа BurgerMenu
   const handleBurgerMenuClick = () => setIsBurgerMenuPopupOpen(true);
 
   // Функция закрытия всех попапов
@@ -105,7 +105,7 @@ const App = () => {
     setIsInfoTooltipPopupOpen(false);
   };
 
-  // Обработчик submit формы поиска фильмов
+  // Обработчик submit формы поиска кино
   const handleSearchMovies = async (searchQuery) => {
     if (searchQuery.length === 0) {
       setIsInfoTooltipPopupOpen(true);
@@ -219,7 +219,7 @@ const App = () => {
     }
   };
 
-  // Обработчик формы регистрации
+  // Обработчик submit формы регистрации
   const handleRegister = async ({ name, email, password }) => {
     setRegisterButtonText('Регистрация...');
     setRegisterFormErrorText('');
@@ -243,7 +243,7 @@ const App = () => {
     }
   };
 
-  // Обработчик формы авторизации
+  // Обработчик submit формы авторизации
   const handleLogin = async ({ email, password }) => {
     setLoginButtonText('Вход...');
     setLoginFormErrorText('');
@@ -311,7 +311,7 @@ const App = () => {
     navigate('/');
   };
 
-  // Обработчик сохранения фильма
+  // Обработчик сохранения карточки кино
   const handleSaveMovie = async ({ movie }) => {
     try {
       const savedMovie = await saveMovie({
@@ -334,7 +334,7 @@ const App = () => {
     }
   };
 
-  // Обработчик получения сохраненного кино
+  // Обработчик получения сохраненной карточки кино
   const getSavedMovies = async () => {
     try {
       const movies = await getMovies();

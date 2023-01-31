@@ -9,7 +9,6 @@ const MovieCard = ({
   handleDeleteMovie,
   savedMovies,
 }) => {
-  console.log(movie);
   const movieCardImgSrc = isListSavedCard
     ? movie.image
     : `https://api.nomoreparties.co${movie.image.url}`;
