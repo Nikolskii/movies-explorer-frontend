@@ -35,6 +35,18 @@ const Profile = ({
     userEmailValid: false,
   });
 
+  const errors = {
+    userName: {
+      required: true,
+      minLength: true,
+    },
+    userEmail: {
+      required: true,
+      minLength: true,
+      containNumbers: true,
+    },
+  };
+
   const handleInputChange = useCallback(
     (e) => {
       const { name, value } = e.target;
@@ -89,6 +101,8 @@ const Profile = ({
                 onChange={handleInputChange}
               />
             </div>
+            {errors.userName.required && <p>Required</p>}
+            {errors.userName.minLength && <p>Min length is 3</p>}
             <div className="profile-form__field">
               <label className="profile-form__label" htmlFor="email">
                 E-mail
@@ -104,6 +118,9 @@ const Profile = ({
                 onChange={handleInputChange}
               />
             </div>
+            {errors.userEmail.required && <p>Required</p>}
+            {errors.userEmail.minLength && <p>Min length is 3</p>}
+            {errors.userEmail.containNumbers && <p>Must contain numbers</p>}
           </fieldset>
           <button
             disabled={isSubmitDisabled}
