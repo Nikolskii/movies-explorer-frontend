@@ -13,6 +13,7 @@ import getInitialMovies from '../../utils/api/MoviesApi';
 import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
 import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
 import CurrentUserContext from '../../context/CurrentUserContext';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {
   register,
   login,
@@ -448,59 +449,65 @@ const App = () => {
           <Route
             path="/movies"
             element={
-              <Movies
-                onSearchMovies={handleSearchMovies}
-                isToggleShortMoviesActive={isToggleShortMoviesActive}
-                toggleShortMoviesActive={toggleShortMoviesActive}
-                onBurgerMenu={handleBurgerMenuClick}
-                isPreloaderVisible={isPreloaderVisible}
-                isSearchMovieResultMessageVisible={
-                  isSearchMovieResultMessageVisible
-                }
-                searchMovieResultMessage={searchMovieResultMessage}
-                renderedMovies={renderedMovies}
-                onMoreMovies={renderMoreMovies}
-                isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
-                checkWindowSize={checkWindowSize}
-                moviesSearchQuery={moviesSearchQuery}
-                isLoggedIn={isLoggedIn}
-                onSaveMovie={handleSaveMovie}
-                savedMovies={savedMovies}
-                handleDeleteMovie={handleDeleteMovie}
-              />
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Movies
+                  onSearchMovies={handleSearchMovies}
+                  isToggleShortMoviesActive={isToggleShortMoviesActive}
+                  toggleShortMoviesActive={toggleShortMoviesActive}
+                  onBurgerMenu={handleBurgerMenuClick}
+                  isPreloaderVisible={isPreloaderVisible}
+                  isSearchMovieResultMessageVisible={
+                    isSearchMovieResultMessageVisible
+                  }
+                  searchMovieResultMessage={searchMovieResultMessage}
+                  renderedMovies={renderedMovies}
+                  onMoreMovies={renderMoreMovies}
+                  isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
+                  checkWindowSize={checkWindowSize}
+                  moviesSearchQuery={moviesSearchQuery}
+                  isLoggedIn={isLoggedIn}
+                  onSaveMovie={handleSaveMovie}
+                  savedMovies={savedMovies}
+                  handleDeleteMovie={handleDeleteMovie}
+                />
+              </ProtectedRoute>
             }
           />
           <Route
             path="/saved-movies"
             element={
-              <SavedMovies
-                onSearchMovies={handleSearchSavedMovies}
-                moviesSearchQuery={moviesSearchQuery}
-                onBurgerMenu={handleBurgerMenuClick}
-                savedMovies={savedMovies}
-                renderedSavedMovies={renderedSavedMovies}
-                checkWindowSize={checkWindowSize}
-                isLoggedIn={isLoggedIn}
-                handleDeleteMovie={handleDeleteMovie}
-                isToggleShortMoviesActive={isToggleShortMoviesActive}
-                toggleShortMoviesActive={toggleSavedShortMoviesActive}
-                isSearchMovieResultMessageVisible={
-                  isSearchMovieResultMessageVisible
-                }
-                searchMovieResultMessage={searchMovieResultMessage}
-              />
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <SavedMovies
+                  onSearchMovies={handleSearchSavedMovies}
+                  moviesSearchQuery={moviesSearchQuery}
+                  onBurgerMenu={handleBurgerMenuClick}
+                  savedMovies={savedMovies}
+                  renderedSavedMovies={renderedSavedMovies}
+                  checkWindowSize={checkWindowSize}
+                  isLoggedIn={isLoggedIn}
+                  handleDeleteMovie={handleDeleteMovie}
+                  isToggleShortMoviesActive={isToggleShortMoviesActive}
+                  toggleShortMoviesActive={toggleSavedShortMoviesActive}
+                  isSearchMovieResultMessageVisible={
+                    isSearchMovieResultMessageVisible
+                  }
+                  searchMovieResultMessage={searchMovieResultMessage}
+                />
+              </ProtectedRoute>
             }
           />
           <Route
             path="/profile"
             element={
-              <Profile
-                onBurgerMenu={handleBurgerMenuClick}
-                isLoggedIn={isLoggedIn}
-                onUpdateUser={handleUpdateUser}
-                onSignout={handleSignout}
-                updateUserButtonText={updateUserButtonText}
-              />
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Profile
+                  onBurgerMenu={handleBurgerMenuClick}
+                  isLoggedIn={isLoggedIn}
+                  onUpdateUser={handleUpdateUser}
+                  onSignout={handleSignout}
+                  updateUserButtonText={updateUserButtonText}
+                />
+              </ProtectedRoute>
             }
           />
           <Route path="*" element={<PageNotFound />} />

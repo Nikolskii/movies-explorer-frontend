@@ -48,7 +48,7 @@ const MovieCard = ({
             handleDelete({ movieId: deletedMovieId });
           }}
         >
-          ✔
+          ✓
         </button>
       ) : (
         <button
