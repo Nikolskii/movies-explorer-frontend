@@ -107,6 +107,7 @@ const App = () => {
       setIsInfoTooltipPopupOpen(true);
       setIsSearchResponseSuccess(false);
       setInfoTooltipText(constants.messages.requirementKeyword);
+      setMoviesSearchQuery(searchQuery);
       return;
     }
 

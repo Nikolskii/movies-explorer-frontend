@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import './Register.css';
+import React from 'react';
+import Logo from '../Logo/Logo';
 import { NavLink } from 'react-router-dom';
 import AuthForm from '../AuthForm/AuthForm';
-import FormField from '../FormField/FormField';
-import Logo from '../Logo/Logo';
-import useFormWithValidation from '../../hooks/useFormWithValidation';
 import constants from '../../utils/constants/constants';
-import './Register.css';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 
 const Register = ({ onRegister, formErrorText, registerButtonText }) => {
   const { values, handleChange, errors, isValid } = useFormWithValidation({});
