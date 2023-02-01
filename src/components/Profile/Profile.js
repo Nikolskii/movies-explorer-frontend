@@ -3,6 +3,33 @@ import CurrentUserContext from '../../context/CurrentUserContext';
 import './Profile.css';
 import React, { useEffect, useState, useCallback } from 'react';
 
+const validator = () => {
+  // true if error,
+  // false if correct
+};
+
+const validators = {
+  userName: {
+    required: (value) => {
+      return value === '';
+    },
+    minLength: (value) => {
+      return value.length < 3;
+    },
+  },
+  userEmail: {
+    required: (value) => {
+      return value === '';
+    },
+    minLength: (value) => {
+      return value.length < 5;
+    },
+    containNumbers: (value) => {
+      return !/[0-9]/.test(value);
+    },
+  },
+};
+
 const Profile = ({
   onBurgerMenu,
   isLoggedIn,
@@ -30,12 +57,7 @@ const Profile = ({
     userEmail: '',
   });
 
-  const [formValidity, setFormValidity] = useState({
-    userNameValid: false,
-    userEmailValid: false,
-  });
-
-  const errors = {
+  const [errors, setErrors] = useState({
     userName: {
       required: true,
       minLength: true,
@@ -45,7 +67,7 @@ const Profile = ({
       minLength: true,
       containNumbers: true,
     },
-  };
+  });
 
   const handleInputChange = useCallback(
     (e) => {
@@ -57,33 +79,42 @@ const Profile = ({
 
   useEffect(
     function validateInputs() {
-      const isUserNameFilled = formValues.userName.length > 0;
-      const isUserNameValid = isUserNameFilled;
+      const { userName, userEmail } = formValues;
 
-      const isUserEmailFilled = formValues.userEmail.length > 3;
-      const isUserEmailValid = isUserEmailFilled;
+      const userNameValidationResult = Object.keys(validators.userName)
+        .map((errorKey) => {
+          const errorResult = validators.userName[errorKey](userName);
+          return { [errorKey]: errorResult };
+        })
+        .reduce((acc, el) => ({ ...acc, ...el }), {});
 
-      setFormValidity((prevValidity) => ({
-        userNameValid: isUserNameValid,
-        userEmailValid: isUserEmailValid,
-      }));
+      const userEmailValidationResult = Object.keys(validators.userEmail)
+        .map((errorKey) => {
+          const errorResult = validators.userEmail[errorKey](userEmail);
+          return { [errorKey]: errorResult };
+        })
+        .reduce((acc, el) => ({ ...acc, ...el }), {});
+
+      setErrors({
+        userName: userNameValidationResult,
+        userEmail: userEmailValidationResult,
+      });
     },
-    [formValues, setFormValidity],
+    [formValues, setErrors],
   );
 
   const { userName, userEmail } = formValues;
 
-  const { userNameValid, userEmailValid } = formValidity;
+  const isUserNameInvalid = Object.values(errors.userName).some(Boolean);
+  const isUserEmailInvalid = Object.values(errors.userEmail).some(Boolean);
 
-  const isSubmitDisabled = !userNameValid || !userEmailValid;
+  const isSubmitDisabled = isUserNameInvalid || isUserEmailInvalid;
 
   return (
     <>
       <Header onBurgerMenu={onBurgerMenu} isLoggedIn={isLoggedIn} />
       <main className="profile">
         <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>
-        {!userNameValid && <p>user name invalid</p>}
-        {!userEmailValid && <p>user email invalid</p>}
         <form className="profile-form" onSubmit={handleSubmit}>
           <fieldset className="profile-form__fieldset">
             <div className="profile-form__field">
