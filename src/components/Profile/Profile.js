@@ -3,6 +3,7 @@ import CurrentUserContext from '../../context/CurrentUserContext';
 import './Profile.css';
 import React, { useEffect, useState } from 'react';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
+import constants from '../../utils/constants/constants';
 
 const Profile = ({
   onBurgerMenu,
@@ -13,14 +14,13 @@ const Profile = ({
 }) => {
   const currentUser = React.useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid } = useFormWithValidation({});
-  const { name, email } = currentUser;
   const [isNewData, setIsNewData] = useState(null);
 
   useEffect(() => {
-    values.name === name && values.email === email
+    values.name === currentUser.name && values.email === currentUser.email
       ? setIsNewData(false)
       : setIsNewData(true);
-  }, [name, email, values.name, values.email]);
+  }, [currentUser.name, currentUser.email, values.name, values.email]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -44,15 +44,14 @@ const Profile = ({
                 name="name"
                 type="text"
                 id="name"
-                placeholder={name}
+                placeholder={currentUser.name}
                 value={values.name || ''}
                 onChange={handleChange}
                 pattern="^[А-яёA-z\-\s]{2,30}$"
                 required
               />
               <span className="profile-form_error">
-                {errors.name &&
-                  'Поле может содержать только латиницу, кириллицу, пробел или дефис от 2 до 30 знаков'}
+                {errors.name && constants.messages.nameRequirement}
               </span>
             </div>
             <div className="profile-form__field">
@@ -64,14 +63,14 @@ const Profile = ({
                 name="email"
                 type="email"
                 id="email"
-                placeholder={email}
+                placeholder={currentUser.email}
                 value={values.email || ''}
                 onChange={handleChange}
                 pattern="\S+@\S+\.\S+"
                 required
               />
               <span className="profile-form_error">
-                {errors.email && 'Введен некорреткный e-mail адрес'}
+                {errors.email && constants.messages.emailRequirement}
               </span>
             </div>
           </fieldset>

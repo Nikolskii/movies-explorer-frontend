@@ -1,17 +1,18 @@
 import './App.css';
-import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Main from '../Main/Main';
+import Login from '../Login/Login';
 import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
-import Login from '../Login/Login';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import PageNotFound from '../PageNotFound/PageNotFound';
-import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
-import getInitialMovies from '../../utils/api/MoviesApi';
-import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
 import constants from '../../utils/constants/constants';
+import getInitialMovies from '../../utils/api/MoviesApi';
+import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
+import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
+import CurrentUserContext from '../../context/CurrentUserContext';
 import {
   register,
   login,
@@ -21,16 +22,9 @@ import {
   getMovies,
   deleteMovie,
 } from '../../utils/api/MainApi';
-import CurrentUserContext from '../../context/CurrentUserContext';
 
 const App = () => {
   const navigate = useNavigate();
-
-  // Проверка токена и получение сохраненных карточек кино
-  useEffect(() => {
-    checkToken();
-    getSavedMovies();
-  }, []);
 
   // Состояние пользователя
   const [currentUser, setCurrentUser] = useState('');
@@ -277,7 +271,8 @@ const App = () => {
     } catch (error) {
       console.error(error);
       if (error === 'Conflict') {
-        setRegisterFormErrorText(constants.emailIsBusy);
+        setRegisterFormErrorText(constants.messages.emailIsBusy);
+
         return;
       }
       setRegisterFormErrorText(constants.messages.registerError);
@@ -403,6 +398,18 @@ const App = () => {
       console.error(error);
     }
   };
+
+  // Проверка токена
+  useEffect(() => {
+    checkToken();
+  }, []);
+
+  // Получение карточек сохраненного кино
+  useEffect(() => {
+    if (isLoggedIn) {
+      getSavedMovies();
+    }
+  }, [isLoggedIn]);
 
   return (
     <div className="page">

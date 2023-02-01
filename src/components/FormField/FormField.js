@@ -10,9 +10,7 @@ const FormField = ({ labelText, type, name, onChange }) => {
         className="form-field__input"
         type={type}
         id={name}
-        onChange={(evt) => {
-          onChange(evt.target.value);
-        }}
+        onChange={onChange}
       />
     </div>
   );

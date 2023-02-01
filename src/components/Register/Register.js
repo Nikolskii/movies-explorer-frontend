@@ -3,29 +3,21 @@ import { NavLink } from 'react-router-dom';
 import AuthForm from '../AuthForm/AuthForm';
 import FormField from '../FormField/FormField';
 import Logo from '../Logo/Logo';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
+import constants from '../../utils/constants/constants';
 import './Register.css';
 
 const Register = ({ onRegister, formErrorText, registerButtonText }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { values, handleChange, errors, isValid } = useFormWithValidation({});
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onRegister({ name, email, password });
-  };
-
-  const handleNameChange = (name) => {
-    setName(name);
-  };
-
-  const handleEmailChange = (email) => {
-    setEmail(email);
-  };
-
-  const handlePasswordChange = (password) => {
-    setPassword(password);
+    onRegister({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    });
   };
 
   return (
@@ -36,25 +28,62 @@ const Register = ({ onRegister, formErrorText, registerButtonText }) => {
         buttonText={registerButtonText}
         onSubmit={handleSubmit}
         errorText={formErrorText}
+        isValid={isValid}
       >
-        <FormField
-          labelText="Имя"
-          type="text"
-          name="name"
-          onChange={handleNameChange}
-        />
-        <FormField
-          labelText="E-mail"
-          type="text"
-          name="email"
-          onChange={handleEmailChange}
-        />
-        <FormField
-          labelText="Пароль"
-          type="password"
-          name="password"
-          onChange={handlePasswordChange}
-        />
+        <div className="form-field">
+          <label className="form-field__label" htmlFor="name">
+            Имя
+          </label>
+          <input
+            className="form-field__input"
+            name="name"
+            type="text"
+            id="name"
+            value={values.name || ''}
+            onChange={handleChange}
+            pattern="^[А-яёA-z\-\s]{2,30}$"
+            required
+          />
+          <span className="form-field__error">
+            {errors.name && constants.messages.nameRequirement}
+          </span>
+        </div>
+        <div className="form-field">
+          <label className="form-field__label" htmlFor="email">
+            E-mail
+          </label>
+          <input
+            className="form-field__input"
+            name="email"
+            type="email"
+            id="email"
+            value={values.email || ''}
+            onChange={handleChange}
+            pattern="\S+@\S+\.\S+"
+            required
+          />
+          <span className="form-field__error">
+            {errors.email && constants.messages.emailRequirement}
+          </span>
+        </div>
+        <div className="form-field">
+          <label className="form-field__label" htmlFor="password">
+            Пароль
+          </label>
+          <input
+            className="form-field__input"
+            name="password"
+            type="password"
+            id="password"
+            value={values.password || ''}
+            minLength="6"
+            onChange={handleChange}
+            required
+          />
+          <span className="form-field__error">
+            {errors.password && constants.messages.passwordRequirement}
+          </span>
+        </div>
       </AuthForm>
       <p className="register__question">
         Уже зарегистрированы?

@@ -46,6 +46,15 @@
   opacity: 0.8;
 }
 
+.auth-form__button_inactive {
+  background-color: #a0a0a0;
+}
+
+.auth-form__button_inactive:hover {
+  cursor: default;
+  opacity: 1;
+}
+
 .auth-form__button_place_login {
   margin-top: 178px;
 }

@@ -12,6 +12,10 @@ const constants = {
     registerError: 'При регистрации пользователя произошла ошибка',
     emailIsBusy: 'Пользователь с таким email уже существует',
     updateError: 'При обновлении профиля произошла ошибка',
+    nameRequirement:
+      'Поле может содержать только латиницу, кириллицу, пробел или дефис от 2 до 30 знаков',
+    emailRequirement: 'Введен некорреткный e-mail адрес',
+    passwordRequirement: 'Пароль должен содержать не меньше 6 символов',
   },
   windowSize: {
     LARGE_SIZE: 1280,
