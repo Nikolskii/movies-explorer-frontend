@@ -1,19 +1,4 @@
 import './App.css';
-import { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import Main from '../Main/Main';
-import Login from '../Login/Login';
-import Movies from '../Movies/Movies';
-import Profile from '../Profile/Profile';
-import Register from '../Register/Register';
-import SavedMovies from '../SavedMovies/SavedMovies';
-import PageNotFound from '../PageNotFound/PageNotFound';
-import constants from '../../utils/constants/constants';
-import getInitialMovies from '../../utils/api/MoviesApi';
-import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
-import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
-import CurrentUserContext from '../../context/CurrentUserContext';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {
   register,
   login,
@@ -23,12 +8,31 @@ import {
   getMovies,
   deleteMovie,
 } from '../../utils/api/MainApi';
+import Main from '../Main/Main';
+import Login from '../Login/Login';
+import Movies from '../Movies/Movies';
+import Profile from '../Profile/Profile';
+import Register from '../Register/Register';
+import { useEffect, useState } from 'react';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import PageNotFound from '../PageNotFound/PageNotFound';
+import constants from '../../utils/constants/constants';
+import getInitialMovies from '../../utils/api/MoviesApi';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
+import CurrentUserContext from '../../context/CurrentUserContext';
+import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 
 const App = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-  // Состояние пользователя
+  // Данные пользователя
   const [currentUser, setCurrentUser] = useState('');
+
+  // Состояние авторизации пользователя
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Текст запроса поиска кино
   const [moviesSearchQuery, setMoviesSearchQuery] = useState('');
@@ -37,22 +41,20 @@ const App = () => {
   const [isToggleShortMoviesActive, setIsToggleShortMoviesActive] =
     useState(false);
 
-  // Массив всех карточек кино beatfilm-movies
+  // Все карточки кино beatfilm-movies
   const [movies, setMovies] = useState([]);
 
-  // Массив отфильтрованные карточки кино
+  // Отфильтрованные карточки кино
   const [filteredMovies, setFilteredMovies] = useState([]);
 
-  // Массив карточек кино для рендера
+  // Карточки кино для рендера
   const [renderedMovies, setRenderedMovies] = useState([]);
 
-  // Массив сохраненных карточки кино
+  // Сохраненные карточки кино
   const [savedMovies, setSavedMovies] = useState([]);
 
+  // Сохраненные карточки кино для рендера
   const [renderedSavedMovies, setRenderedSavedMovies] = useState([]);
-
-  // Состояние авторизованного пользователя
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Состояние и текст сообщения о неудачном поиске кино
   const [searchMovieResultMessage, setSearchMovieResultMessage] = useState('');
@@ -78,7 +80,7 @@ const App = () => {
   const [updateUserButtonText, setUpdateUserButtonText] =
     useState('Редактировать');
 
-  // Свойство и состояние информационного попапа
+  // Состояние и текст информационного попапа
   const [isSearchResponseSuccess, setIsSearchResponseSuccess] = useState(null);
   const [infoTooltipText, setInfoTooltipText] = useState('');
 
@@ -164,6 +166,7 @@ const App = () => {
   }) => {
     setIsSearchMovieResultMessageVisible(false);
     let filteredMovies;
+
     filteredMovies = movies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
     );
@@ -179,7 +182,7 @@ const App = () => {
     return filteredMovies;
   };
 
-  // Обработчик переключателя короткометражных кино
+  // Обработчик переключателя короткометражного кино
   const toggleShortMoviesActive = () => {
     setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
 
@@ -189,12 +192,11 @@ const App = () => {
       isToggleActive: !isToggleShortMoviesActive,
     });
 
-    // setRenderedMovies(filteredMovies);
     setFilteredMovies(filteredMovies);
     renderMovies(filteredMovies);
   };
 
-  // Обработчик переключателя короткометражного сохраненного кино
+  // Обработчик переключателя сохраненного короткометражного кино
   const toggleSavedShortMoviesActive = () => {
     setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
 
@@ -251,6 +253,7 @@ const App = () => {
       renderedMovies.length,
       renderedMovies.length + quantityMoreRenderedMovies,
     );
+
     const moreRenderedMovies = renderedMovies.concat(moreMovies);
     setRenderedMovies(moreRenderedMovies);
     if (filteredMovies.length === moreRenderedMovies.length) {
@@ -262,19 +265,20 @@ const App = () => {
   const handleRegister = async ({ name, email, password }) => {
     setRegisterButtonText('Регистрация...');
     setRegisterFormErrorText('');
+
     try {
       await register({ name, email, password });
       const data = await login({ email, password });
+
       if (data.token) {
         localStorage.setItem('token', data.token);
-        checkToken();
-        navigate('/movies');
+        checkToken('/movies');
       }
     } catch (error) {
       console.error(error);
+
       if (error === 'Conflict') {
         setRegisterFormErrorText(constants.messages.emailIsBusy);
-
         return;
       }
       setRegisterFormErrorText(constants.messages.registerError);
@@ -287,15 +291,17 @@ const App = () => {
   const handleLogin = async ({ email, password }) => {
     setLoginButtonText('Вход...');
     setLoginFormErrorText('');
+
     try {
       const data = await login({ email, password });
+
       if (data.token) {
         localStorage.setItem('token', data.token);
-        checkToken();
-        navigate('/movies');
+        checkToken('/movies');
       }
     } catch (error) {
       console.error(error);
+
       if (error === 'Unauthorized') {
         setLoginFormErrorText(constants.messages.incorrectData);
         return;
@@ -309,6 +315,7 @@ const App = () => {
   // Обработчик submit формы редактирования профиля
   const handleUpdateUser = async ({ name, email }) => {
     setUpdateUserButtonText('Редактирование...');
+
     try {
       const user = await updateUser({ name, email });
       setCurrentUser(user);
@@ -319,6 +326,7 @@ const App = () => {
       console.error(error);
       setIsInfoTooltipPopupOpen(true);
       setIsSearchResponseSuccess(false);
+
       if (error === 'Conflict') {
         setInfoTooltipText(constants.messages.emailIsBusy);
         return;
@@ -330,7 +338,7 @@ const App = () => {
   };
 
   // Проверка токена
-  const checkToken = async () => {
+  const checkToken = async (path) => {
     const token = localStorage.getItem('token');
 
     if (token) {
@@ -338,6 +346,7 @@ const App = () => {
         const user = await getUser(token);
         setCurrentUser(user);
         setIsLoggedIn(true);
+        path ? navigate(path) : navigate(pathname);
       } catch (error) {
         console.error(error);
       }
@@ -390,9 +399,11 @@ const App = () => {
   const handleDeleteMovie = async ({ movieId }) => {
     try {
       await deleteMovie({ movieId });
+
       setSavedMovies((savedMovies) =>
         savedMovies.filter((movie) => movie._id !== movieId),
       );
+
       setRenderedSavedMovies((renderedMovies) =>
         renderedMovies.filter((movie) => movie._id !== movieId),
       );

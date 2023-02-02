@@ -1,13 +1,12 @@
 import './Main.css';
-import AboutProject from '../AboutProject/AboutProject';
-import NavTab from '../NavTab/NavTab';
 import Promo from '../Promo/Promo';
 import Techs from '../Techs/Techs';
-import AboutMe from '../AboutMe/AboutMe';
-import Portfolio from '../Portfolio/Portfolio';
+import NavTab from '../NavTab/NavTab';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import AuthLinks from '../AuthLinks/AuthLinks';
+import AboutMe from '../AboutMe/AboutMe';
+import Portfolio from '../Portfolio/Portfolio';
+import AboutProject from '../AboutProject/AboutProject';
 
 const Main = ({ isLoggedIn, onBurgerMenu }) => {
   return (

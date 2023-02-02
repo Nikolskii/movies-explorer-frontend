@@ -1,5 +1,5 @@
-import Subtitle from '../Subtitle/Subtitle';
 import './AboutProject.css';
+import Subtitle from '../Subtitle/Subtitle';
 
 const AboutProject = () => {
   return (

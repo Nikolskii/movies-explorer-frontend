@@ -1,8 +1,8 @@
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import SearchForm from '../SearchForm/SearchForm';
-import Footer from '../Footer/Footer';
 import './SavedMovies.css';
+import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import SearchForm from '../SearchForm/SearchForm';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchMovieResultMessage from '../SearchMovieResultMessage/SearchMovieResultMessage';
 
 const SavedMovies = ({

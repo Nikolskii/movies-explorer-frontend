@@ -1,9 +1,9 @@
-import Header from '../Header/Header';
-import CurrentUserContext from '../../context/CurrentUserContext';
 import './Profile.css';
+import Header from '../Header/Header';
 import React, { useEffect, useState } from 'react';
-import useFormWithValidation from '../../hooks/useFormWithValidation';
 import constants from '../../utils/constants/constants';
+import CurrentUserContext from '../../context/CurrentUserContext';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 
 const Profile = ({
   onBurgerMenu,

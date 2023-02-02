@@ -1,5 +1,5 @@
-import Navigation from '../Navigation/Navigation';
 import './BurgerMenuPopup.css';
+import Navigation from '../Navigation/Navigation';
 
 const BurgerMenuPopup = ({ isOpen, onClose }) => {
   return (

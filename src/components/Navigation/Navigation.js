@@ -1,7 +1,7 @@
+import './Navigation.css';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import ProfileLink from '../ProfileLink/ProfileLink';
-import './Navigation.css';
 
 const Navigation = ({ isVisibleOnBurgerMenu, place, onClose }) => {
   return (

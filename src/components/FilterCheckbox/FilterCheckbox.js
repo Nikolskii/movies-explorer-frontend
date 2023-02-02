@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import './FilterCheckbox.css';
+import { useState } from 'react';
 
 const FilterCheckbox = ({ isToggleActive, toggleShortMoviesActive }) => {
   const [toggleChecked, setToggleChecked] = useState(isToggleActive);

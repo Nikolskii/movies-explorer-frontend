@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
-import DeleteMovieButton from '../DeleteMovieButton/DeleteMovieButton';
 import './MovieCard.css';
+import DeleteMovieButton from '../DeleteMovieButton/DeleteMovieButton';
 
 const MovieCard = ({
   movie,

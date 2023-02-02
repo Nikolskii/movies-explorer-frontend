@@ -1,6 +1,6 @@
+import './MoviesCardList.css';
 import { useEffect } from 'react';
 import MovieCard from '../MovieCard/MovieCard';
-import './MoviesCardList.css';
 
 const MoviesCardList = ({
   movies,
@@ -15,6 +15,7 @@ const MoviesCardList = ({
   // Проверка и подписка на изменение размера окна
   useEffect(() => {
     checkWindowSize();
+
     window.addEventListener('resize', () => {
       setTimeout(() => {
         checkWindowSize();

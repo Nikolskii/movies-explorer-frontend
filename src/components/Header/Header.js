@@ -1,7 +1,7 @@
-import AuthLinks from '../AuthLinks/AuthLinks';
-import Logo from '../Logo/Logo';
-import Navigation from '../Navigation/Navigation';
 import './Header.css';
+import Logo from '../Logo/Logo';
+import AuthLinks from '../AuthLinks/AuthLinks';
+import Navigation from '../Navigation/Navigation';
 
 const Header = ({ place, onBurgerMenu, isLoggedIn }) => {
   return (
