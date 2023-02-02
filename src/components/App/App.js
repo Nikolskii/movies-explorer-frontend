@@ -114,6 +114,7 @@ const App = () => {
       return;
     }
 
+    setIsMoreMoviesButtonVisible(false);
     setIsSearchMovieResultMessageVisible(false);
     setSearchMovieResultMessage(null);
     setRenderedMovies([]);
