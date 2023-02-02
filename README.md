@@ -12,6 +12,8 @@
 
 [Ссылка на макет](https://disk.yandex.ru/d/MV_Lpv5QSbSudw) в Яндекс Диске.
 
+[Ссылка на макет](https://www.figma.com/file/sqD2PQjXnurfW14NbojTNc/Diploma-Nikolsky?node-id=891%3A3857&t=fkcviysDIOCVCrOb-1) в Figma.
+
 [Канбан-доска](https://github.com/users/Nikolskii/projects/4/) дипломного проекта в GitHub Projects.
 
 Версия разработки в ветке `level-3`.
