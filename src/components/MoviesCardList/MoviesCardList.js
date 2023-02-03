@@ -4,14 +4,12 @@ import MovieCard from '../MovieCard/MovieCard';
 import constants from '../../utils/constants/constants';
 
 const MoviesCardList = ({
-  movies,
-  onMoreMovies,
-  // checkWindowSize,
   onSaveMovie,
-  isListSavedCard,
+  isSavedCardList,
   handleDeleteMovie,
   savedMovies,
   filteredMovies,
+  renderedSavedMovies,
 }) => {
   const [renderedMovies, setRenderedMovies] = useState([]);
 
@@ -43,17 +41,6 @@ const MoviesCardList = ({
     setQuantityMoreRenderedMovies(1);
   };
 
-  // Проверка и подписка на изменение размера окна
-  useEffect(() => {
-    checkWindowSize();
-
-    window.addEventListener('resize', () => {
-      setTimeout(() => {
-        checkWindowSize();
-      }, 1000);
-    });
-  }, []);
-
   // Функция рендера карточек кино
   const renderMovies = ({ movies }) => {
     const initialRenderedMovies = movies.slice(0, quantityRenderedMovies);
@@ -79,23 +66,46 @@ const MoviesCardList = ({
     }
   };
 
+  // Проверка и подписка на изменение размера окна
   useEffect(() => {
-    renderMovies({ movies: filteredMovies });
+    if (!isSavedCardList) {
+      window.addEventListener('resize', () => {
+        setTimeout(() => {
+          checkWindowSize();
+        }, 1000);
+      });
+    }
+    checkWindowSize();
+  }, []);
+
+  useEffect(() => {
+    !isSavedCardList && renderMovies({ movies: filteredMovies });
   }, [quantityRenderedMovies, filteredMovies]);
 
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__wrapper">
-        {renderedMovies.map((movie) => (
-          <MovieCard
-            movie={movie}
-            savedMovies={savedMovies}
-            key={isListSavedCard ? movie._id : movie.id}
-            onSaveMovie={onSaveMovie}
-            isListSavedCard={isListSavedCard}
-            handleDeleteMovie={handleDeleteMovie}
-          />
-        ))}
+        {isSavedCardList
+          ? renderedSavedMovies.map((movie) => (
+              <MovieCard
+                movie={movie}
+                savedMovies={savedMovies}
+                key={movie._id}
+                onSaveMovie={onSaveMovie}
+                isSavedCardList={isSavedCardList}
+                handleDeleteMovie={handleDeleteMovie}
+              />
+            ))
+          : renderedMovies.map((movie) => (
+              <MovieCard
+                movie={movie}
+                savedMovies={savedMovies}
+                key={movie.id}
+                onSaveMovie={onSaveMovie}
+                isSavedCardList={isSavedCardList}
+                handleDeleteMovie={handleDeleteMovie}
+              />
+            ))}
       </div>
       <button
         className={`movies-card-list__button ${

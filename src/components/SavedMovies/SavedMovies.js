@@ -10,7 +10,6 @@ const SavedMovies = ({
   moviesSearchQuery,
   onBurgerMenu,
   savedMovies,
-  checkWindowSize,
   isLoggedIn,
   handleDeleteMovie,
   renderedSavedMovies,
@@ -18,14 +17,15 @@ const SavedMovies = ({
   toggleShortMoviesActive,
   isSearchMovieResultMessageVisible,
   searchMovieResultMessage,
+  onSearchSavedMovies,
 }) => {
   return (
     <>
       <Header onBurgerMenu={onBurgerMenu} isLoggedIn={isLoggedIn} />
       <main className="movies">
         <SearchForm
-          onSearchMovies={onSearchMovies}
-          moviesSearchQuery={moviesSearchQuery}
+          onSearchMovies={onSearchSavedMovies}
+          // moviesSearchQuery={moviesSearchQuery}
           isToggleShortMoviesActive={isToggleShortMoviesActive}
           toggleShortMoviesActive={toggleShortMoviesActive}
         />
@@ -34,11 +34,10 @@ const SavedMovies = ({
           textMessage={searchMovieResultMessage}
         />
         <MoviesCardList
-          movies={renderedSavedMovies}
           savedMovies={savedMovies}
-          checkWindowSize={checkWindowSize}
           handleDeleteMovie={handleDeleteMovie}
-          isListSavedCard
+          renderedSavedMovies={renderedSavedMovies}
+          isSavedCardList
         />
       </main>
       <Footer />

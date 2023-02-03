@@ -37,8 +37,15 @@ const App = () => {
   // Текст запроса поиска кино
   const [moviesSearchQuery, setMoviesSearchQuery] = useState('');
 
+  // Текст запроса поиска сохраненного кино
+  const [searchQuerySavedMovies, setSearchQuerySavedMovies] = useState('');
+
   // Состояние переключателя короткометражного кино
   const [isToggleShortMoviesActive, setIsToggleShortMoviesActive] =
+    useState(false);
+
+  // Состояние переключателя сохраненного короткометражного кино
+  const [isToggleSavedShortMoviesActive, setIsToggleSavedShortMoviesActive] =
     useState(false);
 
   // Все карточки кино beatfilm-movies
@@ -122,7 +129,9 @@ const App = () => {
       localStorage.setItem('initialMovies', JSON.stringify(initialMovies));
       localStorage.setItem('searchQuery', searchQuery);
 
-      filterMovie({ initialMovies, searchQuery });
+      const filteredMovies = filterMovies({ initialMovies, searchQuery });
+      localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+      setFilteredMovies(filteredMovies);
     } catch (error) {
       setIsSearchMovieResultMessageVisible(true);
       setSearchMovieResultMessage(constants.messages.serverError);
@@ -132,7 +141,8 @@ const App = () => {
     }
   };
 
-  const filterMovie = ({
+  // Функция фильтра кино
+  const filterMovies = ({
     initialMovies,
     searchQuery,
     isToggleActive = isToggleShortMoviesActive,
@@ -152,55 +162,30 @@ const App = () => {
       setSearchMovieResultMessage(constants.messages.notFound);
     }
 
-    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-    setFilteredMovies(filteredMovies);
+    return filteredMovies;
   };
 
   // Обработчик submit формы поиска сохраненного кино
   const handleSearchSavedMovies = (searchQuery) => {
-    if (searchQuery.length === 0) {
+    if (!searchQuery) {
       setIsInfoTooltipPopupOpen(true);
       setIsSearchResponseSuccess(false);
       setInfoTooltipText(constants.messages.requirementKeyword);
       return;
     }
 
+    setSearchQuerySavedMovies(searchQuery);
     setIsSearchMovieResultMessageVisible(false);
     setSearchMovieResultMessage(null);
-    setMoviesSearchQuery(searchQuery);
-    setIsSearchMovieResultMessageVisible(false);
 
-    // const filteredMovies = filterMovies({
-    //   movies: savedMovies,
-    //   searchQuery,
-    // });
+    const filteredMovies = filterMovies({
+      initialMovies: savedMovies,
+      searchQuery: searchQuery,
+      isToggleActive: isToggleSavedShortMoviesActive,
+    });
 
     setRenderedSavedMovies(filteredMovies);
   };
-
-  // Функция фильтра карточек кино
-  // const filterMovies = ({
-  //   movies,
-  //   searchQuery,
-  //   isToggleActive = isToggleShortMoviesActive,
-  // }) => {
-  //   setIsSearchMovieResultMessageVisible(false);
-  //   let filteredMovies;
-
-  //   filteredMovies = movies.filter((movie) =>
-  //     movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
-  //   );
-
-  //   if (isToggleActive) {
-  //     filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
-  //   }
-
-  //   if (filteredMovies.length === 0 && movies.length !== 0) {
-  //     setIsSearchMovieResultMessageVisible(true);
-  //     setSearchMovieResultMessage(constants.messages.notFound);
-  //   }
-  //   return filteredMovies;
-  // };
 
   // Обработчик переключателя короткометражного кино
   const toggleShortMoviesActive = () => {
@@ -210,24 +195,27 @@ const App = () => {
       !isToggleShortMoviesActive,
     );
 
-    filterMovie({
+    const filteredMovies = filterMovies({
       initialMovies: movies,
       searchQuery: moviesSearchQuery,
       isToggleActive: !isToggleShortMoviesActive,
     });
+
+    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+    setFilteredMovies(filteredMovies);
   };
 
   // Обработчик переключателя сохраненного короткометражного кино
   const toggleSavedShortMoviesActive = () => {
-    setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
+    setIsToggleSavedShortMoviesActive(!isToggleSavedShortMoviesActive);
 
-    // const filteredMovies = filterMovies({
-    //   movies: savedMovies,
-    //   searchQuery: moviesSearchQuery,
-    //   isToggleActive: !isToggleShortMoviesActive,
-    // });
+    const filteredMovies = filterMovies({
+      initialMovies: savedMovies,
+      searchQuery: searchQuerySavedMovies,
+      isToggleActive: !isToggleSavedShortMoviesActive,
+    });
 
-    // setRenderedSavedMovies(filteredMovies);
+    setRenderedSavedMovies(filteredMovies);
   };
 
   // Обработчик submit формы регистрации
@@ -350,8 +338,8 @@ const App = () => {
         savedMovies.filter((movie) => movie._id !== movieId),
       );
 
-      setRenderedSavedMovies((renderedMovies) =>
-        renderedMovies.filter((movie) => movie._id !== movieId),
+      setRenderedSavedMovies((renderedSavedMovies) =>
+        renderedSavedMovies.filter((movie) => movie._id !== movieId),
       );
     } catch (error) {
       console.error(error);
@@ -372,6 +360,23 @@ const App = () => {
         console.error(error);
       }
     }
+  };
+
+  // Обработчик выхода
+  const handleSignout = () => {
+    setIsLoggedIn(false);
+    setMovies([]);
+    setFilteredMovies([]);
+    setMoviesSearchQuery('');
+    setIsToggleShortMoviesActive(false);
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('initialMovies');
+    localStorage.removeItem('filteredMovies');
+    localStorage.removeItem('searchQuery');
+    localStorage.removeItem('isToggleShortMoviesActive');
+
+    navigate('/');
   };
 
   // Проверка токена
@@ -403,23 +408,6 @@ const App = () => {
         isToggleShortMoviesActive === 'true' ? true : false,
       );
   }, []);
-
-  // Обработчик выхода
-  const handleSignout = () => {
-    setIsLoggedIn(false);
-    setMovies([]);
-    setFilteredMovies([]);
-    setMoviesSearchQuery('');
-    setIsToggleShortMoviesActive(false);
-
-    localStorage.removeItem('token');
-    localStorage.removeItem('initialMovies');
-    localStorage.removeItem('filteredMovies');
-    localStorage.removeItem('searchQuery');
-    localStorage.removeItem('isToggleShortMoviesActive');
-
-    navigate('/');
-  };
 
   // Получение карточек сохраненного кино
   useEffect(() => {
@@ -498,12 +486,13 @@ const App = () => {
                   renderedSavedMovies={renderedSavedMovies}
                   isLoggedIn={isLoggedIn}
                   handleDeleteMovie={handleDeleteMovie}
-                  isToggleShortMoviesActive={isToggleShortMoviesActive}
+                  isToggleShortMoviesActive={isToggleSavedShortMoviesActive}
                   toggleShortMoviesActive={toggleSavedShortMoviesActive}
                   isSearchMovieResultMessageVisible={
                     isSearchMovieResultMessageVisible
                   }
                   searchMovieResultMessage={searchMovieResultMessage}
+                  onSearchSavedMovies={handleSearchSavedMovies}
                 />
               </ProtectedRoute>
             }

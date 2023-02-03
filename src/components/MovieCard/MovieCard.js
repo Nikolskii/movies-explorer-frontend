@@ -4,11 +4,11 @@ import DeleteMovieButton from '../DeleteMovieButton/DeleteMovieButton';
 const MovieCard = ({
   movie,
   onSaveMovie,
-  isListSavedCard,
+  isSavedCardList,
   handleDeleteMovie,
   savedMovies,
 }) => {
-  const movieCardImgSrc = isListSavedCard
+  const movieCardImgSrc = isSavedCardList
     ? movie.image
     : `https://api.nomoreparties.co${movie.image.url}`;
 
@@ -35,7 +35,7 @@ const MovieCard = ({
           alt="Обложка фильма"
         />
       </a>
-      {isListSavedCard ? (
+      {isSavedCardList ? (
         <DeleteMovieButton handleDelete={handleDelete} movieId={movie._id} />
       ) : isMovieSaved ? (
         <button

@@ -1,5 +1,5 @@
 import './SearchForm.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 const SearchForm = ({
@@ -8,7 +8,11 @@ const SearchForm = ({
   isToggleShortMoviesActive,
   toggleShortMoviesActive,
 }) => {
-  const [searchQuery, setSearchQuery] = useState(moviesSearchQuery);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    moviesSearchQuery && setSearchQuery(moviesSearchQuery);
+  }, [moviesSearchQuery]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
