@@ -374,44 +374,50 @@ const App = () => {
     }
   };
 
-  console.log(filteredMovies);
-
   // Проверка токена
   useEffect(() => {
     checkToken();
-    setMoviesSearchQuery(localStorage.getItem('searchQuery'));
+
+    const searchQuery = localStorage.getItem('searchQuery');
+    searchQuery && setMoviesSearchQuery(searchQuery);
 
     const initialMovies = JSON.parse(localStorage.getItem('initialMovies'));
-    setMovies(initialMovies);
+    initialMovies && setMovies(initialMovies);
 
     const filteredMovies = JSON.parse(localStorage.getItem('filteredMovies'));
-    setFilteredMovies(filteredMovies);
 
     if (filteredMovies) {
-      filteredMovies.length === 0 && setIsSearchMovieResultMessageVisible(true);
-      setSearchMovieResultMessage(constants.messages.notFound);
-    }
-
-    console.log(filteredMovies);
-
-    if (filteredMovies.length === 0) {
-      setIsSearchMovieResultMessageVisible(true);
-      setSearchMovieResultMessage(constants.messages.notFound);
+      setFilteredMovies(filteredMovies);
+      if (filteredMovies.length === 0) {
+        setIsSearchMovieResultMessageVisible(true);
+        setSearchMovieResultMessage(constants.messages.notFound);
+      }
     }
 
     const isToggleShortMoviesActive = localStorage.getItem(
       'isToggleShortMoviesActive',
     );
 
-    setIsToggleShortMoviesActive(
-      isToggleShortMoviesActive === 'true' ? true : false,
-    );
+    isToggleShortMoviesActive &&
+      setIsToggleShortMoviesActive(
+        isToggleShortMoviesActive === 'true' ? true : false,
+      );
   }, []);
 
   // Обработчик выхода
   const handleSignout = () => {
-    localStorage.removeItem('token');
     setIsLoggedIn(false);
+    setMovies([]);
+    setFilteredMovies([]);
+    setMoviesSearchQuery('');
+    setIsToggleShortMoviesActive(false);
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('initialMovies');
+    localStorage.removeItem('filteredMovies');
+    localStorage.removeItem('searchQuery');
+    localStorage.removeItem('isToggleShortMoviesActive');
+
     navigate('/');
   };
 
