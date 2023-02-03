@@ -23,6 +23,7 @@ const Movies = ({
   onSaveMovie,
   savedMovies,
   handleDeleteMovie,
+  filteredMovies,
 }) => {
   return (
     <>
@@ -40,6 +41,7 @@ const Movies = ({
           textMessage={searchMovieResultMessage}
         />
         <MoviesCardList
+          filteredMovies={filteredMovies}
           movies={renderedMovies}
           onMoreMovies={onMoreMovies}
           isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}

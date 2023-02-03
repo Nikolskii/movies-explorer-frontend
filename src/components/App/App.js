@@ -91,10 +91,6 @@ const App = () => {
   const [isBurgerMenuPopupOpen, setIsBurgerMenuPopupOpen] = useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
 
-  // Состояние кнопку загрузки дополнительных карточек
-  const [isMoreMoviesButtonVisible, setIsMoreMoviesButtonVisible] =
-    useState(false);
-
   // Обработчики состояния попапа BurgerMenu
   const handleBurgerMenuClick = () => setIsBurgerMenuPopupOpen(true);
 
@@ -110,24 +106,23 @@ const App = () => {
       setIsInfoTooltipPopupOpen(true);
       setIsSearchResponseSuccess(false);
       setInfoTooltipText(constants.messages.requirementKeyword);
-      setMoviesSearchQuery(searchQuery);
       return;
     }
 
-    setIsMoreMoviesButtonVisible(false);
+    setMoviesSearchQuery(searchQuery);
+    setFilteredMovies([]);
     setIsSearchMovieResultMessageVisible(false);
     setSearchMovieResultMessage(null);
-    setRenderedMovies([]);
-    setMoviesSearchQuery(searchQuery);
     setIsPreloaderVisible(true);
 
     try {
-      const movies = await getInitialMovies();
-      setMovies(movies);
-      const filteredMovies = filterMovies({ movies, searchQuery });
-      setFilteredMovies(filteredMovies);
-      setRenderedMovies(filteredMovies);
-      renderMovies(filteredMovies);
+      const initialMovies = await getInitialMovies();
+      setMovies(initialMovies);
+
+      localStorage.setItem('initialMovies', JSON.stringify(initialMovies));
+      localStorage.setItem('searchQuery', searchQuery);
+
+      filterMovie({ initialMovies, searchQuery });
     } catch (error) {
       setIsSearchMovieResultMessageVisible(true);
       setSearchMovieResultMessage(constants.messages.serverError);
@@ -135,6 +130,30 @@ const App = () => {
     } finally {
       setIsPreloaderVisible(false);
     }
+  };
+
+  const filterMovie = ({
+    initialMovies,
+    searchQuery,
+    isToggleActive = isToggleShortMoviesActive,
+  }) => {
+    setIsSearchMovieResultMessageVisible(false);
+
+    let filteredMovies = initialMovies.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+
+    if (isToggleActive) {
+      filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
+    }
+
+    if (filteredMovies.length === 0 && initialMovies.length !== 0) {
+      setIsSearchMovieResultMessageVisible(true);
+      setSearchMovieResultMessage(constants.messages.notFound);
+    }
+
+    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+    setFilteredMovies(filteredMovies);
   };
 
   // Обработчик submit формы поиска сохраненного кино
@@ -151,115 +170,64 @@ const App = () => {
     setMoviesSearchQuery(searchQuery);
     setIsSearchMovieResultMessageVisible(false);
 
-    const filteredMovies = filterMovies({
-      movies: savedMovies,
-      searchQuery,
-    });
+    // const filteredMovies = filterMovies({
+    //   movies: savedMovies,
+    //   searchQuery,
+    // });
 
     setRenderedSavedMovies(filteredMovies);
   };
 
   // Функция фильтра карточек кино
-  const filterMovies = ({
-    movies,
-    searchQuery,
-    isToggleActive = isToggleShortMoviesActive,
-  }) => {
-    setIsSearchMovieResultMessageVisible(false);
-    let filteredMovies;
+  // const filterMovies = ({
+  //   movies,
+  //   searchQuery,
+  //   isToggleActive = isToggleShortMoviesActive,
+  // }) => {
+  //   setIsSearchMovieResultMessageVisible(false);
+  //   let filteredMovies;
 
-    filteredMovies = movies.filter((movie) =>
-      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
+  //   filteredMovies = movies.filter((movie) =>
+  //     movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
+  //   );
 
-    if (isToggleActive) {
-      filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
-    }
+  //   if (isToggleActive) {
+  //     filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
+  //   }
 
-    if (filteredMovies.length === 0 && movies.length !== 0) {
-      setIsSearchMovieResultMessageVisible(true);
-      setSearchMovieResultMessage(constants.messages.notFound);
-    }
-    return filteredMovies;
-  };
+  //   if (filteredMovies.length === 0 && movies.length !== 0) {
+  //     setIsSearchMovieResultMessageVisible(true);
+  //     setSearchMovieResultMessage(constants.messages.notFound);
+  //   }
+  //   return filteredMovies;
+  // };
 
   // Обработчик переключателя короткометражного кино
   const toggleShortMoviesActive = () => {
     setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
+    localStorage.setItem(
+      'isToggleShortMoviesActive',
+      !isToggleShortMoviesActive,
+    );
 
-    const filteredMovies = filterMovies({
-      movies,
+    filterMovie({
+      initialMovies: movies,
       searchQuery: moviesSearchQuery,
       isToggleActive: !isToggleShortMoviesActive,
     });
-
-    setFilteredMovies(filteredMovies);
-    renderMovies(filteredMovies);
   };
 
   // Обработчик переключателя сохраненного короткометражного кино
   const toggleSavedShortMoviesActive = () => {
     setIsToggleShortMoviesActive(!isToggleShortMoviesActive);
 
-    const filteredMovies = filterMovies({
-      movies: savedMovies,
-      searchQuery: moviesSearchQuery,
-      isToggleActive: !isToggleShortMoviesActive,
-    });
+    // const filteredMovies = filterMovies({
+    //   movies: savedMovies,
+    //   searchQuery: moviesSearchQuery,
+    //   isToggleActive: !isToggleShortMoviesActive,
+    // });
 
-    setRenderedSavedMovies(filteredMovies);
-  };
-
-  // Количество карточек кино для рендера
-  const [quantityRenderedMovies, setQuantityRenderedMovies] = useState(null);
-
-  // Количество карточек кино для дополнительного рендера
-  const [quantityMoreRenderedMovies, setQuantityMoreRenderedMovies] =
-    useState(null);
-
-  // Проверка размер окна
-  const checkWindowSize = () => {
-    if (window.innerWidth > constants.windowSize.MEDIUM_SIZE) {
-      setQuantityRenderedMovies(12);
-      setQuantityMoreRenderedMovies(3);
-      return;
-    }
-
-    if (
-      window.innerWidth <= constants.windowSize.MEDIUM_SIZE &&
-      window.innerWidth > constants.windowSize.SMALL_SIZE
-    ) {
-      setQuantityRenderedMovies(8);
-      setQuantityMoreRenderedMovies(2);
-      return;
-    }
-
-    setQuantityRenderedMovies(5);
-    setQuantityMoreRenderedMovies(1);
-  };
-
-  // Функция рендера карточек кино
-  const renderMovies = (movies) => {
-    const initialRenderedMovies = movies.slice(0, quantityRenderedMovies);
-    setRenderedMovies(initialRenderedMovies);
-
-    initialRenderedMovies.length === movies.length
-      ? setIsMoreMoviesButtonVisible(false)
-      : setIsMoreMoviesButtonVisible(true);
-  };
-
-  // Функция рендера дополнительных карточек кино
-  const renderMoreMovies = () => {
-    const moreMovies = filteredMovies.slice(
-      renderedMovies.length,
-      renderedMovies.length + quantityMoreRenderedMovies,
-    );
-
-    const moreRenderedMovies = renderedMovies.concat(moreMovies);
-    setRenderedMovies(moreRenderedMovies);
-    if (filteredMovies.length === moreRenderedMovies.length) {
-      setIsMoreMoviesButtonVisible(false);
-    }
+    // setRenderedSavedMovies(filteredMovies);
   };
 
   // Обработчик submit формы регистрации
@@ -338,29 +306,6 @@ const App = () => {
     }
   };
 
-  // Проверка токена
-  const checkToken = async (path) => {
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      try {
-        const user = await getUser(token);
-        setCurrentUser(user);
-        setIsLoggedIn(true);
-        path ? navigate(path) : navigate(pathname);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
-  // Обработчик выхода
-  const handleSignout = () => {
-    localStorage.removeItem('token');
-    setIsLoggedIn(false);
-    navigate('/');
-  };
-
   // Обработчик сохранения карточки кино
   const handleSaveMovie = async ({ movie }) => {
     try {
@@ -413,10 +358,62 @@ const App = () => {
     }
   };
 
+  // Функция проверки токена
+  const checkToken = async (path) => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      try {
+        const user = await getUser(token);
+        setCurrentUser(user);
+        setIsLoggedIn(true);
+        path ? navigate(path) : navigate(pathname);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  console.log(filteredMovies);
+
   // Проверка токена
   useEffect(() => {
     checkToken();
+    setMoviesSearchQuery(localStorage.getItem('searchQuery'));
+
+    const initialMovies = JSON.parse(localStorage.getItem('initialMovies'));
+    setMovies(initialMovies);
+
+    const filteredMovies = JSON.parse(localStorage.getItem('filteredMovies'));
+    setFilteredMovies(filteredMovies);
+
+    if (filteredMovies) {
+      filteredMovies.length === 0 && setIsSearchMovieResultMessageVisible(true);
+      setSearchMovieResultMessage(constants.messages.notFound);
+    }
+
+    console.log(filteredMovies);
+
+    if (filteredMovies.length === 0) {
+      setIsSearchMovieResultMessageVisible(true);
+      setSearchMovieResultMessage(constants.messages.notFound);
+    }
+
+    const isToggleShortMoviesActive = localStorage.getItem(
+      'isToggleShortMoviesActive',
+    );
+
+    setIsToggleShortMoviesActive(
+      isToggleShortMoviesActive === 'true' ? true : false,
+    );
   }, []);
+
+  // Обработчик выхода
+  const handleSignout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/');
+  };
 
   // Получение карточек сохраненного кино
   useEffect(() => {
@@ -463,6 +460,7 @@ const App = () => {
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <Movies
+                  filteredMovies={filteredMovies}
                   onSearchMovies={handleSearchMovies}
                   isToggleShortMoviesActive={isToggleShortMoviesActive}
                   toggleShortMoviesActive={toggleShortMoviesActive}
@@ -473,9 +471,6 @@ const App = () => {
                   }
                   searchMovieResultMessage={searchMovieResultMessage}
                   renderedMovies={renderedMovies}
-                  onMoreMovies={renderMoreMovies}
-                  isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
-                  checkWindowSize={checkWindowSize}
                   moviesSearchQuery={moviesSearchQuery}
                   isLoggedIn={isLoggedIn}
                   onSaveMovie={handleSaveMovie}
@@ -495,7 +490,6 @@ const App = () => {
                   onBurgerMenu={handleBurgerMenuClick}
                   savedMovies={savedMovies}
                   renderedSavedMovies={renderedSavedMovies}
-                  checkWindowSize={checkWindowSize}
                   isLoggedIn={isLoggedIn}
                   handleDeleteMovie={handleDeleteMovie}
                   isToggleShortMoviesActive={isToggleShortMoviesActive}
