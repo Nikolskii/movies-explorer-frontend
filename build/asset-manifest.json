@@ -1,32 +1,32 @@
 {
   "files": {
-    "main.css": "/static/css/main.f2fdce3a.css",
-    "main.js": "/static/js/main.0d2428b7.js",
+    "main.css": "/static/css/main.41c1cc01.css",
+    "main.js": "/static/js/main.f3c2705f.js",
     "static/media/Inter-Medium.woff": "/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
     "static/media/Inter-Regular.woff": "/static/media/Inter-Regular.8c206db99195777c6769.woff",
     "static/media/Inter-Medium.woff2": "/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
     "static/media/Inter-Regular.woff2": "/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
     "static/media/avatar.jpg": "/static/media/avatar.451088d90750a83c3f8a.jpg",
-    "static/media/promo.svg": "/static/media/promo.c2691b723a19fb2e580d.svg",
-    "static/media/logo.svg": "/static/media/logo.90d2e505fcbe995c3e92949a820e0aea.svg",
+    "static/media/promo.svg": "/static/media/promo.4850206398467b231111.svg",
+    "static/media/logo.svg": "/static/media/logo.64932df08fa5fd476d7fcb885e236ea0.svg",
     "index.html": "/index.html",
-    "static/media/info-tooltip-unsuccess.svg": "/static/media/info-tooltip-unsuccess.d4ce2a261b68c6da973d51ef98afae1a.svg",
-    "static/media/profile.svg": "/static/media/profile.c146d569c3515f07708c474198b4b6ee.svg",
-    "static/media/info-tooltip-success.svg": "/static/media/info-tooltip-success.be2569c724c25d147c33f252b16c56c4.svg",
-    "static/media/burger-button-main2.svg": "/static/media/burger-button-main2.f4eda59cff73fa84f1ea.svg",
-    "static/media/burger-button2.svg": "/static/media/burger-button2.2f7e4b85439feee1be3a.svg",
-    "static/media/burger-button-main.svg": "/static/media/burger-button-main.bc3f6448b5d51ce28967.svg",
-    "static/media/burger-button.svg": "/static/media/burger-button.fe889bf9813280b38b86.svg",
+    "static/media/info-tooltip-unsuccess.svg": "/static/media/info-tooltip-unsuccess.df8eddf661ff88f2d0efd3d570d14309.svg",
+    "static/media/profile.svg": "/static/media/profile.a80c98f47813ebb78e81ef58781f9620.svg",
+    "static/media/info-tooltip-success.svg": "/static/media/info-tooltip-success.c93a9b3b7a725abcfcb1c307bdf9600a.svg",
+    "static/media/burger-button-main2.svg": "/static/media/burger-button-main2.8fbff9fbf489fb701798.svg",
+    "static/media/burger-button2.svg": "/static/media/burger-button2.5809d10ad3912248b881.svg",
     "static/media/delete.svg": "/static/media/delete.706ff778f2ac31e3574b.svg",
-    "static/media/close-button.svg": "/static/media/close-button.09da049275af48ed6340.svg",
-    "static/media/link.svg": "/static/media/link.093d837f03fdca8fb146.svg",
-    "static/media/popup-close.svg": "/static/media/popup-close.039f1f5203f653b4bacd.svg",
-    "static/media/popup-close-mobile.svg": "/static/media/popup-close-mobile.622e8cdafa2222aa7c54.svg",
-    "main.f2fdce3a.css.map": "/static/css/main.f2fdce3a.css.map",
-    "main.0d2428b7.js.map": "/static/js/main.0d2428b7.js.map"
+    "static/media/burger-button-main.svg": "/static/media/burger-button-main.111cfc3a3545a9ff785c.svg",
+    "static/media/burger-button.svg": "/static/media/burger-button.08035af1e508cd8cfed5.svg",
+    "static/media/close-button.svg": "/static/media/close-button.80dfd5bd01b8fe0a895e.svg",
+    "static/media/link.svg": "/static/media/link.2f133fb2a9b9c682afa2.svg",
+    "static/media/popup-close.svg": "/static/media/popup-close.2ceb783afbab75916ddc.svg",
+    "static/media/popup-close-mobile.svg": "/static/media/popup-close-mobile.b793e07c3f4c19e26c11.svg",
+    "main.41c1cc01.css.map": "/static/css/main.41c1cc01.css.map",
+    "main.f3c2705f.js.map": "/static/js/main.f3c2705f.js.map"
   },
   "entrypoints": [
-    "static/css/main.f2fdce3a.css",
-    "static/js/main.0d2428b7.js"
+    "static/css/main.41c1cc01.css",
+    "static/js/main.f3c2705f.js"
   ]
 }

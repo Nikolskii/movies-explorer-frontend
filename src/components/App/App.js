@@ -368,13 +368,11 @@ const App = () => {
     }
   };
 
-  const resetRenderedSavedMovies = () => {
+  // Функция ресета параметров поиска сохраненного кино
+  const resetSearchSavedMoviesParams = () => {
     setFilteredSavedMovies(savedMovies);
-  };
-
-  // Функция сброса состояния ошибки фильтра сохраненного кино
-  const resetIsSearchSavedMovieErrorVisible = () => {
     setIsSearchSavedMovieErrorVisible(false);
+    setIsToggleSavedShortMoviesActive(false);
   };
 
   // Функция проверки токена
@@ -521,8 +519,7 @@ const App = () => {
                   isErrorVisible={isSearchSavedMovieErrorVisible}
                   searchMovieResultMessage={searchMovieResultMessage}
                   onSearchSavedMovies={handleSearchSavedMovies}
-                  resetErrorVisible={resetIsSearchSavedMovieErrorVisible}
-                  resetRenderedSavedMovies={resetRenderedSavedMovies}
+                  resetSearchSavedMoviesParams={resetSearchSavedMoviesParams}
                 />
               </ProtectedRoute>
             }
