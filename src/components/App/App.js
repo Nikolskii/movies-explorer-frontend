@@ -61,14 +61,14 @@ const App = () => {
   const [savedMovies, setSavedMovies] = useState([]);
 
   // Сохраненные карточки кино для рендера
-  const [renderedSavedMovies, setRenderedSavedMovies] = useState([]);
+  const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
 
   // Состояние и текст сообщения о неудачном поиске кино
   const [searchMovieResultMessage, setSearchMovieResultMessage] = useState('');
-  const [
-    isSearchMovieResultMessageVisible,
-    setIsSearchMovieResultMessageVisible,
-  ] = useState(false);
+  const [isSearchMovieErrorVisible, setIsSearchMovieErrorVisible] =
+    useState(false);
+  const [isSearchSavedMovieErrorVisible, setIsSearchSavedMovieErrorVisible] =
+    useState(false);
 
   // Текст ошибки формы регистрации
   const [registerFormErrorText, setRegisterFormErrorText] = useState('');
@@ -118,7 +118,7 @@ const App = () => {
 
     setMoviesSearchQuery(searchQuery);
     setFilteredMovies([]);
-    setIsSearchMovieResultMessageVisible(false);
+    setIsSearchMovieErrorVisible(false);
     setSearchMovieResultMessage(null);
     setIsPreloaderVisible(true);
 
@@ -133,7 +133,7 @@ const App = () => {
       localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
       setFilteredMovies(filteredMovies);
     } catch (error) {
-      setIsSearchMovieResultMessageVisible(true);
+      setIsSearchMovieErrorVisible(true);
       setSearchMovieResultMessage(constants.messages.serverError);
       console.error(error.message);
     } finally {
@@ -147,7 +147,7 @@ const App = () => {
     searchQuery,
     isToggleActive = isToggleShortMoviesActive,
   }) => {
-    setIsSearchMovieResultMessageVisible(false);
+    setIsSearchMovieErrorVisible(false);
 
     let filteredMovies = initialMovies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -158,7 +158,7 @@ const App = () => {
     }
 
     if (filteredMovies.length === 0 && initialMovies.length !== 0) {
-      setIsSearchMovieResultMessageVisible(true);
+      setIsSearchMovieErrorVisible(true);
       setSearchMovieResultMessage(constants.messages.notFound);
     }
 
@@ -175,16 +175,40 @@ const App = () => {
     }
 
     setSearchQuerySavedMovies(searchQuery);
-    setIsSearchMovieResultMessageVisible(false);
+    setIsSearchSavedMovieErrorVisible(false);
     setSearchMovieResultMessage(null);
 
-    const filteredMovies = filterMovies({
+    const filteredMovies = filterSavedMovies({
       initialMovies: savedMovies,
       searchQuery: searchQuery,
       isToggleActive: isToggleSavedShortMoviesActive,
     });
 
-    setRenderedSavedMovies(filteredMovies);
+    setFilteredSavedMovies(filteredMovies);
+  };
+
+  // Функция фильтра сохраненного кино
+  const filterSavedMovies = ({
+    initialMovies,
+    searchQuery,
+    isToggleActive = isToggleSavedShortMoviesActive,
+  }) => {
+    setIsSearchSavedMovieErrorVisible(false);
+
+    let filteredMovies = initialMovies.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+
+    if (isToggleActive) {
+      filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
+    }
+
+    if (filteredMovies.length === 0 && initialMovies.length !== 0) {
+      setIsSearchSavedMovieErrorVisible(true);
+      setSearchMovieResultMessage(constants.messages.notFound);
+    }
+
+    return filteredMovies;
   };
 
   // Обработчик переключателя короткометражного кино
@@ -209,13 +233,13 @@ const App = () => {
   const toggleSavedShortMoviesActive = () => {
     setIsToggleSavedShortMoviesActive(!isToggleSavedShortMoviesActive);
 
-    const filteredMovies = filterMovies({
+    const filteredMovies = filterSavedMovies({
       initialMovies: savedMovies,
       searchQuery: searchQuerySavedMovies,
       isToggleActive: !isToggleSavedShortMoviesActive,
     });
 
-    setRenderedSavedMovies(filteredMovies);
+    setFilteredSavedMovies(filteredMovies);
   };
 
   // Обработчик submit формы регистрации
@@ -312,7 +336,7 @@ const App = () => {
       });
 
       setSavedMovies([...savedMovies, savedMovie]);
-      setRenderedSavedMovies([...renderedSavedMovies, savedMovie]);
+      setFilteredSavedMovies([...filteredSavedMovies, savedMovie]);
     } catch (error) {
       console.error(error);
     }
@@ -323,7 +347,7 @@ const App = () => {
     try {
       const movies = await getMovies();
       setSavedMovies(movies);
-      setRenderedSavedMovies(movies);
+      setFilteredSavedMovies(movies);
     } catch (error) {
       console.error(error);
     }
@@ -338,12 +362,18 @@ const App = () => {
         savedMovies.filter((movie) => movie._id !== movieId),
       );
 
-      setRenderedSavedMovies((renderedSavedMovies) =>
-        renderedSavedMovies.filter((movie) => movie._id !== movieId),
+      setFilteredSavedMovies((filteredSavedMovies) =>
+        filteredSavedMovies.filter((movie) => movie._id !== movieId),
       );
     } catch (error) {
       console.error(error);
     }
+  };
+
+  // Функция сбора фильтрованных карточек кино
+  const resetFilteredSavedMovies = ({ mov }) => {
+    setFilteredSavedMovies(mov);
+    setIsToggleSavedShortMoviesActive(false);
   };
 
   // Функция проверки токена
@@ -394,7 +424,7 @@ const App = () => {
     if (filteredMovies) {
       setFilteredMovies(filteredMovies);
       if (filteredMovies.length === 0) {
-        setIsSearchMovieResultMessageVisible(true);
+        setIsSearchMovieErrorVisible(true);
         setSearchMovieResultMessage(constants.messages.notFound);
       }
     }
@@ -460,9 +490,7 @@ const App = () => {
                   toggleShortMoviesActive={toggleShortMoviesActive}
                   onBurgerMenu={handleBurgerMenuClick}
                   isPreloaderVisible={isPreloaderVisible}
-                  isSearchMovieResultMessageVisible={
-                    isSearchMovieResultMessageVisible
-                  }
+                  isErrorVisible={isSearchMovieErrorVisible}
                   searchMovieResultMessage={searchMovieResultMessage}
                   renderedMovies={renderedMovies}
                   moviesSearchQuery={moviesSearchQuery}
@@ -483,16 +511,15 @@ const App = () => {
                   moviesSearchQuery={moviesSearchQuery}
                   onBurgerMenu={handleBurgerMenuClick}
                   savedMovies={savedMovies}
-                  renderedSavedMovies={renderedSavedMovies}
+                  filteredSavedMovies={filteredSavedMovies}
                   isLoggedIn={isLoggedIn}
                   handleDeleteMovie={handleDeleteMovie}
                   isToggleShortMoviesActive={isToggleSavedShortMoviesActive}
                   toggleShortMoviesActive={toggleSavedShortMoviesActive}
-                  isSearchMovieResultMessageVisible={
-                    isSearchMovieResultMessageVisible
-                  }
+                  isErrorVisible={isSearchSavedMovieErrorVisible}
                   searchMovieResultMessage={searchMovieResultMessage}
                   onSearchSavedMovies={handleSearchSavedMovies}
+                  onResetFilteredSavedMovies={resetFilteredSavedMovies}
                 />
               </ProtectedRoute>
             }

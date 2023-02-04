@@ -11,7 +11,7 @@ const Movies = ({
   onSearchMovies,
   onBurgerMenu,
   isPreloaderVisible,
-  isSearchMovieResultMessageVisible,
+  isErrorVisible,
   searchMovieResultMessage,
   renderedMovies,
   onMoreMovies,
@@ -37,7 +37,7 @@ const Movies = ({
         />
         <Preloader isVisible={isPreloaderVisible} />
         <SearchMovieResultMessage
-          isVisible={isSearchMovieResultMessageVisible}
+          isVisible={isErrorVisible}
           textMessage={searchMovieResultMessage}
         />
         <MoviesCardList

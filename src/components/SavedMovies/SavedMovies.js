@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchMovieResultMessage from '../SearchMovieResultMessage/SearchMovieResultMessage';
+import { Children, useEffect, useState } from 'react';
 
 const SavedMovies = ({
   onSearchMovies,
@@ -12,13 +13,27 @@ const SavedMovies = ({
   savedMovies,
   isLoggedIn,
   handleDeleteMovie,
-  renderedSavedMovies,
   isToggleShortMoviesActive,
   toggleShortMoviesActive,
-  isSearchMovieResultMessageVisible,
+  isErrorVisible,
   searchMovieResultMessage,
   onSearchSavedMovies,
+  filteredSavedMovies,
+  onResetFilteredSavedMovies,
 }) => {
+  const [renderedSavedMovies, setRenderedSavedMovies] = useState([]);
+
+  useEffect(() => {
+    setRenderedSavedMovies(filteredSavedMovies);
+  }, [filteredSavedMovies, savedMovies]);
+
+  useEffect(() => {
+    return () => {
+      console.log('run unmount');
+      onResetFilteredSavedMovies({ mov: savedMovies });
+    };
+  }, [savedMovies]);
+
   return (
     <>
       <Header onBurgerMenu={onBurgerMenu} isLoggedIn={isLoggedIn} />
@@ -30,7 +45,7 @@ const SavedMovies = ({
           toggleShortMoviesActive={toggleShortMoviesActive}
         />
         <SearchMovieResultMessage
-          isVisible={isSearchMovieResultMessageVisible}
+          isVisible={isErrorVisible}
           textMessage={searchMovieResultMessage}
         />
         <MoviesCardList
