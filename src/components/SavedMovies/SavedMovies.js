@@ -24,6 +24,7 @@ const SavedMovies = ({
 
   useEffect(() => {
     isToggleShortMoviesActive && setIsToggleActive(true);
+
     setRenderedSavedMovies(savedMovies);
 
     if (filteredSavedMovies !== savedMovies) {

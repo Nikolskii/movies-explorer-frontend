@@ -193,20 +193,22 @@ const App = () => {
   }) => {
     setIsSearchSavedMovieErrorVisible(false);
 
-    let filteredMovies = initialMovies.filter((movie) =>
+    let filteredSavedMovies = initialMovies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
     if (isToggleActive) {
-      filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
+      filteredSavedMovies = filteredSavedMovies.filter(
+        (movie) => movie.duration <= 40,
+      );
     }
 
-    if (filteredMovies.length === 0 && initialMovies.length !== 0) {
+    if (filteredSavedMovies.length === 0 && initialMovies.length !== 0) {
       setIsSearchSavedMovieErrorVisible(true);
       setSearchMovieResultMessage(constants.messages.notFound);
     }
 
-    return filteredMovies;
+    return filteredSavedMovies;
   };
 
   // Обработчик переключателя короткометражного кино
@@ -373,6 +375,7 @@ const App = () => {
     setFilteredSavedMovies(savedMovies);
     setIsSearchSavedMovieErrorVisible(false);
     setIsToggleSavedShortMoviesActive(false);
+    setSearchQuerySavedMovies('');
   };
 
   // Функция проверки токена
