@@ -23,8 +23,10 @@ const MoviesCardList = ({
 
   const checkWindowSize = () => {
     if (window.innerWidth > constants.windowSize.MEDIUM_SIZE) {
-      setQuantityRenderedMovies(12);
-      setQuantityMoreRenderedMovies(3);
+      setQuantityRenderedMovies(constants.quantityRenderedMovies.LARGE_SIZE);
+      setQuantityMoreRenderedMovies(
+        constants.quantityMoreRenderedMovies.LARGE_SIZE,
+      );
       return;
     }
 
@@ -32,13 +34,17 @@ const MoviesCardList = ({
       window.innerWidth <= constants.windowSize.MEDIUM_SIZE &&
       window.innerWidth > constants.windowSize.SMALL_SIZE
     ) {
-      setQuantityRenderedMovies(8);
-      setQuantityMoreRenderedMovies(2);
+      setQuantityRenderedMovies(constants.quantityRenderedMovies.MEDIUM_SIZE);
+      setQuantityMoreRenderedMovies(
+        constants.quantityMoreRenderedMovies.MEDIUM_SIZE,
+      );
       return;
     }
 
-    setQuantityRenderedMovies(5);
-    setQuantityMoreRenderedMovies(1);
+    setQuantityRenderedMovies(constants.quantityRenderedMovies.SMALL_SIZE);
+    setQuantityMoreRenderedMovies(
+      constants.quantityMoreRenderedMovies.SMALL_SIZE,
+    );
   };
 
   // Функция рендера карточек кино

@@ -22,6 +22,16 @@ const constants = {
     MEDIUM_SIZE: 1279,
     SMALL_SIZE: 767,
   },
+  quantityRenderedMovies: {
+    LARGE_SIZE: 12,
+    MEDIUM_SIZE: 8,
+    SMALL_SIZE: 5,
+  },
+  quantityMoreRenderedMovies: {
+    LARGE_SIZE: 3,
+    MEDIUM_SIZE: 2,
+    SMALL_SIZE: 1,
+  },
 };
 
 export default constants;
