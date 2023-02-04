@@ -20,24 +20,27 @@ const SavedMovies = ({
   onSearchSavedMovies,
   filteredSavedMovies,
   onResetFilteredSavedMovies,
+  resetErrorVisible,
 }) => {
   const [renderedSavedMovies, setRenderedSavedMovies] = useState([]);
+  const [isToggleActive, setIsToggleActive] = useState(false);
 
   useEffect(() => {
-    console.log('run effect');
-    setRenderedSavedMovies(filteredSavedMovies);
-    if (filteredSavedMovies.length === 0 && !isErrorVisible) {
-      setRenderedSavedMovies(savedMovies);
+    isToggleShortMoviesActive && setIsToggleActive(true);
+    setRenderedSavedMovies(savedMovies);
+
+    if (filteredSavedMovies !== savedMovies) {
+      setRenderedSavedMovies(filteredSavedMovies);
     }
-  }, [filteredSavedMovies, savedMovies, isErrorVisible]);
+  }, [savedMovies, filteredSavedMovies, isToggleShortMoviesActive]);
 
   useEffect(() => {
-    return () => {
-      console.log('run unmount');
-      // onResetFilteredSavedMovies({ mov: savedMovies });
-      onResetFilteredSavedMovies();
-    };
-  }, [savedMovies]);
+    return setRenderedSavedMovies(savedMovies);
+  }, []);
+
+  useEffect(() => {
+    return resetErrorVisible();
+  }, []);
 
   return (
     <>
@@ -45,8 +48,7 @@ const SavedMovies = ({
       <main className="movies">
         <SearchForm
           onSearchMovies={onSearchSavedMovies}
-          // moviesSearchQuery={moviesSearchQuery}
-          isToggleShortMoviesActive={isToggleShortMoviesActive}
+          isToggleShortMoviesActive={isToggleActive}
           toggleShortMoviesActive={toggleShortMoviesActive}
         />
         <SearchMovieResultMessage

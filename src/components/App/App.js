@@ -449,6 +449,10 @@ const App = () => {
     }
   }, [isLoggedIn]);
 
+  const resetIsSearchSavedMovieErrorVisible = () => {
+    setIsSearchSavedMovieErrorVisible(false);
+  };
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -523,6 +527,7 @@ const App = () => {
                   searchMovieResultMessage={searchMovieResultMessage}
                   onSearchSavedMovies={handleSearchSavedMovies}
                   onResetFilteredSavedMovies={resetFilteredSavedMovies}
+                  resetErrorVisible={resetIsSearchSavedMovieErrorVisible}
                 />
               </ProtectedRoute>
             }
