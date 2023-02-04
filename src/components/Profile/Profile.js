@@ -16,6 +16,11 @@ const Profile = ({
   const { values, handleChange, errors, isValid } = useFormWithValidation({});
   const [isNewData, setIsNewData] = useState(null);
 
+  console.log(values.name);
+  console.log(currentUser.name);
+  console.log(values.email);
+  console.log(currentUser.email);
+
   useEffect(() => {
     setIsNewData(true);
     if (
@@ -24,7 +29,20 @@ const Profile = ({
     ) {
       setIsNewData(false);
     }
-  }, [values, currentUser]);
+
+    if (
+      values.name === currentUser.name &&
+      values.email === currentUser.email
+    ) {
+      setIsNewData(false);
+    }
+  }, [
+    values.name,
+    values.email,
+    currentUser.name,
+    currentUser.email,
+    isNewData,
+  ]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -51,7 +69,7 @@ const Profile = ({
                 name="name"
                 type="text"
                 id="name"
-                value={values.name || currentUser.name || ''}
+                defaultValue={values.name || currentUser.name || ''}
                 onChange={handleChange}
                 pattern="^[А-яёA-z\-\s]{2,30}$"
                 required
@@ -69,7 +87,7 @@ const Profile = ({
                 name="email"
                 type="email"
                 id="email"
-                value={values.email || currentUser.email || ''}
+                defaultValue={values.email || currentUser.email || ''}
                 onChange={handleChange}
                 pattern="\S+@\S+\.\S+"
                 required
