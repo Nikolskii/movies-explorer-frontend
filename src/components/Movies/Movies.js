@@ -13,10 +13,6 @@ const Movies = ({
   isPreloaderVisible,
   isErrorVisible,
   searchMovieResultMessage,
-  renderedMovies,
-  onMoreMovies,
-  isMoreMoviesButtonVisible,
-  checkWindowSize,
   isToggleShortMoviesActive,
   toggleShortMoviesActive,
   isLoggedIn,
@@ -42,10 +38,6 @@ const Movies = ({
         />
         <MoviesCardList
           filteredMovies={filteredMovies}
-          movies={renderedMovies}
-          onMoreMovies={onMoreMovies}
-          isMoreMoviesButtonVisible={isMoreMoviesButtonVisible}
-          checkWindowSize={checkWindowSize}
           onSaveMovie={onSaveMovie}
           savedMovies={savedMovies}
           handleDeleteMovie={handleDeleteMovie}

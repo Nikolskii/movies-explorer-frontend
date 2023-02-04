@@ -4,11 +4,9 @@ import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchMovieResultMessage from '../SearchMovieResultMessage/SearchMovieResultMessage';
-import { Children, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const SavedMovies = ({
-  onSearchMovies,
-  moviesSearchQuery,
   onBurgerMenu,
   savedMovies,
   isLoggedIn,
@@ -19,7 +17,6 @@ const SavedMovies = ({
   searchMovieResultMessage,
   onSearchSavedMovies,
   filteredSavedMovies,
-  onResetFilteredSavedMovies,
   resetErrorVisible,
 }) => {
   const [renderedSavedMovies, setRenderedSavedMovies] = useState([]);

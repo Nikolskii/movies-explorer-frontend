@@ -54,9 +54,6 @@ const App = () => {
   // Отфильтрованные карточки кино
   const [filteredMovies, setFilteredMovies] = useState([]);
 
-  // Карточки кино для рендера
-  const [renderedMovies, setRenderedMovies] = useState([]);
-
   // Сохраненные карточки кино
   const [savedMovies, setSavedMovies] = useState([]);
 
@@ -371,11 +368,8 @@ const App = () => {
     }
   };
 
-  // Функция сбора фильтрованных карточек кино
-  const resetFilteredSavedMovies = () => {
-    console.log(savedMovies);
-    setFilteredSavedMovies(savedMovies);
-    setIsToggleSavedShortMoviesActive(false);
+  // Функция сбора состояния ошибка фильтра сохраненного кино
+  const resetIsSearchSavedMovieErrorVisible = () => {
     setIsSearchSavedMovieErrorVisible(false);
   };
 
@@ -449,10 +443,6 @@ const App = () => {
     }
   }, [isLoggedIn]);
 
-  const resetIsSearchSavedMovieErrorVisible = () => {
-    setIsSearchSavedMovieErrorVisible(false);
-  };
-
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -499,7 +489,6 @@ const App = () => {
                   isPreloaderVisible={isPreloaderVisible}
                   isErrorVisible={isSearchMovieErrorVisible}
                   searchMovieResultMessage={searchMovieResultMessage}
-                  renderedMovies={renderedMovies}
                   moviesSearchQuery={moviesSearchQuery}
                   isLoggedIn={isLoggedIn}
                   onSaveMovie={handleSaveMovie}
@@ -514,8 +503,6 @@ const App = () => {
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <SavedMovies
-                  onSearchMovies={handleSearchSavedMovies}
-                  moviesSearchQuery={moviesSearchQuery}
                   onBurgerMenu={handleBurgerMenuClick}
                   savedMovies={savedMovies}
                   filteredSavedMovies={filteredSavedMovies}
@@ -526,7 +513,6 @@ const App = () => {
                   isErrorVisible={isSearchSavedMovieErrorVisible}
                   searchMovieResultMessage={searchMovieResultMessage}
                   onSearchSavedMovies={handleSearchSavedMovies}
-                  onResetFilteredSavedMovies={resetFilteredSavedMovies}
                   resetErrorVisible={resetIsSearchSavedMovieErrorVisible}
                 />
               </ProtectedRoute>
