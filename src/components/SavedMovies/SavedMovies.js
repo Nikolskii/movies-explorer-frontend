@@ -18,6 +18,7 @@ const SavedMovies = ({
   onSearchSavedMovies,
   filteredSavedMovies,
   resetErrorVisible,
+  resetRenderedSavedMovies,
 }) => {
   const [renderedSavedMovies, setRenderedSavedMovies] = useState([]);
   const [isToggleActive, setIsToggleActive] = useState(false);
@@ -32,7 +33,8 @@ const SavedMovies = ({
   }, [savedMovies, filteredSavedMovies, isToggleShortMoviesActive]);
 
   useEffect(() => {
-    return setRenderedSavedMovies(savedMovies);
+    // return setRenderedSavedMovies(savedMovies);
+    return resetRenderedSavedMovies();
   }, []);
 
   useEffect(() => {

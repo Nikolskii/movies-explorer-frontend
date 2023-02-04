@@ -16,11 +16,6 @@ const Profile = ({
   const { values, handleChange, errors, isValid } = useFormWithValidation({});
   const [isNewData, setIsNewData] = useState(null);
 
-  console.log(values.name);
-  console.log(currentUser.name);
-  console.log(values.email);
-  console.log(currentUser.email);
-
   useEffect(() => {
     setIsNewData(true);
     if (

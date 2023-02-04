@@ -353,7 +353,6 @@ const App = () => {
 
   // Обработчик удаления карточки кино
   const handleDeleteMovie = async ({ movieId }) => {
-    console.log('run delete');
     try {
       await deleteMovie({ movieId });
 
@@ -367,6 +366,10 @@ const App = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const resetRenderedSavedMovies = () => {
+    setFilteredSavedMovies(savedMovies);
   };
 
   // Функция сброса состояния ошибки фильтра сохраненного кино
@@ -519,6 +522,7 @@ const App = () => {
                   searchMovieResultMessage={searchMovieResultMessage}
                   onSearchSavedMovies={handleSearchSavedMovies}
                   resetErrorVisible={resetIsSearchSavedMovieErrorVisible}
+                  resetRenderedSavedMovies={resetRenderedSavedMovies}
                 />
               </ProtectedRoute>
             }
