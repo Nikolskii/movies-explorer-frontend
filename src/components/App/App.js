@@ -355,6 +355,7 @@ const App = () => {
 
   // Обработчик удаления карточки кино
   const handleDeleteMovie = async ({ movieId }) => {
+    console.log('run delete');
     try {
       await deleteMovie({ movieId });
 
@@ -371,9 +372,11 @@ const App = () => {
   };
 
   // Функция сбора фильтрованных карточек кино
-  const resetFilteredSavedMovies = ({ mov }) => {
-    setFilteredSavedMovies(mov);
+  const resetFilteredSavedMovies = () => {
+    console.log(savedMovies);
+    setFilteredSavedMovies(savedMovies);
     setIsToggleSavedShortMoviesActive(false);
+    setIsSearchSavedMovieErrorVisible(false);
   };
 
   // Функция проверки токена

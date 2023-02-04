@@ -17,15 +17,22 @@ const Profile = ({
   const [isNewData, setIsNewData] = useState(null);
 
   useEffect(() => {
-    values.name === currentUser.name && values.email === currentUser.email
-      ? setIsNewData(false)
-      : setIsNewData(true);
-  }, [currentUser.name, currentUser.email, values.name, values.email]);
+    setIsNewData(true);
+    if (
+      (values.name === currentUser.name && !values.email) ||
+      (values.email === currentUser.email && !values.name)
+    ) {
+      setIsNewData(false);
+    }
+  }, [values, currentUser]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onUpdateUser({ name: values.name, email: values.email });
+    onUpdateUser({
+      name: values.name || currentUser.name,
+      email: values.email || currentUser.email,
+    });
   };
 
   return (
@@ -44,8 +51,7 @@ const Profile = ({
                 name="name"
                 type="text"
                 id="name"
-                placeholder={currentUser.name}
-                value={values.name || ''}
+                value={values.name || currentUser.name || ''}
                 onChange={handleChange}
                 pattern="^[А-яёA-z\-\s]{2,30}$"
                 required
@@ -63,8 +69,7 @@ const Profile = ({
                 name="email"
                 type="email"
                 id="email"
-                placeholder={currentUser.email}
-                value={values.email || ''}
+                value={values.email || currentUser.email || ''}
                 onChange={handleChange}
                 pattern="\S+@\S+\.\S+"
                 required

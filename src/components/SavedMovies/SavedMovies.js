@@ -24,13 +24,18 @@ const SavedMovies = ({
   const [renderedSavedMovies, setRenderedSavedMovies] = useState([]);
 
   useEffect(() => {
+    console.log('run effect');
     setRenderedSavedMovies(filteredSavedMovies);
-  }, [filteredSavedMovies, savedMovies]);
+    if (filteredSavedMovies.length === 0 && !isErrorVisible) {
+      setRenderedSavedMovies(savedMovies);
+    }
+  }, [filteredSavedMovies, savedMovies, isErrorVisible]);
 
   useEffect(() => {
     return () => {
       console.log('run unmount');
-      onResetFilteredSavedMovies({ mov: savedMovies });
+      // onResetFilteredSavedMovies({ mov: savedMovies });
+      onResetFilteredSavedMovies();
     };
   }, [savedMovies]);
 
