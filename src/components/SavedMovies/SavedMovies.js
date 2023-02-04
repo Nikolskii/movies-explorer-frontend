@@ -1,10 +1,10 @@
 import './SavedMovies.css';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import { useEffect, useState } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchMovieResultMessage from '../SearchMovieResultMessage/SearchMovieResultMessage';
-import { useEffect, useState } from 'react';
 
 const SavedMovies = ({
   onBurgerMenu,

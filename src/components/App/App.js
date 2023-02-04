@@ -23,6 +23,7 @@ import BurgerMenuPopup from '../BurgerMenuPopup/BurgerMenuPopup';
 import CurrentUserContext from '../../context/CurrentUserContext';
 import InfoTooltipPopup from '../InfoTooltipPopup/InfoTooltipPopup';
 import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import ProtectedRouteAuth from '../ProtectedRouteAuth/ProtectedRouteAuth';
 
 const App = () => {
   const navigate = useNavigate();
@@ -368,7 +369,7 @@ const App = () => {
     }
   };
 
-  // Функция сбора состояния ошибка фильтра сохраненного кино
+  // Функция сброса состояния ошибки фильтра сохраненного кино
   const resetIsSearchSavedMovieErrorVisible = () => {
     setIsSearchSavedMovieErrorVisible(false);
   };
@@ -450,21 +451,25 @@ const App = () => {
           <Route
             path="/signup"
             element={
-              <Register
-                onRegister={handleRegister}
-                formErrorText={registerFormErrorText}
-                registerButtonText={registerButtonText}
-              />
+              <ProtectedRouteAuth isLoggedIn={isLoggedIn}>
+                <Register
+                  onRegister={handleRegister}
+                  formErrorText={registerFormErrorText}
+                  registerButtonText={registerButtonText}
+                />
+              </ProtectedRouteAuth>
             }
           />
           <Route
             path="/signin"
             element={
-              <Login
-                onLogin={handleLogin}
-                formErrorText={loginFormErrorText}
-                loginButtonText={loginButtonText}
-              />
+              <ProtectedRouteAuth isLoggedIn={isLoggedIn}>
+                <Login
+                  onLogin={handleLogin}
+                  formErrorText={loginFormErrorText}
+                  loginButtonText={loginButtonText}
+                />
+              </ProtectedRouteAuth>
             }
           />
           <Route
