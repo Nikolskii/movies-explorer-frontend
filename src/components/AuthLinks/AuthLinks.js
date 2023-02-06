@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router-dom';
 import './AuthLinks.css';
+import { NavLink } from 'react-router-dom';
 
 const AuthLinks = () => {
   return (

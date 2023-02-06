@@ -1,20 +1,42 @@
-import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.css';
+import { useEffect, useState } from 'react';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-const SearchForm = () => {
+const SearchForm = ({
+  onSearchMovies,
+  moviesSearchQuery,
+  isToggleShortMoviesActive,
+  toggleShortMoviesActive,
+}) => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    moviesSearchQuery && setSearchQuery(moviesSearchQuery);
+  }, [moviesSearchQuery]);
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    onSearchMovies(searchQuery);
+  };
+
   return (
     <section className="search-form">
       <div className="search-form__wrapper">
-        <form className="search-form__form">
+        <form className="search-form__form" onSubmit={handleSubmit}>
           <input
             className="search-form__input"
             type="text"
             placeholder="Фильм"
-            required
+            value={searchQuery}
+            onChange={(evt) => setSearchQuery(evt.target.value)}
           />
           <button className="search-form__button">Найти</button>
         </form>
-        <FilterCheckbox />
+        <FilterCheckbox
+          isToggleActive={isToggleShortMoviesActive}
+          toggleShortMoviesActive={toggleShortMoviesActive}
+        />
       </div>
     </section>
   );

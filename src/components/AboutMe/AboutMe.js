@@ -1,6 +1,6 @@
+import './AboutMe.css';
 import Subtitle from '../Subtitle/Subtitle';
 import photo from '../../images/avatar.jpg';
-import './AboutMe.css';
 
 const AboutMe = () => {
   return (

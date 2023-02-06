@@ -32,8 +32,12 @@
 }
 
 .movies-card-list__button:hover {
-  opacity: 0.5;
+  opacity: 0.8;
   cursor: pointer;
+}
+
+.movies-card-list__button_hidden {
+  visibility: hidden;
 }
 
 @media screen and (max-width: 1279px) {

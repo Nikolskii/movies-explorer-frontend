@@ -1,9 +1,9 @@
+import './Navigation.css';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import ProfileLink from '../ProfileLink/ProfileLink';
-import './Navigation.css';
 
-const Navigation = ({ isVisibleOnBurgerMenu }) => {
+const Navigation = ({ isVisibleOnBurgerMenu, place, onClose }) => {
   return (
     <nav
       className={`navigation ${
@@ -12,7 +12,7 @@ const Navigation = ({ isVisibleOnBurgerMenu }) => {
     >
       <ul className="navigation__links">
         {isVisibleOnBurgerMenu && (
-          <li className="navigation__links-item">
+          <li className="navigation__links-item" onClick={onClose}>
             <NavLink
               className={({ isActive }) =>
                 isActive
@@ -25,36 +25,42 @@ const Navigation = ({ isVisibleOnBurgerMenu }) => {
             </NavLink>
           </li>
         )}
-        <li className="navigation__links-item">
+        <li className="navigation__links-item" onClick={onClose}>
           <NavLink
             className={({ isActive }) =>
               isActive
-                ? 'navigation__link navigation__link_active'
-                : 'navigation__link'
+                ? `navigation__link navigation__link_active`
+                : `navigation__link ${
+                    place === 'main' && 'navigation__link_place_main'
+                  }`
             }
             to="/movies"
           >
             Фильмы
           </NavLink>
         </li>
-        <li className="navigation__links-item">
+        <li className="navigation__links-item" onClick={onClose}>
           <NavLink
             className={({ isActive }) =>
               isActive
                 ? 'navigation__link navigation__link_active'
-                : 'navigation__link'
+                : `navigation__link ${
+                    place === 'main' && 'navigation__link_place_main'
+                  }`
             }
             to="/saved-movies"
           >
             Сохранённые фильмы
           </NavLink>
         </li>
-        <li className="navigation__links-item">
+        <li className="navigation__links-item" onClick={onClose}>
           <NavLink
             className={({ isActive }) =>
               isActive
                 ? 'navigation__link navigation__link_active'
-                : 'navigation__link'
+                : `navigation__link ${
+                    place === 'main' && 'navigation__link_place_main'
+                  }`
             }
             to="/profile"
           >

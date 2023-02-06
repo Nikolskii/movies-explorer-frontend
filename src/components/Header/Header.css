@@ -22,8 +22,12 @@
   transition: opacity 0.6s;
 }
 
+.header__burger-button_place_main {
+  background: url(../../images/burger-button-main.svg);
+}
+
 .header__burger-button:hover {
-  opacity: 0.5;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 980px) {
@@ -45,5 +49,9 @@
     width: 40px;
     height: 43px;
     background: url(../../images/burger-button2.svg);
+  }
+
+  .header__burger-button_place_main {
+    background: url(../../images/burger-button-main2.svg);
   }
 }

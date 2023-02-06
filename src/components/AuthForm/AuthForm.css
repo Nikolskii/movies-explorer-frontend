@@ -9,6 +9,18 @@
   display: flex;
   flex-direction: column;
   row-gap: 20px;
+  position: relative;
+}
+
+.auth-form__error {
+  color: #ee3465;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  margin: 10px 0 0 0;
+  position: absolute;
 }
 
 .auth-form__button {
@@ -31,11 +43,20 @@
 
 .auth-form__button:hover {
   cursor: pointer;
-  opacity: 0.5;
+  opacity: 0.8;
+}
+
+.auth-form__button_inactive {
+  background-color: #a0a0a0;
+}
+
+.auth-form__button_inactive:hover {
+  cursor: default;
+  opacity: 1;
 }
 
 .auth-form__button_place_login {
-  margin-top: 178px;
+  margin-top: 188px;
 }
 
 @media screen and (max-width: 560px) {
@@ -54,6 +75,6 @@
   }
 
   .auth-form__button_place_login {
-    margin-top: 268px;
+    margin-top: 278px;
   }
 }
