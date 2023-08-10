@@ -4,10 +4,6 @@
 
 Репозиторий для frontend части приложения со следующими возможностями: авторизация и регистрация пользователей, операции с карточками кинофильмов и пользователями.
 
-#### Frontend [https://nikolsky.nomoredomains.rocks](https://nikolsky.nomoredomains.rocks)
-
-- Backend [https://api.nikolsky.nomoredomains.rocks](https://api.nikolsky.nomoredomains.rocks)
-
 - [Репозиторий backend](https://github.com/Nikolskii/movies-explorer-api)
 
 - [Макет в Figma](https://www.figma.com/file/sqD2PQjXnurfW14NbojTNc/Diploma-Nikolsky?node-id=891%3A3857&t=fkcviysDIOCVCrOb-1)
